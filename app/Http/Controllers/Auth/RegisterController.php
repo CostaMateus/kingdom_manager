@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware( "guest" );
     }
 
     /**
@@ -47,13 +47,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator( array $data )
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return Validator::make( $data, [
+            "nickname" => ["required", "string", "max:255"                          ],
+            "email"    => ["required", "string", "email", "max:255", "unique:users" ],
+            "password" => ["required", "string", "min:8", "confirmed"               ],
+        ] );
     }
 
     /**
@@ -62,12 +62,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create( array $data )
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return User::create( [
+            "nickname" => $data[ "nickname" ],
+            "email"    => $data[ "email"    ],
+            "password" => Hash::make( $data[ "password" ] ),
+            "ip"       => request()->ip(),
+        ] );
     }
 }
