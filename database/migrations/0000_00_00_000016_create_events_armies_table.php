@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+        // world_event_army
+        Schema::create( "events_armies", function ( Blueprint $table ) {
+
+            $table->bigInteger( "event_id" )->unsigned()->index()->foreign()->references( "id" )->on( "events" )->onDelete( "cascade" );
+            $table->string( "technology" );
             $table->timestamps();
-        });
+
+        } );
     }
 
     /**
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists( "events_armies" );
     }
 };
