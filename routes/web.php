@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,13 @@ Route::middleware( [ "auth" ] )->group( function () {
     Route::middleware( [ "approved" ] )->group( function () {
 
         Route::get( "/home", [ HomeController::class, "index" ] )->name( "home" );
+
+    } );
+
+    Route::middleware( [ "admin" ] )->group( function () {
+
+        Route::get( "/users",                [ UserController::class, "index"   ] )->name( "admin.users.index"   );
+        Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "admin.users.approve" );
 
     } );
 
