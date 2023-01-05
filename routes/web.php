@@ -18,12 +18,24 @@ use App\Http\Controllers\HomeController;
 Auth::routes();
 
 Route::get( "/", function () {
-
     return view( "welcome" );
+} );
+
+Route::middleware( [ "auth" ] )->group( function () {
+
+    Route::get( "/approval", [ HomeController::class, "approval" ] )->name( "approval" );
+
+    Route::middleware( [ "approved" ] )->group( function () {
+
+        Route::get( "/home", [ HomeController::class, "index" ] )->name( "home" );
+
+    } );
 
 } );
 
-Route::get( "/home", [ HomeController::class, "index" ] )->name( "home" );
+// Route::get( "/test", [ TestController::class, "test" ] );
+
+
 
 /**
  * /game/{villageId}/{screen}
