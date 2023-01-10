@@ -1,4 +1,13 @@
 
+@font-face {
+    font-family: CrimsonText;
+    src: url( "./font/CrimsonText.woff2" );
+}
+
+body {
+    font-family: "CrimsonText", "Nunito", sans-serif !important;
+}
+
 #app .dropdown-menu {
     border: 0px;
     border-radius: 0;
