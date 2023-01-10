@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Village;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 
@@ -24,7 +25,7 @@ class UserController extends Controller
     {
         $user->update( [ "approved_at" => now() ] );
 
-        return redirect()->route( "admin.users.index" )->withMessage( "User approved successfully" );
+        return redirect()->route( "admin.users.index" )->withMessage( "Usuário aprovado com sucesso" );
     }
 
     /**
