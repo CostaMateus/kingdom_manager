@@ -22,14 +22,18 @@ return new class extends Migration
             $table->integer( "x" )->default( 0 );
             $table->integer( "y" )->default( 0 );
             $table->string( "map_sector" )->default( 0 );
-            $table->integer( "points" )->default( 0 );
-            $table->double( "loyalty" )->default( 0 );
+            $table->integer( "points" )->default( 21 );
+            $table->double( "loyalty" )->default( 100 );
 
             $table->double( "res_wood" )->default( 0 );
             $table->double( "res_clay" )->default( 0 );
             $table->double( "res_iron" )->default( 0 );
 
-            $table->integer( "building_main"       )->default( 0 );
+            $table->double( "cap_wood" )->default( 600 );
+            $table->double( "cap_clay" )->default( 600 );
+            $table->double( "cap_iron" )->default( 600 );
+
+            $table->integer( "building_main"       )->default( 1 );
             $table->integer( "building_barracks"   )->default( 0 );
             $table->integer( "building_stable"     )->default( 0 );
             $table->integer( "building_workshop"   )->default( 0 );
@@ -42,14 +46,14 @@ return new class extends Migration
             $table->integer( "building_wood"       )->default( 0 );
             $table->integer( "building_clay"       )->default( 0 );
             $table->integer( "building_iron"       )->default( 0 );
-            $table->integer( "building_farm"       )->default( 0 );
-            $table->integer( "building_warehouse"  )->default( 0 );
+            $table->integer( "building_farm"       )->default( 1 );
+            $table->integer( "building_warehouse"  )->default( 1 );
             $table->integer( "building_hide"       )->default( 0 );
             $table->integer( "building_wall"       )->default( 0 );
             $table->integer( "building_watchtower" )->default( 0 );
 
-            $table->integer( "research_spear"      )->default( 0 );
-            $table->integer( "research_sword"      )->default( 0 );
+            $table->integer( "research_spear"      )->default( 1 );
+            $table->integer( "research_sword"      )->default( 1 );
             $table->integer( "research_axe"        )->default( 0 );
             $table->integer( "research_archer"     )->default( 0 );
             $table->integer( "research_spy"        )->default( 0 );
@@ -59,7 +63,6 @@ return new class extends Migration
             $table->integer( "research_ram"        )->default( 0 );
             $table->integer( "research_catapult"   )->default( 0 );
 
-            $table->integer( "cached_population"   )->default( 0 );
             $table->timestamps();
 
         } );
