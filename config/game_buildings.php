@@ -113,6 +113,7 @@ return [
      * Edifício principal
      */
     "main"       => [
+        "key"               => "main",
         "name"              => "Edifício principal",
         "description"       => "No edifício principal você pode construir ou melhorar outros edifícios. Quanto maior o nível, mais rápida será a construção de edifícios.",
 
@@ -148,6 +149,7 @@ return [
      * archer / arqueiro
      */
     "barracks"   => [
+        "key"               => "barracks",
         "name"              => "Quartel",
         "description"       => "No Quartel você pode recrutar sua infantaria. Quanto maior o seu nível, mais rapidamente poderão ser recrutadas novas tropas.",
 
@@ -185,6 +187,7 @@ return [
      * marcher / Arqueiro a cavalo
      */
     "stable"     => [
+        "key"               => "stable",
         "name"              => "Estábulo",
         "description"       => "No Estábulo você pode formar novos cavaleiros. Quanto maior o seu nível, mais rapidamente poderão ser recrutadas novas tropas.",
 
@@ -222,6 +225,7 @@ return [
      * catapult / catapulta
      */
     "workshop"   => [
+        "key"               => "workshop",
         "name"              => "Oficina",
         "description"       => "Na Oficina podem ser produzidas máquinas de guerra. Quanto maior for o nível da Oficina, mais rápido serão produzidas novas máquinas.",
 
@@ -254,6 +258,7 @@ return [
      * Igreja
      */
     "church"     => [
+        "key"               => "church",
         "name"              => "Igreja",
         "description"       => "A igreja faz com que as tropas das suas aldeias dentro do raio de influência lutem com toda força. Se a sua aldeia não estiver dentro do raio de influência, as tropas dessa aldeia irão lutar com apenas 50% do poder de combate.",
 
@@ -289,6 +294,7 @@ return [
      * noble / nobre
      */
     "academy"    => [
+        "key"               => "academy",
         "name"              => "Academia",
         "description"       => "Você pode formar nobres na academia. Nobres permitem que você conquiste outras aldeias reduzindo a lealdade delas.",
 
@@ -333,6 +339,7 @@ return [
      * Armas de cerco
      */
     "smithy"     => [
+        "key"               => "smithy",
         "name"              => "Forja",
         "description"       => "No ferreiro você pode pesquisar e melhorar suas armas. Quanto maior o nível do Ferreiro melhores serão as armas que você poderá pesquisar e menores serão as durações de tais pesquisas.",
 
@@ -365,6 +372,7 @@ return [
      * Praça de reunião
      */
     "place"      => [
+        "key"               => "place",
         "name"              => "Praça de reunião",
         "description"       => "Na Praça de Reuniões encontram-se seus guerreiros antes da batalha. Aqui você poderá comandar ataques e mover suas tropas.",
 
@@ -394,6 +402,7 @@ return [
      * paladin / paladino
      */
     "statue"     => [
+        "key"               => "statue",
         "name"              => "Estátua",
         "description"       => "Você pode recrutar um paladino na estátua caso você ainda não tenha um nesta aldeia. Conquiste mais aldeias para obter mais paladinos.",
 
@@ -420,6 +429,7 @@ return [
      * Mercado
      */
     "market"     => [
+        "key"               => "market",
         "name"              => "Mercado",
         "description"       => "No mercado, você pode trocar recursos com outros jogadores.",
 
@@ -452,7 +462,8 @@ return [
      * Bosque
      */
     "wood"       => [
-        "name"              => "Bosque",
+        "key"               => "wood",
+        "name"              => "Madeireira",
         "description"       => "Os lenhadores cortam madeira dos bosques que rodeiam as aldeias. Tal madeira é necessária para o desenvolvimento da própria aldeia, assim como para o fortalecimento do exército. Quanto mais alto o nível dos lenhadores, mais madeira será produzida.",
 
         "min_level"         => 0,
@@ -481,6 +492,7 @@ return [
      * Poço de barro
      */
     "clay"       => [
+        "key"               => "clay",
         "name"              => "Poço de barro",
         "description"       => "No poço de argila trabalham muitos de seus homens afim de prover sua aldeia com a importante argila. Quanto maior for o seu nível, maior será sua capacidade de produção.",
 
@@ -501,7 +513,7 @@ return [
         "points_factor"     => 1.2,
 
         "production"        => 30,
-        "production_factor" => 0.165,
+        "production_factor" => 1.165,
 
         "required"          => [],
     ],
@@ -510,6 +522,7 @@ return [
      * Mina de ferro
      */
     "iron"       => [
+        "key"               => "iron",
         "name"              => "Mina de ferro",
         "description"       => "Da mina de ferro é extraído o material chave para as batalhas. Quanto maior for o seu nível, maior será sua capacidade de produção.",
 
@@ -530,7 +543,7 @@ return [
         "points_factor"     => 1.2,
 
         "production"        => 30,
-        "production_factor" => 0.165,
+        "production_factor" => 1.165,
 
         "required"          => [],
     ],
@@ -542,6 +555,7 @@ return [
      * militia / milícia
      */
     "farm"       => [
+        "key"               => "farm",
         "name"              => "Fazenda",
         "description"       => "A Fazenda provê sustento à seus trabalhadores e tropas. Sem o desenvolvimento da Fazenda a sua aldeia não crescerá. Quanto maior o nível da Fazenda, mais habitantes estarão à sua disposição.",
 
@@ -562,7 +576,7 @@ return [
         "points_factor"     => 1.2,
 
         "max_pop"           => 240,
-        "max_pop_factor"    => 0.1812,
+        "max_pop_factor"    => 1.1812,
 
         "required"          => [],
     ],
@@ -571,6 +585,7 @@ return [
      * Armazém / warehouse / storage
      */
     "warehouse"  => [
+        "key"               => "warehouse",
         "name"              => "Armazém",
         "description"       => "No Armazém são estocados os recursos produzidos pela aldeia. Quanto maior for o nível do Armazém, maior será a sua capacidade de armazenamento.",
 
@@ -591,7 +606,7 @@ return [
         "points_factor"     => 1.2,
 
         "capacity"          => 1000,
-        "capacity_factor"   => 0.24,
+        "capacity_factor"   => 1.24,
 
         "required"          => [],
     ],
@@ -600,6 +615,7 @@ return [
      * Esconderijo
      */
     "hide"       => [
+        "key"               => "hide",
         "name"              => "Esconderijo",
         "description"       => "Os recursos no esconderijo não podem ser saqueados. Quanto maior for o nível, mais recursos podem ser escondidos. Os espiões inimigos também não podem descobrir quantos recursos estão guardados no esconderijo.",
 
@@ -620,7 +636,7 @@ return [
         "points_factor"     => 1.2,
 
         "capacity"          => 150,
-        "capacity_factor"   => 0.39,
+        "capacity_factor"   => 1.39,
 
         "required"          => [],
     ],
@@ -629,6 +645,7 @@ return [
      * Muralha
      */
     "wall"       => [
+        "key"               => "wall",
         "name"              => "Muralha",
         "description"       => "A muralha defende a sua aldeia contra as tropas dos seus inimigos. Quanto maior o nível, melhor a defesa básica da sua aldeia. Também aumenta a força defensiva das tropas que estiverem na aldeia.",
 
@@ -649,7 +666,7 @@ return [
         "points_factor"     => 1.2,
 
         "defense"           => 4,
-        "defense_factor"    => 0.188,
+        "defense_factor"    => 1.188,
 
         "required"          => [
             "barracks" => 1,
@@ -662,6 +679,7 @@ return [
      * * Cálculo do alcance é valor range + range_factor a cada nível
      */
     "watchtower" => [
+        "key"               => "watchtower",
         "name"              => "Torre de vigia",
         "description"       => "A torre de vigia analisa os arredores de sua aldeia para detectar ataques a caminho. Quando o ataque estiver dentro do alcance da torre, você será capaz de ver a unidade mais lenta neste ataque, independente de seu destino final.",
 
@@ -682,7 +700,7 @@ return [
         "points_factor"     => 1.2,
 
         "range"             => 2,
-        "range_factor"      => 1,
+        "range_factor"      => 1.107,
 
         "required"          => [
             "main" => 5,

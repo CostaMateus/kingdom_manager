@@ -68,6 +68,7 @@ return [
          * Recrutado no Quartel/Barracks
          */
         "spear"    => [
+            "key"               => "spear",
             "name"              => "Lanceiro",
             "description"       => "O lanceiro é a unidade mais básica. É bom para se defender da cavalaria e para começar a saquear outras aldeias.",
 
@@ -100,6 +101,7 @@ return [
          * Recrutado no Quartel/Barracks
          */
         "sword"    => [
+            "key"               => "sword",
             "name"              => "Espadachim",
             "description"       => "O espadachim é uma unidade relativamente lenta, eficaz como defesa, especialmente contra a infantaria.",
 
@@ -134,6 +136,7 @@ return [
          * Recrutado no Quartel/Barracks
          */
         "axe"      => [
+            "key"               => "axe",
             "name"              => "Bárbaro",
             "description"       => "O bárbaro é uma forte unidade ofensiva. Eles facilmente se esquecem de se proteger.",
 
@@ -168,6 +171,7 @@ return [
          * Recrutado no Quartel/Barracks
          */
         "archer"   => [
+            "key"               => "archer",
             "name"              => "Arqueiro",
             "description"       => "O arqueiro é uma unidade defensiva muito eficaz. Suas flechas destroem até a armadura mais dura.",
 
@@ -205,6 +209,7 @@ return [
          * Recrutado no Estábulo/Stable
          */
         "spy"      => [
+            "key"               => "spy",
             "name"              => "Espião",
             "description"       => "O espião se infiltra nas aldeias de seus inimigos para obter informações valiosas.",
 
@@ -239,6 +244,7 @@ return [
          * Recrutado no Estábulo/Stable
          */
         "light"    => [
+            "key"               => "light",
             "name"              => "Cavalaria leve",
             "description"       => "A cavalaria leve é uma boa unidade ofensiva. Uma de suas vantagens é a velocidade.",
 
@@ -273,6 +279,7 @@ return [
          * Recrutado no Estábulo/Stable
          */
         "marcher"  => [
+            "key"               => "marcher",
             "name"              => "Arqueiro a cavalo",
             "description"       => "O arqueiro a cavalo é especialmente útil para desabilitar os arqueiros inimigos nas muralhas.",
 
@@ -307,6 +314,7 @@ return [
          * Recrutado no Estábulo/Stable
          */
         "heavy"    => [
+            "key"               => "heavy",
             "name"              => "Cavalaria pesada",
             "description"       => "A cavalaria pesada são suas tropas de elite. Os nobres cavaleiros têm armas endurecidas e armaduras fortes.",
 
@@ -342,6 +350,7 @@ return [
          * Construído na Oficina/Workshop
          */
         "ram"      => [
+            "key"               => "ram",
             "name"              => "Aríete",
             "description"       => "Aríete apóia suas tropas em seus ataques, pois danifica as muralhas de seus inimigos.",
 
@@ -376,6 +385,7 @@ return [
          * Construído na Oficina/Workshop
          */
         "catapult" => [
+            "key"               => "catapult",
             "name"              => "Catapulta",
             "description"       => "As catapultas são especialmente boas para destruir as construções de seus inimigos.",
 
@@ -411,6 +421,7 @@ return [
          * Recrutado na Estátua/Statue
          */
         "paladin"  => [
+            "key"               => "paladin",
             "name"              => "Paladino",
             "description"       => "O paladino protege suas aldeias e as de seus aliados dos ataques inimigos. Cada jogador só pode ter um paladino.",
 
@@ -443,6 +454,7 @@ return [
          * Recrutado na Academia/Academy
          */
         "noble"    => [
+            "key"               => "noble",
             "name"              => "Nobre",
             "description"       => "Um nobre reduzirá a lealdade das aldeias de seus inimigos. Se sua lealdade for 0 ou menos, você conquista aquela aldeia.",
 
@@ -480,6 +492,7 @@ return [
          * Recrutado na Fazenda/Farm
          */
         "militia"  => [
+            "key"               => "militia",
             "name"              => "Milícia",
             "description"       => "Se você está esperando um ataque à sua aldeia, pode usar os trabalhadores para montar uma milícia que defenderá sua terra. As milícias só podem ser usadas para fins defensivos e não podem sair da aldeia.",
 
