@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VillageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,41 @@ Route::middleware( [ "auth" ] )->group( function () {
 
     Route::middleware( [ "approved" ] )->group( function () {
 
-        Route::get( "/home", [ HomeController::class, "index" ] )->name( "home" );
+        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     );
+        Route::get( "/map",      [ HomeController::class, "index" ] )->name( "map"      );
+        Route::get( "/reports",  [ HomeController::class, "index" ] )->name( "reports"  );
+        Route::get( "/messages", [ HomeController::class, "index" ] )->name( "messages" );
+        Route::get( "/ranking",  [ HomeController::class, "index" ] )->name( "ranking"  );
+        Route::get( "/alliance", [ HomeController::class, "index" ] )->name( "alliance" );
+        Route::get( "/profile",  [ HomeController::class, "index" ] )->name( "profile"  );
 
+        Route::name( "village." )->prefix( "/village/{village}/" )->group( function () {
+
+            Route::get( "/overview",   [ VillageController::class, "overview"   ] )->name( "overview"   );
+
+            Route::get( "/main",       [ VillageController::class, "main"       ] )->name( "main"       );
+            Route::get( "/barracks",   [ VillageController::class, "barracks"   ] )->name( "barracks"   );
+            Route::get( "/stable",     [ VillageController::class, "stable"     ] )->name( "stable"     );
+            Route::get( "/workshop",   [ VillageController::class, "workshop"   ] )->name( "workshop"   );
+            Route::get( "/smithy",     [ VillageController::class, "smithy"     ] )->name( "smithy"     );
+
+            Route::get( "/church",     [ VillageController::class, "church"     ] )->name( "church"     );
+            Route::get( "/academy",    [ VillageController::class, "academy"    ] )->name( "academy"    );
+            Route::get( "/place",      [ VillageController::class, "place"      ] )->name( "place"      );
+            Route::get( "/statue",     [ VillageController::class, "statue"     ] )->name( "statue"     );
+            Route::get( "/market",     [ VillageController::class, "market"     ] )->name( "market"     );
+
+            Route::get( "/wood",       [ VillageController::class, "wood"       ] )->name( "wood"       );
+            Route::get( "/clay",       [ VillageController::class, "clay"       ] )->name( "clay"       );
+            Route::get( "/iron",       [ VillageController::class, "iron"       ] )->name( "iron"       );
+
+            Route::get( "/farm",       [ VillageController::class, "farm"       ] )->name( "farm"       );
+            Route::get( "/warehouse",  [ VillageController::class, "warehouse"  ] )->name( "warehouse"  );
+            Route::get( "/hide",       [ VillageController::class, "hide"       ] )->name( "hide"       );
+            Route::get( "/wall",       [ VillageController::class, "wall"       ] )->name( "wall"       );
+            Route::get( "/watchtower", [ VillageController::class, "watchtower" ] )->name( "watchtower" );
+
+        } );
     } );
 
     Route::middleware( [ "admin" ] )->group( function () {
@@ -41,7 +75,6 @@ Route::middleware( [ "auth" ] )->group( function () {
 
 } );
 
-// Route::get( "/test", [ TestController::class, "test" ] );
 
 
 
