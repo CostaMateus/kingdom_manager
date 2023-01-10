@@ -25,8 +25,8 @@
                                         <tbody>
                                             @foreach ( $buildings as $key => $building )
                                                 <tr class="align-middle" >
-                                                    <td class="d-flex align-items-center h-100 py-1" title="{{ $building[ "name" ] }}" alt="{{ $building[ "name" ] }}" >
-                                                        <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" >
+                                                    <td class="d-flex align-items-center h-100 py-1" title="{{ $building[ "name" ] }}" >
+                                                        <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
                                                         <a class="btn btn-link text-black text-decoration-none"
                                                             href="{{ route( "village.{$key}", [ "village" => $village ]) }}" >
                                                             {{ $building[ "name" ] }}
@@ -59,27 +59,24 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="d-flex align-items-center h-100 py-1"
-                                                            title="{{ $buildings[ "wood" ][ "name" ] }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
-                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" >
+                                                        <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "wood" ][ "name" ] }}" >
+                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
                                                                 {{ $village->res_wood }} <span>por hora</span>
                                                             </p>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="d-flex align-items-center h-100 py-1" >
-                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}"
-                                                                title="{{ $buildings[ "clay" ][ "name" ] }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                        <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
                                                                 {{ $village->res_clay }} <span>por hora</span>
                                                             </p>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="d-flex align-items-center h-100 py-1" >
-                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}"
-                                                                title="{{ $buildings[ "iron" ][ "name" ] }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                        <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                            <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
                                                                 {{ $village->res_iron }} <span>por hora</span>
                                                             </p>
@@ -104,9 +101,8 @@
                                                         @if ( $key != "militia" )
                                                             {{-- não exibir qnd não tiver tropas da unidade --}}
                                                             <tr>
-                                                                <td class="d-flex align-items-center h-100 py-1" >
-                                                                    <img width="15" src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}"
-                                                                        title="{{ $unit[ "name" ] }}" alt="{{ $unit[ "name" ] }}" >
+                                                                <td class="d-flex align-items-center h-100 py-1" title="{{ $unit[ "name" ] }}" >
+                                                                    <img width="15" src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" >
                                                                     <p class="flex-fill my-0 ms-2" >
                                                                         0 {{ $unit[ "name" ] }}
                                                                     </p>
@@ -130,8 +126,8 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td class="d-flex align-items-center h-100 py-1" >
-                                                            <img width="15" src="{{ asset( "assets/graphic/loyalty.png" ) }}" title="Lealdade" alt="Lealdade" >
+                                                        <td class="d-flex align-items-center h-100 py-1" title="Lealdade" >
+                                                            <img width="15" src="{{ asset( "assets/graphic/loyalty.png" ) }}" alt="Lealdade" >
                                                             <p class="flex-fill my-0 ms-2" >
                                                                 {{ $village->loyalty }}<span>%</span>
                                                             </p>

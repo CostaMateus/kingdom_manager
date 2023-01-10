@@ -19,16 +19,16 @@
                                         <th >Total: {{ $villages->count() }}</th>
                                         @foreach ( $buildings as $key => $building )
                                             @if ( in_array( $key, $arrs ) )
-                                                <th class="text-center" title="{{ $building[ "name" ] }}" alt="{{ $building[ "name" ] }}" >
-                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/buildings/icons/{$key}.png" ) }}" >
+                                                <th class="text-center" title="{{ $building[ "name" ] }}" >
+                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/buildings/icons/{$key}.png" ) }}" alt="{{ $building[ "name" ] }}"  >
                                                 </th>
                                             @endif
                                         @endforeach
 
                                         @foreach ( $units as $key => $unit )
                                             @if ( $key != "militia" )
-                                                <th class="text-center" title="{{ $unit[ "name" ] }}" alt="{{ $unit[ "name" ] }}" >
-                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" >
+                                                <th class="text-center" title="{{ $unit[ "name" ] }}" >
+                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" >
                                                 </th>
                                             @endif
                                         @endforeach
@@ -47,10 +47,10 @@
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_main == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" alt="Não construído" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
                                                         {{-- verificar se há construções/exercito na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" alt="Sem itens na fila" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
                                             </td>
@@ -59,10 +59,10 @@
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.barracks", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_barracks == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" alt="Não construído" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
                                                         {{-- verificar se há construções/exercito na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" alt="Sem itens na fila" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
                                             </td>
@@ -71,10 +71,10 @@
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.stable", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_stable == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" alt="Não construído" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
                                                         {{-- verificar se há construções/exercito na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" alt="Sem itens na fila" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
                                             </td>
@@ -83,10 +83,10 @@
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.workshop", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_workshop == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" alt="Não construído" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
                                                         {{-- verificar se há construções/exercito na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" alt="Sem itens na fila" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
                                             </td>
@@ -95,11 +95,11 @@
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_smithy == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" alt="Não construído" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @elseif ( $village->full_research )
-                                                        <i class="bi-05 bi-circle-fill text-success" title="Pesquisa completada" alt="Pesquisa completada" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-success" title="Pesquisa completada" ></i>
                                                     @else
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" alt="Sem itens na fila" ></i>
+                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
                                             </td>
