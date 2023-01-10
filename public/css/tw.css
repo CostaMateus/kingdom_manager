@@ -1,0 +1,11 @@
+
+#app .dropdown-menu {
+    border: 0px;
+    border-radius: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.bi-05 {
+    font-size: .5rem !important;
+}
