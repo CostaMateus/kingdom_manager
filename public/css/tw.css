@@ -6,6 +6,8 @@
 
 body {
     font-family: "CrimsonText", "Nunito", sans-serif !important;
+    background-image: url( "/assets/graphic/background/body.jpg" );
+    background-repeat: repeat;
 }
 
 #app .dropdown-menu {
@@ -15,6 +17,50 @@ body {
     padding-bottom: 0;
 }
 
+#app .navbar {
+    background-image: url( "/assets/graphic/background/grey.jpg" );
+    background-repeat: repeat;
+}
+
+#app .card {
+    background-image: url( "/assets/graphic/background/main.jpg" );
+    background-repeat: repeat;
+}
+
+table td, table th {
+    border-color: #B5BABE;
+}
+
+
 .bi-05 {
     font-size: .5rem !important;
 }
+
+#overview-buildings td {
+    min-height: 35px;
+}
+#overview-buildings td img {
+    width: 20px;
+}
+
+#villages td {
+    min-height: 40px;
+}
+
+#builded td:first-child img,
+#not-build td img {
+    max-width: 45px;
+    max-height: 50px;
+}
+#builded td:nth-child(2) img {
+    width: 15px;
+}
+#builded tr,
+#not-build tr {
+    height: 60px;
+}
+
+/* #not_build tr td img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+} */
