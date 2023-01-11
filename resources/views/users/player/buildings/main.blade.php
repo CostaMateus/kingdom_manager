@@ -18,10 +18,10 @@
                                 <img src="{{ asset( "assets/graphic/buildings/{$buildings[ "main" ][ "key" ]}1.png" ) }}" alt="{{ $buildings[ "main" ][ "name" ] }}" >
                             </div>
                             <div class="col-10" >
-                                <p class="h3 mb-0" >
+                                <p class="h3 mb-2" >
                                     <b>{{ $buildings[ "main" ][ "name" ] }} (Nível {{ $village->building_main }})</b>
                                 </p>
-                                <p class="mb-0" >
+                                <p class="h5 mb-0" >
                                     {{ $buildings[ "main" ][ "description" ] }}
                                 </p>
                             </div>
