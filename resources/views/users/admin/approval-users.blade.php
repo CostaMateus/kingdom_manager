@@ -15,25 +15,29 @@
                             </div>
                         @endif
 
-                        <table class="table">
-                            <tr>
-                                <th>Nick</th>
-                                <th>E-mail</th>
-                                <th>Registrado em</th>
-                                <th></th>
-                            </tr>
-                            @forelse ($users as $user)
-                                <tr class="align-middle" >
-                                    <td>{{ $user->nickname }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                    <td><a href="{{ route( "admin.users.approve", $user ) }}" class="btn btn-primary btn-sm" >Aprovar</a></td>
-                                </tr>
-                            @empty
+                        <table class="table mb-0">
+                            <thead>
                                 <tr>
-                                    <td colspan="4">Sem usuários para aprovar.</td>
+                                    <th>Nick</th>
+                                    <th>E-mail</th>
+                                    <th>Registrado em</th>
+                                    <th></th>
                                 </tr>
-                            @endforelse
+                            </thead>
+                            <tbody>
+                                @forelse ($users as $user)
+                                    <tr class="align-middle" >
+                                        <td>{{ $user->nickname   }}</td>
+                                        <td>{{ $user->email      }}</td>
+                                        <td>{{ $user->created_at }}</td>
+                                        <td><a href="{{ route( "admin.users.approve", $user ) }}" class="btn btn-primary btn-sm" >Aprovar</a></td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4">Sem usuários para aprovar.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
                         </table>
                     </div>
                 </div>
