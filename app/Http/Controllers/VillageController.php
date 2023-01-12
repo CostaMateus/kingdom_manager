@@ -25,12 +25,6 @@ class VillageController extends Controller
 
         foreach ( $buildings as $name => &$building )
         {
-            if ( !isset( $building[ "level" ] ) )
-            {
-                $building[ "level" ] = $building[ "min_level" ];
-                if ( $name == "farm" ) $building[ "level" ] = 20;
-            }
-
             $base = $building[ "build_time" ];
             $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
         }
@@ -64,9 +58,10 @@ class VillageController extends Controller
      */
     public function main( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
         $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
 
         return view( "users.player.buildings.main", $this->compact );
     }
@@ -79,9 +74,10 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
         $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
