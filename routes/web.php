@@ -63,6 +63,7 @@ Route::middleware( [ "auth" ] )->group( function () {
             Route::get( "/wall",       [ VillageController::class, "wall"       ] )->name( "wall"       );
             Route::get( "/watchtower", [ VillageController::class, "watchtower" ] )->name( "watchtower" );
 
+            Route::post( "/upgrade/{building}", [ VillageController::class, "upgradeBuilding" ] )->name( "upgrade.building" );
         } );
     } );
 
