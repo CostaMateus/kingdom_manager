@@ -13,19 +13,8 @@
                     <div class="card-header" >{{ $village->name }}</div>
 
                     <div class="card-body" >
-                        <div class="row" >
-                            <div class="col-2 text-center">
-                                <img src="{{ asset( "assets/graphic/buildings/{$buildings[ "place" ][ "key" ]}1.png" ) }}" alt="{{ $buildings[ "place" ][ "name" ] }}" >
-                            </div>
-                            <div class="col-10" >
-                                <p class="h3 mb-2" >
-                                    <b>{{ $buildings[ "place" ][ "name" ] }} (Nível {{ $village->building_place }})</b>
-                                </p>
-                                <p class="h5 mb-0" >
-                                    {{ $buildings[ "place" ][ "description" ] }}
-                                </p>
-                            </div>
-                        </div>
+                        {{-- descricao do edificio --}}
+                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "place" ] ] )
 
                         {{-- edificios construidos --}}
                         <div class="table-responsive d-none" >

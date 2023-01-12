@@ -13,11 +13,13 @@
                     <div class="card-header" >{{ $village->name }}</div>
 
                     <div class="card-body" >
-                        <div class="row" >
-                            <div class="col-2 text-center">
+                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
+
+                        {{-- <div class="row" >
+                            <div class="col-12 col-sm-4 col-md-3 col-lg-2 text-center my-auto" >
                                 <img src="{{ asset( "assets/graphic/buildings/{$buildings[ "main" ][ "key" ]}1.png" ) }}" alt="{{ $buildings[ "main" ][ "name" ] }}" >
                             </div>
-                            <div class="col-10" >
+                            <div class="col-12 col-sm-8 col-md-9 col-lg-10 mt-3 mt-sm-0" >
                                 <p class="h3 mb-2" >
                                     <b>{{ $buildings[ "main" ][ "name" ] }} (Nível {{ $village->building_main }})</b>
                                 </p>
@@ -25,7 +27,7 @@
                                     {{ $buildings[ "main" ][ "description" ] }}
                                 </p>
                             </div>
-                        </div>
+                        </div> --}}
 
                         {{-- edificios construidos --}}
                         <div class="table-responsive" >
@@ -38,25 +40,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $buildings as $id => $building )
+                                    @foreach ( $buildings as $key => $building )
                                         @if ( empty( $building[ "required" ] ) )
                                             <tr>
                                                 <td>
                                                     <div class="row" >
                                                         <div class="col-3 text-center m-auto" >
-                                                            <img src="{{ asset( "assets/graphic/buildings/{$id}1.png" ) }}" alt="" >
+                                                            <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="" >
                                                         </div>
                                                         <div class="col-9 ps-0" >
-                                                            <p class="mb-0" >
-                                                                {{ $building[ "name" ] }}
-                                                                <br>
-                                                                <span class="text-muted" >
-                                                                    @if ( $building[ "level" ] == 0 )
-                                                                        Não construído
-                                                                    @else
-                                                                        Nível {{ $building[ "level" ] }}
-                                                                    @endif
-                                                                </span>
+                                                            <a class="text-decoration-none text-dark" href="{{ route( "village.{$key}", [ "village" => $village ] ) }}" >
+                                                                <p class="mb-0" >
+                                                                    {{ $building[ "name" ] }}
+                                                                    <br>
+                                                                    <span class="text-muted" >
+                                                                        @if ( $building[ "level" ] == 0 )
+                                                                            Não construído
+                                                                        @else
+                                                                            Nível {{ $building[ "level" ] }}
+                                                                        @endif
+                                                                    </span>
+                                                                </a>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -117,13 +121,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $buildings as $id => $building )
+                                    @foreach ( $buildings as $key => $building )
                                         @if ( !empty( $building[ "required" ] ) )
                                             <tr>
                                                 <td>
                                                     <div class="row" >
                                                         <div class="col-4 text-center m-auto" >
-                                                            <img src="{{ asset( "assets/graphic/buildings/{$id}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
+                                                            <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
                                                         </div>
                                                         <div class="col-8 ps-0 m-auto" >
                                                             <p class="mb-0" >
