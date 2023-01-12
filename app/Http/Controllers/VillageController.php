@@ -322,4 +322,25 @@ class VillageController extends Controller
         return view( "users.player.buildings.watchtower", $this->compact );
     }
 
+    /**
+     * Atualiza o nível do edifício
+     *
+     * @param Village $village
+     * @param string $building
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function upgradeBuilding( Village $village, string $building )
+    {
+        $currLvl = $village->{ "building_{$building}" };
+        $maxLvl  = $this->compact[ "buildings" ][ $building ][ "max_level" ];
+
+        if ( $currLvl < $maxLvl )
+        {
+            $village->{ "building_{$building}" } += 1;
+            $village->save();
+        }
+
+        return redirect()->route( "village.main", [ "village" => $village ] );
+    }
+
 }
