@@ -5,7 +5,11 @@
                             </div>
                             <div class="col-12 col-sm-8 col-md-9 col-lg-10 mt-3 mt-sm-0" >
                                 <p class="h3 mb-2" >
-                                    <b>{{ $building[ "name" ] }} (Nível {{ $village->building_main }})</b>
+                                    @php
+                                        $key   = "building_{$building[ "key" ]}";
+                                        $level = ( $village->$key != 0 ) ? "Nível {$village->$key}" : "não construído";
+                                    @endphp
+                                    <b>{{ $building[ "name" ] }} ({{ $level }})</b>
                                 </p>
                                 <p class="h5 mb-0" >
                                     {{ $building[ "description" ] }}
