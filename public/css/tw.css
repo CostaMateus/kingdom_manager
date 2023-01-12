@@ -1,13 +1,22 @@
 
 @font-face {
-    font-family: CrimsonText;
-    src: url( "./font/CrimsonText.woff2" );
+    font-family: TheLastKingdom;
+    src: url( "/font/The_Last_Kingdom.ttf" ) format( "truetype" );
 }
 
 body {
-    font-family: "CrimsonText", "Nunito", sans-serif !important;
     background-image: url( "/assets/graphic/background/body.jpg" );
     background-repeat: repeat;
+}
+
+#km-main, #km-menu {
+    font-family: "TheLastKingdom", "Nunito", sans-serif !important;
+}
+#km-main {
+    font-size: calc(1.5825rem + 0.39vw) !important;
+}
+#km-menu {
+    font-size: calc(1.2825rem + 0.39vw) !important;
 }
 
 #app .dropdown-menu {
