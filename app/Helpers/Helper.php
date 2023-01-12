@@ -32,4 +32,33 @@ class Helper
         }
     }
 
+    public function getBuildingsLevel( &$compact )
+    {
+        $buildingsOn  = [];
+        $buildingsOff = [];
+
+        foreach ( $compact[ "buildings" ] as $key1 => $building )
+        {
+            if ( $compact[ "village" ]->{ "building_{$key1}" } != 0 || empty( $building[ "required" ] ) )
+            {
+                $buildingsOn[ $key1 ] = $building;
+            }
+            else
+            {
+                $toBuild = [];
+
+                foreach ( $building[ "required" ] as $key2 => $level )
+                    $toBuild[] = ( $compact[ "village" ]->{ "building_{$key2}" } >= $level ) ? true : false;
+
+                if ( in_array( false, $toBuild ) )
+                    $buildingsOff[ $key1 ] = $building;
+                else
+                    $buildingsOn[ $key1 ]  = $building;
+            }
+        }
+
+        $compact[ "buildingsOn"  ] = $buildingsOn;
+        $compact[ "buildingsOff" ] = $buildingsOff;
+    }
+
 }
