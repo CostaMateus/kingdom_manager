@@ -15,14 +15,14 @@
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
 
-                        <div class="row">
+                        <div class="row" >
 
+                            {{-- edificios construidos --}}
                             <div class="col-12 col-xl-9 mx-auto" >
-                                {{-- edificios construidos --}}
                                 <div class="table-responsive" >
                                     <table id="builded" class="table table-hover table-sm align-middle mb-0" >
                                         <thead>
-                                            <tr class="text-center" >
+                                            <tr>
                                                 <th>Edifícios</th>
                                                 <th>Requerimentos</th>
                                                 <th>Construir</th>
@@ -32,8 +32,8 @@
                                             @foreach ( $buildingsOn as $key => $building )
                                                 <tr>
                                                     <td>
-                                                        <div class="row" >
-                                                            <div class="col-12 col-lg-4 text-center m-auto" >
+                                                        <div class="row mx-auto" >
+                                                            <div class="col-12 col-lg-4 text-center ps-lg-0 m-auto" >
                                                                 <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="" >
                                                             </div>
                                                             <div class="col-12 col-lg-8 text-center text-lg-start ps-lg-0 m-auto" >
@@ -55,8 +55,8 @@
                                                     </td>
 
                                                     @if ( $village->{ "building_{$key}" } < $building[ "max_level" ] )
-                                                        <td class="" >
-                                                            <div class="row" >
+                                                        <td>
+                                                            <div class="row mx-auto" >
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                                     {{ $building[ "wood"       ] }}
@@ -104,7 +104,8 @@
                                                             </form>
                                                         </td>
                                                     @else
-                                                        <td colspan="2" class="text-center text-muted" >Totalmente construído</td>
+                                                        <td class="text-center text-muted" >Totalmente construído</td>
+                                                        <td></td>
                                                     @endif
                                                 </tr>
                                             @endforeach
@@ -113,13 +114,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 col-xl-9 mx-auto" >
-                                @if( !empty( $buildingsOff ) )
-                                    {{-- edificios ainda nao construidos --}}
+                            {{-- edificios ainda nao construidos --}}
+                            @if( !empty( $buildingsOff ) )
+                                <div class="col-12 col-xl-9 mx-auto mt-5" >
                                     <div class="table-responsive" >
-                                        <table id="not-build" class="table table-hover table-sm align-middle mt-5 mb-0" >
+                                        <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
                                             <thead>
-                                                <tr class="text-center" >
+                                                <tr>
                                                     <th>Ainda não disponível</th>
                                                     <th>Requerimentos</th>
                                                 </tr>
@@ -128,8 +129,8 @@
                                                 @foreach ( $buildingsOff as $key => $building )
                                                     <tr>
                                                         <td>
-                                                            <div class="row" >
-                                                                <div class="col-12 col-lg-5 text-center m-auto" >
+                                                            <div class="row mx-auto" >
+                                                                <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
                                                                 </div>
                                                                 <div class="col-12 col-lg-7 text-center text-lg-start ps-lg-0 m-auto" >
@@ -155,7 +156,21 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                @endif
+                                </div>
+                            @endif
+
+                            {{-- nome da aldeia --}}
+                            <div class="col-12 col-xl-9 mx-auto mt-5" >
+                                <p class="fw-bold mb-2" >Mudar nome da aldeia:</p>
+                                <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village ] ) }}" >
+                                    @csrf
+                                    <div class="col pe-2" >
+                                        <input type="text" class="form-control form-control-sm" name="name" value="{{ $village->name }}" >
+                                    </div>
+                                    <div class="col ps-2" >
+                                        <button type="submit" class="btn btn-light btn-sm" >Salvar</button>
+                                    </div>
+                                </form>
                             </div>
 
                         </div>

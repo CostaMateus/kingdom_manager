@@ -343,4 +343,24 @@ class VillageController extends Controller
         return redirect()->route( "village.main", [ "village" => $village ] );
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param Village $village
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function changeVillageName( Request $request, Village $village )
+    {
+        $name = $request->name;
+
+        if ( $village->name != $name )
+        {
+            $village->name = $name;
+            $village->save();
+        }
+
+        return redirect()->route( "village.main", [ "village" => $village ] );
+    }
+
 }
