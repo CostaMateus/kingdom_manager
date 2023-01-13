@@ -25,6 +25,11 @@ class UserController extends Controller
     {
         $user->update( [ "approved_at" => now() ] );
 
+        Village::create( [
+            "user_id" => $user->id,
+            "name"    => "Aldeia de {$user->nickname}"
+        ] );
+
         return redirect()->route( "admin.users.index" )->withMessage( "Usuário aprovado com sucesso" );
     }
 

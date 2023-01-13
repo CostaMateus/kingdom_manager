@@ -25,12 +25,6 @@ class VillageController extends Controller
 
         foreach ( $buildings as $name => &$building )
         {
-            if ( !isset( $building[ "level" ] ) )
-            {
-                $building[ "level" ] = $building[ "min_level" ];
-                if ( $name == "farm" ) $building[ "level" ] = 20;
-            }
-
             $base = $building[ "build_time" ];
             $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
         }
@@ -64,9 +58,10 @@ class VillageController extends Controller
      */
     public function main( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
         $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
 
         return view( "users.player.buildings.main", $this->compact );
     }
@@ -79,9 +74,10 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
         $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -324,6 +320,47 @@ class VillageController extends Controller
         $this->compact[ "village" ] = $village;
 
         return view( "users.player.buildings.watchtower", $this->compact );
+    }
+
+    /**
+     * Atualiza o nível do edifício
+     *
+     * @param Village $village
+     * @param string $building
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function upgradeBuilding( Village $village, string $building )
+    {
+        $currLvl = $village->{ "building_{$building}" };
+        $maxLvl  = $this->compact[ "buildings" ][ $building ][ "max_level" ];
+
+        if ( $currLvl < $maxLvl )
+        {
+            $village->{ "building_{$building}" } += 1;
+            $village->save();
+        }
+
+        return redirect()->route( "village.main", [ "village" => $village ] );
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param Village $village
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function changeVillageName( Request $request, Village $village )
+    {
+        $name = $request->name;
+
+        if ( $village->name != $name )
+        {
+            $village->name = $name;
+            $village->save();
+        }
+
+        return redirect()->route( "village.main", [ "village" => $village ] );
     }
 
 }

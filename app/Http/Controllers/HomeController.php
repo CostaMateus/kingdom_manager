@@ -44,7 +44,7 @@ class HomeController extends Controller
     public function index()
     {
         if ( auth()->user()->is_admin )
-            return view( "home" );
+            return view( "users.admin.home" );
 
         $this->helper->getVillages( $this->compact );
 

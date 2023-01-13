@@ -9,6 +9,10 @@ body {
     background-repeat: repeat;
 }
 
+.cursor-none {
+    pointer-events: none !important;
+}
+
 #km-main, #km-menu {
     font-family: "TheLastKingdom", "Nunito", sans-serif !important;
 }
