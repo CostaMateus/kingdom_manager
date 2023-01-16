@@ -107,19 +107,19 @@
                                                             <div class="row mx-auto" >
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_wood }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
-                                                                    {{ $building[ "wood"       ] }}
+                                                                    {{ ( int ) $building[ "wood" ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_clay }}" title="{{ $buildings[ "clay" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
-                                                                    {{ $building[ "clay"       ] }}
+                                                                    {{ ( int ) $building[ "clay" ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_iron }}" title="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
-                                                                    {{ $building[ "iron"       ] }}
+                                                                    {{ ( int ) $building[ "iron" ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_pop }}" title="População" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}" alt="População" >
-                                                                    {{ $building[ "pop"        ] }}
+                                                                    {{ ( int ) $building[ "pop"  ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-8 col-lg-4" title="Tempo" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/time.png" ) }}" alt="Tempo" >
