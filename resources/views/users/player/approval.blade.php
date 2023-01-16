@@ -1,16 +1,16 @@
-@extends('layouts.game')
+@extends( "layouts.game" )
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Waiting for Approval</div>
+@section( "content" )
+    <div class="container" >
+        <div class="row justify-content-center" >
+            <div class="col-md-8" >
+                <div class="card" >
+                    <div class="card-header" >Esperando aprovação</div>
 
-                    <div class="card-body">
-                        Your account is waiting for our administrator approval.
+                    <div class="card-body" >
+                        Sua conta está aguardando a aprovação do nosso administrador.
                         <br>
-                        Please check back later.
+                        Por favor, volte mais tarde.
                     </div>
                 </div>
             </div>
