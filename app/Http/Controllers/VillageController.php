@@ -331,13 +331,27 @@ class VillageController extends Controller
      */
     public function upgradeBuilding( Village $village, string $building )
     {
-        $currLvl = $village->{ "building_{$building}" };
-        $maxLvl  = $this->compact[ "buildings" ][ $building ][ "max_level" ];
+        $building_name = $building;
+        $building = $this->compact[ "buildings" ][ $building ];
+        $free_pop = $this->compact[ "buildings" ][ "farm" ][ "max_pop" ] - $village->pop;
+
+        $currLvl  = $village->{ "building_{$building_name}" };
+        $maxLvl   = $building[ "max_level" ];
 
         if ( $currLvl < $maxLvl )
         {
-            $village->{ "building_{$building}" } += 1;
-            $village->save();
+            if ( $building[ "wood" ] <= $village->stored_wood &&
+                 $building[ "clay" ] <= $village->stored_clay &&
+                 $building[ "iron" ] <= $village->stored_iron &&
+                 $building[ "pop"  ] <= $free_pop )
+            {
+                $village->stored_wood -= $building[ "wood" ];
+                $village->stored_clay -= $building[ "clay" ];
+                $village->stored_iron -= $building[ "iron" ];
+                $village->pop         += $building[ "pop"  ];
+                $village->{ "building_{$building_name}" } += 1;
+                $village->save();
+            }
         }
 
         return redirect()->route( "village.main", [ "village" => $village ] );
