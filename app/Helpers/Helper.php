@@ -61,4 +61,39 @@ class Helper
         $compact[ "buildingsOff" ] = $buildingsOff;
     }
 
+    public function calcBuildingsProps( &$compact )
+    {
+        $buildings = &$compact[ "buildingsOn" ];
+        $village   = &$compact[ "village"     ];
+
+        foreach ( $buildings as $key => &$building )
+        {
+            $level = $village->{"building_{$key}"};
+
+            if ( $level > 1 )
+            {
+                foreach ( range( 2, $level ) as $i )
+                {
+                    $building[ "wood"       ] = ( int ) $building[ "wood"       ] * $building[ "wood_factor"       ];
+                    $building[ "clay"       ] = ( int ) $building[ "clay"       ] * $building[ "clay_factor"       ];
+                    $building[ "iron"       ] = ( int ) $building[ "iron"       ] * $building[ "iron_factor"       ];
+                    $building[ "pop"        ] = ( int ) $building[ "pop"        ] * $building[ "pop_factor"        ];
+                    $building[ "points"     ] = ( int ) $building[ "points"     ] * $building[ "points_factor"     ];
+                    // $building[ "build_time" ] = $building[ "build_time" ] * $building[ "build_time_factor" ];
+
+                    if ( isset( $building[ "time"       ] ) ) $building[ "time"       ] = ( int ) $building[ "time"       ] * $building[ "time_factor"       ];
+                    if ( isset( $building[ "production" ] ) ) $building[ "production" ] = ( int ) $building[ "production" ] * $building[ "production_factor" ];
+                    if ( isset( $building[ "max_pop"    ] ) ) $building[ "max_pop"    ] = ( int ) $building[ "max_pop"    ] * $building[ "max_pop_factor"    ];
+                    if ( isset( $building[ "capacity"   ] ) ) $building[ "capacity"   ] = ( int ) $building[ "capacity"   ] * $building[ "capacity_factor"   ];
+                    if ( isset( $building[ "influence"  ] ) ) $building[ "influence"  ] = ( int ) $building[ "influence"  ] * $building[ "influence_factor"  ];
+                    if ( isset( $building[ "merchants"  ] ) ) $building[ "merchants"  ] = ( int ) $building[ "merchants"  ] * $building[ "merchants_factor"  ];
+                    if ( isset( $building[ "range"      ] ) ) $building[ "range"      ] = ( int ) $building[ "range"      ] * $building[ "range_factor"      ];
+                }
+            }
+        }
+
+        $village->prod_wood = ( $village->building_wood > 0 ) ? $buildings[ "wood" ][ "production" ] : 0;
+        $village->prod_clay = ( $village->building_clay > 0 ) ? $buildings[ "clay" ][ "production" ] : 0;
+        $village->prod_iron = ( $village->building_iron > 0 ) ? $buildings[ "iron" ][ "production" ] : 0;
+    }
 }
