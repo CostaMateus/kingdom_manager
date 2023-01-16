@@ -104,19 +104,21 @@
                                                 </a>
                                             </td>
 
-                                            {{-- fazenda --}}
-                                            <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
-                                                    0/0
-                                                    {{-- fazer calculo de população usada/total --}}
-                                                </a>
-                                            </td>
-
                                             {{-- mercado --}}
                                             <td class="text-center" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.market", [ "village" => $village ] ) }}" >
                                                     0/0
                                                     {{-- fazer o calculo de mercadores disponiveis --}}
+                                                </a>
+                                            </td>
+
+                                            {{-- fazenda --}}
+                                            <td class="text-center" >
+                                                @php
+                                                    $class_pop = ( $village->pop >= ( 0.9 * $buildings[ "farm" ][ "max_pop" ] ) ) ? "text-danger" : "";
+                                                @endphp
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
+                                                    {{ $village->pop }}/{{ $buildings[ "farm" ][ "max_pop" ] }}
                                                 </a>
                                             </td>
 

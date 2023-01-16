@@ -55,23 +55,71 @@
                                                     </td>
 
                                                     @if ( $village->{ "building_{$key}" } < $building[ "max_level" ] )
+                                                        @php
+                                                            $class      = "success";
+                                                            $disabled   = "";
+
+                                                            $class_wood = "";
+                                                            $lack_wood  = false;
+
+                                                            $class_clay = "";
+                                                            $lack_clay  = false;
+
+                                                            $class_iron = "";
+                                                            $lack_iron  = false;
+
+                                                            $class_pop  = "";
+                                                            $lack_pop   = false;
+
+                                                            if ( $building[ "wood" ] > $village->stored_wood )
+                                                            {
+                                                                $class_wood = "text-danger";
+                                                                $lack_wood  = true;
+                                                            }
+
+                                                            if ( $building[ "clay" ] > $village->stored_clay )
+                                                            {
+                                                                $class_clay = "text-danger";
+                                                                $lack_clay  = true;
+                                                            }
+
+                                                            if ( $building[ "iron" ] > $village->stored_iron )
+                                                            {
+                                                                $class_iron = "text-danger";
+                                                                $lack_iron  = true;
+                                                            }
+
+                                                            $free_pop = $buildings[ "farm" ][ "max_pop" ] - $village->pop;
+
+                                                            if ( $free_pop < 0 || $building[ "pop" ] > $free_pop )
+                                                            {
+                                                                $class_pop  = "text-danger";
+                                                                $lack_pop   = true;
+                                                            }
+
+                                                            if ( $lack_wood || $lack_clay || $lack_iron || $lack_pop )
+                                                            {
+                                                                $class      = "secondary";
+                                                                $disabled   = "disabled";
+                                                            }
+                                                        @endphp
                                                         <td>
                                                             <div class="row mx-auto" >
-                                                                <div class="px-1 col-12 col-sm-4 col-lg-2" title="{{ $buildings[ "wood" ][ "name" ] }}" >
+                                                                <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_wood }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
-                                                                    {{ $building[ "wood"       ] }}
+                                                                    {{ ( int ) $building[ "wood" ] }}
                                                                 </div>
-                                                                <div class="px-1 col-12 col-sm-4 col-lg-2" title="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                                <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_clay }}" title="{{ $buildings[ "clay" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
-                                                                    {{ $building[ "clay"       ] }}
+                                                                    {{ ( int ) $building[ "clay" ] }}
                                                                 </div>
-                                                                <div class="px-1 col-12 col-sm-4 col-lg-2" title="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                                <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_iron }}" title="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
-                                                                    {{ $building[ "iron"       ] }}
+                                                                    {{ ( int ) $building[ "iron" ] }}
                                                                 </div>
-                                                                <div class="px-1 col-12 col-sm-4 col-lg-2" title="População" >
+                                                                <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_pop }}" title="População" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}" alt="População" >
-                                                                    {{ $building[ "pop"        ] }}
+                                                                    {{ ( int ) $building[ "pop"  ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-8 col-lg-4" title="Tempo" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/time.png" ) }}" alt="Tempo" >
@@ -80,18 +128,8 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            @php
-                                                                $class    = "success";
-                                                                $disabled = "";
 
-                                                                // if ( $building[ "wood" ] > 100 || $building[ "clay" ] > 100 || $building[ "wood" ] > 100 )
-                                                                // {
-                                                                //     $class    = "secondary";
-                                                                //     $disabled = "disabled";
-                                                                // }
-                                                            @endphp
-
-                                                            <a class="btn btn-{{ $class }} btn-sm w-100" {{ $disabled }}
+                                                            <a class="btn btn-{{ $class }} btn-sm w-100 {{ $disabled }}" {{ $disabled }}
                                                                 onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
                                                                 href="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
                                                                 Nível {{ $village->{ "building_{$key}" } + 1 }}

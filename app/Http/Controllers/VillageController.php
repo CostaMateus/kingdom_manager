@@ -43,9 +43,7 @@ class VillageController extends Controller
      */
     public function overview( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.overview", $this->compact );
     }
@@ -58,10 +56,7 @@ class VillageController extends Controller
      */
     public function main( Village $village )
     {
-        $this->compact[ "village" ] = $village;
-
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.main", $this->compact );
     }
@@ -74,10 +69,7 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        $this->compact[ "village" ] = $village;
-
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -90,9 +82,7 @@ class VillageController extends Controller
      */
     public function stable( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
@@ -105,9 +95,7 @@ class VillageController extends Controller
      */
     public function workshop( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
@@ -120,9 +108,7 @@ class VillageController extends Controller
      */
     public function smithy( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
@@ -135,9 +121,7 @@ class VillageController extends Controller
      */
     public function church( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.church", $this->compact );
     }
@@ -150,9 +134,7 @@ class VillageController extends Controller
      */
     public function academy( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.academy", $this->compact );
     }
@@ -165,9 +147,7 @@ class VillageController extends Controller
      */
     public function place( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.place", $this->compact );
     }
@@ -180,9 +160,7 @@ class VillageController extends Controller
      */
     public function statue( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.statue", $this->compact );
     }
@@ -195,9 +173,7 @@ class VillageController extends Controller
      */
     public function market( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.market", $this->compact );
     }
@@ -210,9 +186,7 @@ class VillageController extends Controller
      */
     public function wood( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.wood", $this->compact );
     }
@@ -225,9 +199,7 @@ class VillageController extends Controller
      */
     public function clay( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.clay", $this->compact );
     }
@@ -240,9 +212,7 @@ class VillageController extends Controller
      */
     public function iron( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.iron", $this->compact );
     }
@@ -255,9 +225,7 @@ class VillageController extends Controller
      */
     public function farm( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.farm", $this->compact );
     }
@@ -270,9 +238,7 @@ class VillageController extends Controller
      */
     public function warehouse( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.warehouse", $this->compact );
     }
@@ -285,9 +251,7 @@ class VillageController extends Controller
      */
     public function hide( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.hide", $this->compact );
     }
@@ -300,9 +264,7 @@ class VillageController extends Controller
      */
     public function wall( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.wall", $this->compact );
     }
@@ -315,11 +277,19 @@ class VillageController extends Controller
      */
     public function watchtower( Village $village )
     {
-        $this->helper->getVillages( $this->compact );
-
-        $this->compact[ "village" ] = $village;
+        $this->getInfos( $village );
 
         return view( "users.player.buildings.watchtower", $this->compact );
+    }
+
+
+    private function getInfos( Village $village )
+    {
+        $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
+        $this->helper->calcBuildingsProps( $this->compact );
     }
 
     /**
@@ -331,13 +301,27 @@ class VillageController extends Controller
      */
     public function upgradeBuilding( Village $village, string $building )
     {
-        $currLvl = $village->{ "building_{$building}" };
-        $maxLvl  = $this->compact[ "buildings" ][ $building ][ "max_level" ];
+        $b_name   = $building;
+        $building = $this->compact[ "buildings" ][ $building ];
+        $free_pop = $this->compact[ "buildings" ][ "farm" ][ "max_pop" ] - $village->pop;
+
+        $currLvl  = $village->{ "building_{$b_name}" };
+        $maxLvl   = $building[ "max_level" ];
 
         if ( $currLvl < $maxLvl )
         {
-            $village->{ "building_{$building}" } += 1;
-            $village->save();
+            if ( $building[ "wood" ] <= $village->stored_wood &&
+                 $building[ "clay" ] <= $village->stored_clay &&
+                 $building[ "iron" ] <= $village->stored_iron &&
+                 $building[ "pop"  ] <= $free_pop )
+            {
+                $village->stored_wood -= ( int ) $building[ "wood" ];
+                $village->stored_clay -= ( int ) $building[ "clay" ];
+                $village->stored_iron -= ( int ) $building[ "iron" ];
+                $village->pop         += ( int ) $building[ "pop"  ];
+                $village->{ "building_{$b_name}" } += 1;
+                $village->save();
+            }
         }
 
         return redirect()->route( "village.main", [ "village" => $village ] );
