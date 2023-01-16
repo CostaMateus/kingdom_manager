@@ -56,40 +56,51 @@
 
                                                     @if ( $village->{ "building_{$key}" } < $building[ "max_level" ] )
                                                         @php
-                                                            $class    = "success";
-                                                            $disabled = "";
+                                                            $class      = "success";
+                                                            $disabled   = "";
 
-                                                            $class_wood    = "";
-                                                            $lack_res_wood = false;
+                                                            $class_wood = "";
+                                                            $lack_wood  = false;
 
-                                                            $class_clay    = "";
-                                                            $lack_res_clay = false;
+                                                            $class_clay = "";
+                                                            $lack_clay  = false;
 
-                                                            $class_iron    = "";
-                                                            $lack_res_iron = false;
+                                                            $class_iron = "";
+                                                            $lack_iron  = false;
+
+                                                            $class_pop  = "";
+                                                            $lack_pop   = false;
 
                                                             if ( $building[ "wood" ] > $village->stored_wood )
                                                             {
-                                                                $class_wood    = "text-danger";
-                                                                $lack_res_wood = true;
+                                                                $class_wood = "text-danger";
+                                                                $lack_wood  = true;
                                                             }
 
                                                             if ( $building[ "clay" ] > $village->stored_clay )
                                                             {
-                                                                $class_wood    = "text-danger";
-                                                                $lack_res_clay = true;
+                                                                $class_clay = "text-danger";
+                                                                $lack_clay  = true;
                                                             }
 
                                                             if ( $building[ "iron" ] > $village->stored_iron )
                                                             {
-                                                                $class_wood    = "text-danger";
-                                                                $lack_res_iron = true;
+                                                                $class_iron = "text-danger";
+                                                                $lack_iron  = true;
                                                             }
 
-                                                            if ( $lack_res_wood || $lack_res_clay || $lack_res_iron )
+                                                            $free_pop = $buildings[ "farm" ][ "max_pop" ] - $village->pop;
+
+                                                            if ( $free_pop < 0 || $building[ "pop" ] > $free_pop )
                                                             {
-                                                                $class    = "secondary";
-                                                                $disabled = "disabled";
+                                                                $class_pop  = "text-danger";
+                                                                $lack_pop   = true;
+                                                            }
+
+                                                            if ( $lack_wood || $lack_clay || $lack_iron || $lack_pop )
+                                                            {
+                                                                $class      = "secondary";
+                                                                $disabled   = "disabled";
                                                             }
                                                         @endphp
                                                         <td>
@@ -106,7 +117,7 @@
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                                     {{ $building[ "iron"       ] }}
                                                                 </div>
-                                                                <div class="px-1 col-12 col-sm-4 col-lg-2" title="População" >
+                                                                <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_pop }}" title="População" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}" alt="População" >
                                                                     {{ $building[ "pop"        ] }}
                                                                 </div>
