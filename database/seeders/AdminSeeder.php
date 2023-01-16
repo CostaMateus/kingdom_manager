@@ -18,8 +18,8 @@ class AdminSeeder extends Seeder
 
         User::create( [
             "nickname"          => "Admin",
-            "email"             => "super@admin.com",
-            "password"          => bcrypt( "password.test" ),
+            "email"             => "mateus@costamateus.com.br",
+            "password"          => bcrypt( "admin" ),
             "sex"               => "M",
             "is_admin"          => 1,
             "ip"                => "127.0.0.1",
