@@ -24,9 +24,15 @@ class Village extends Model
         "points",
         "loyalty",
 
-        "res_wood",
-        "res_clay",
-        "res_iron",
+        "prod_wood",
+        "prod_clay",
+        "prod_iron",
+
+        "pop",
+
+        "stored_wood",
+        "stored_clay",
+        "stored_iron",
 
         "building_main",
         "building_barracks",

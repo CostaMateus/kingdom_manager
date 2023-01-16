@@ -25,13 +25,15 @@ return new class extends Migration
             $table->integer( "points" )->default( 21 );
             $table->double( "loyalty" )->default( 100 );
 
-            $table->double( "res_wood" )->default( 0 );
-            $table->double( "res_clay" )->default( 0 );
-            $table->double( "res_iron" )->default( 0 );
+            $table->double( "prod_wood" )->default( 0 );
+            $table->double( "prod_clay" )->default( 0 );
+            $table->double( "prod_iron" )->default( 0 );
 
-            $table->double( "cap_wood" )->default( 600 );
-            $table->double( "cap_clay" )->default( 600 );
-            $table->double( "cap_iron" )->default( 600 );
+            $table->integer( "pop" )->default( 5 );
+
+            $table->double( "stored_wood" )->default( 600 );
+            $table->double( "stored_clay" )->default( 600 );
+            $table->double( "stored_iron" )->default( 600 );
 
             $table->integer( "building_main"       )->default( 1 );
             $table->integer( "building_barracks"   )->default( 0 );
