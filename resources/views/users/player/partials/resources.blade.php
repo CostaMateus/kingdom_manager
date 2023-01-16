@@ -13,15 +13,15 @@
                 <div class="btn-group btn-group-sm float-end pb-2" role="group" aria-label="Resources" >
                     <a class="btn btn-light" href="{{ route( "village.wood",      [ "village" => $village ] ) }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
-                        {{ $village->cap_wood }}
+                        {{ $village->stored_wood }}
                     </a>
                     <a class="btn btn-light" href="{{ route( "village.clay",      [ "village" => $village ] ) }}" title="{{ $buildings[ "clay" ][ "name" ] }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
-                        {{ $village->cap_clay }}
+                        {{ $village->stored_clay }}
                     </a>
                     <a class="btn btn-light" href="{{ route( "village.iron",      [ "village" => $village ] ) }}" title="{{ $buildings[ "iron" ][ "name" ] }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
-                        {{ $village->cap_iron }}
+                        {{ $village->stored_iron }}
                     </a>
                     <a class="btn btn-light" href="{{ route( "village.farm",      [ "village" => $village ] ) }}" title="{{ $buildings[ "farm" ][ "name" ] }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
