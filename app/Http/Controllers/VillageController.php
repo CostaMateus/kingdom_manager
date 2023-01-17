@@ -315,10 +315,11 @@ class VillageController extends Controller
                  $building[ "iron" ] <= $village->stored_iron &&
                  $building[ "pop"  ] <= $free_pop )
             {
-                $village->stored_wood -= ( int ) $building[ "wood" ];
-                $village->stored_clay -= ( int ) $building[ "clay" ];
-                $village->stored_iron -= ( int ) $building[ "iron" ];
-                $village->pop         += ( int ) $building[ "pop"  ];
+                $village->stored_wood -= ( int ) $building[ "wood"   ];
+                $village->stored_clay -= ( int ) $building[ "clay"   ];
+                $village->stored_iron -= ( int ) $building[ "iron"   ];
+                $village->pop         += ( int ) $building[ "pop"    ];
+                $village->points      =+ ( int ) $building[ "points" ];
                 $village->{ "building_{$b_name}" } += 1;
                 $village->save();
             }
