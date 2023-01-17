@@ -54,22 +54,22 @@
                                         {{--
                                             Combinado
                                                 - lista as construções e o que está em andamento nelas
-                                                - lista o exercíto e as qntdds
+                                                - lista o exército e as qntdds
                                                 - lista mercadores, livre/total
                                             Produção
                                                 - lista pontos, recursos por hora, armazem, comerciantes, fazenda, fila de construção/pesquisa/recrutamento
                                             Transporte
                                                 - lista movimentação dos comerciantes (partida/chegada/retorno)
                                             Tropas
-                                                - lista localização do exercíto
+                                                - lista localização do exército
                                             Comandos
-                                                - lista movimentação do exercíto
+                                                - lista movimentação do exército
                                             Chegando
                                                 - lista ataques e apoios
                                             Edifícios
                                                 - lista pontos, nível dos edifícios e fila de construção
                                             Pesquisa
-                                                - lista pontos, status de pesquisa de cada unidade do exercíto, fila de pesquisa e bandeira ativa
+                                                - lista pontos, status de pesquisa de cada unidade do exército, fila de pesquisa e bandeira ativa
                                             Gerente de conta
                                                 - automatização
                                         --}}
@@ -128,9 +128,13 @@
             </div>
         </nav>
 
-        <main class="pt-2 pb-4" >
+        <main class="py-2" >
             @yield('content')
         </main>
+
+        <footer class="text-center text-white" >
+            &copy; {{ date( "Y" ) }} <strong><span>CostaMateus</span></strong>. Todos direitos reservados.
+        </footer>
     </div>
 </body>
 </html>

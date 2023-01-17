@@ -18,7 +18,10 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <a class="btn btn-light" href="{{ route( "admin.users.index" ) }}">Lista de novos usuários</a>
+                            <a class="btn btn-light" href="{{ route( "admin.users.index"       ) }}">Lista de novos usuários</a>
+                            <a class="btn btn-light" href="{{ route( "admin.generate.villages" ) }}">Gerar aldeias</a>
+                        </div>
+                        <div class="col-12">
                         </div>
                     </div>
                 </div>

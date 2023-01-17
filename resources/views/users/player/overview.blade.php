@@ -87,13 +87,13 @@
                                         </div>
                                     </div>
 
-                                    {{-- exercito --}}
+                                    {{-- exército --}}
                                     <div class="col-12">
                                         <div class="table-responsive">
                                             <table id="overview-army" class="table table-hover table-sm align-middle" >
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" >Exercíto</th>
+                                                        <th scope="col" >Exército</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
