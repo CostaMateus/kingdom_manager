@@ -319,7 +319,7 @@ class VillageController extends Controller
                 $village->stored_clay -= ( int ) $building[ "clay"   ];
                 $village->stored_iron -= ( int ) $building[ "iron"   ];
                 $village->pop         += ( int ) $building[ "pop"    ];
-                $village->points      =+ ( int ) $building[ "points" ];
+                $village->points      += ( int ) $building[ "points" ];
                 $village->{ "building_{$b_name}" } += 1;
                 $village->save();
             }
