@@ -79,6 +79,12 @@ Route::middleware( [ "auth" ] )->group( function () {
 
 } );
 
+Route::get( "/clear-cache", function() {
+
+    Artisan::call( "optimize:clear" );
+    return redirect( "/" );
+
+} )->name( "clear.cache" );
 
 
 
