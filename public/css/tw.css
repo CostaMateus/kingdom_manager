@@ -1,3 +1,8 @@
+/* Works on Firefox */
+* { scrollbar-width: thin; scrollbar-color: rgb( 226, 214, 189 ) rgba( 255, 255, 255, 0 ); }
+*::-webkit-scrollbar { width: 3px; }
+*::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0); }
+*::-webkit-scrollbar-thumb { background-color: rgb( 226, 214, 189 ); border-radius: 25px; }
 
 @font-face {
     font-family: TheLastKingdom;
@@ -44,6 +49,23 @@ table td, table th {
     border-color: #B5BABE;
 }
 
+/* @media ( min-width:  576px ) { .table-fixed { height: calc( 100vh - 160px ); } } */
+
+.table-fixed {
+    height: calc( 100vh - 140px );
+    overflow: auto;
+}
+
+@media ( min-width:  768px ) { .table-fixed { height: calc( 100vh - 180px ); } }
+@media ( min-width: 1400px ) { .table-fixed { height: calc( 100vh - 185px ); } }
+
+.table-fixed thead th {
+    background-image: url( "/assets/graphic/background/main.jpg" );
+    background-repeat: repeat;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+}
 
 .bi-05 {
     font-size: .5rem !important;
@@ -58,6 +80,9 @@ table td, table th {
 
 #villages td {
     min-height: 40px;
+}
+#villages tbody th {
+    min-width: 100px;
 }
 
 #builded td:first-child img,
