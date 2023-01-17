@@ -128,9 +128,13 @@
             </div>
         </nav>
 
-        <main class="pt-2 pb-4" >
+        <main class="py-2" >
             @yield('content')
         </main>
+
+        <footer class="text-center text-white" >
+            &copy; {{ date( "Y" ) }} <strong><span>CostaMateus</span></strong>. Todos direitos reservados.
+        </footer>
     </div>
 </body>
 </html>
