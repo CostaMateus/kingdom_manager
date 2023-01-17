@@ -28,7 +28,7 @@ return new class extends Migration
              * 1 construção   -> events_buildings
              * 2 recrutamento -> events_trains
              * 3 pesquisa     -> events_researchs
-             * 4 exercito     -> events_armies
+             * 4 exército     -> events_armies
              */
 
         } );

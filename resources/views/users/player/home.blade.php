@@ -49,7 +49,7 @@
                                                     @if ( $village->building_main == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exercito na fila --}}
+                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
@@ -61,7 +61,7 @@
                                                     @if ( $village->building_barracks == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exercito na fila --}}
+                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
@@ -73,7 +73,7 @@
                                                     @if ( $village->building_stable == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exercito na fila --}}
+                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
@@ -85,7 +85,7 @@
                                                     @if ( $village->building_workshop == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exercito na fila --}}
+                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
