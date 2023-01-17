@@ -347,4 +347,17 @@ class VillageController extends Controller
         return redirect()->route( "village.main", [ "village" => $village ] );
     }
 
+    public function generateVillages( $user_id )
+    {
+        foreach ( range( 1, 150 ) as $i )
+        {
+            Village::create( [
+                "user_id" => $user_id,
+                "name"    => "{$i} Aldeia"
+            ] );
+        }
+
+        return redirect()->back();
+    }
+
 }

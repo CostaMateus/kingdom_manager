@@ -68,10 +68,12 @@ Route::middleware( [ "auth" ] )->group( function () {
         } );
     } );
 
-    Route::middleware( [ "admin" ] )->group( function () {
+    Route::name( "admin." )->middleware( [ "admin" ] )->group( function () {
 
-        Route::get( "/users",                [ UserController::class, "index"   ] )->name( "admin.users.index"   );
-        Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "admin.users.approve" );
+        Route::get( "/users",                [ UserController::class, "index"   ] )->name( "users.index"   );
+        Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "users.approve" );
+
+        Route::get( "/new/villages/{user_id}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
 
     } );
 
