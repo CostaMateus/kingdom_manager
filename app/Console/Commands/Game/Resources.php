@@ -38,7 +38,7 @@ class Resources extends Command
 
         foreach ( $villages as $village )
         {
-            $this->calc( $village, "warehouse", "production", $buildings );
+            $this->calc( $village, "warehouse", "capacity", $buildings );
 
             if ( $village->building_wood > 0 )
             {
@@ -71,8 +71,6 @@ class Resources extends Command
             }
 
             $village->save();
-
-            echo "Village #{$village->id} has updated\n";
         }
     }
 
@@ -82,6 +80,6 @@ class Resources extends Command
 
         if ( $level > 1 )
             foreach ( range( 2, $level ) as $i )
-                $buildings[ $building ][ $type ] = $buildings[ $building ][ $type ] * $buildings[ $building ][ "production_factor" ];
+                $buildings[ $building ][ $type ] = $buildings[ $building ][ $type ] * $buildings[ $building ][ "{$type}_factor" ];
     }
 }
