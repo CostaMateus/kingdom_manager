@@ -28,7 +28,6 @@ class Resources extends Command
      */
     public function handle()
     {
-
         $villages  = Village::all();
         $buildings = [
             "wood"      => config( "game_buildings.wood"      ),
@@ -72,6 +71,8 @@ class Resources extends Command
             }
 
             $village->save();
+
+            echo "Village #{$village->id} has updated\n";
         }
     }
 
