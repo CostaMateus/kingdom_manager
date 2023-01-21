@@ -28,6 +28,8 @@ class Resources extends Command
      */
     public function handle()
     {
+        $speed     = config( "game.speed" );
+
         $villages  = Village::all();
         $buildings = [
             "wood"      => config( "game_buildings.wood"      ),
@@ -43,8 +45,12 @@ class Resources extends Command
             if ( $village->building_wood > 0 )
             {
                 $this->calc( $village, "wood", "production", $buildings );
-                $wood = $buildings[ "wood" ][ "production" ]; // / 60;
-                $village->stored_wood = round( $village->stored_wood + $wood );
+
+                /**
+                 * TODO dividir por 60 no futuro
+                 */
+                $wood = $buildings[ "wood" ][ "production" ] * $speed;
+                $village->stored_wood = round( $village->stored_wood + $wood, 0, PHP_ROUND_HALF_DOWN );
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_wood = $buildings[ "warehouse" ][ "capacity" ];
@@ -53,8 +59,12 @@ class Resources extends Command
             if ( $village->building_clay > 0 )
             {
                 $this->calc( $village, "clay", "production", $buildings );
-                $clay = $buildings[ "clay" ][ "production" ]; // / 60;
-                $village->stored_clay = round( $village->stored_clay + $clay );
+
+                /**
+                 * TODO dividir por 60 no futuro
+                 */
+                $clay = $buildings[ "clay" ][ "production" ] * $speed;
+                $village->stored_clay = round( $village->stored_clay + $clay, 0, PHP_ROUND_HALF_DOWN );
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_clay = $buildings[ "warehouse" ][ "capacity" ];
@@ -63,8 +73,12 @@ class Resources extends Command
             if ( $village->building_iron > 0 )
             {
                 $this->calc( $village, "iron", "production", $buildings );
-                $iron = $buildings[ "iron" ][ "production" ]; // / 60;
-                $village->stored_iron = round( $village->stored_iron + $iron );
+
+                /**
+                 * TODO dividir por 60 no futuro
+                 */
+                $iron = $buildings[ "iron" ][ "production" ] * $speed;
+                $village->stored_iron = round( $village->stored_iron + $iron, 0, PHP_ROUND_HALF_DOWN );
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_iron = $buildings[ "warehouse" ][ "capacity" ];
