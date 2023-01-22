@@ -39,18 +39,18 @@
                         {{ $village->stored_iron }}
                     </a>
 
-                    {{-- pop --}}
-                    <a class="btn btn-light {{ $class_pop  }}" href="{{ route( "village.farm",      [ "village" => $village ] ) }}" title="{{ $buildings[ "farm" ][ "name" ] }}" >
-
-                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm"      ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
-                        {{ $village->pop }}/{{ ( int ) $buildingsOn[ "farm" ][ "max_pop" ] }}
-                    </a>
-
                     {{-- warehouse --}}
                     <a class="btn btn-light"                   href="{{ route( "village.warehouse", [ "village" => $village ] ) }}" title="{{ $buildings[ "warehouse" ][ "name" ] }}" >
 
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "warehouse" ][ "name" ] }}" >
                         {{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}
+                    </a>
+
+                    {{-- pop --}}
+                    <a class="btn btn-light {{ $class_pop  }}" href="{{ route( "village.farm",      [ "village" => $village ] ) }}" title="{{ $buildings[ "farm" ][ "name" ] }}" >
+
+                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm"      ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
+                        {{ $village->pop }}/{{ ( int ) $buildingsOn[ "farm" ][ "max_pop" ] }}
                     </a>
                 </div>
             </div>
