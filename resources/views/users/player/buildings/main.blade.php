@@ -10,7 +10,7 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }}</div>
+                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
 
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
@@ -34,7 +34,12 @@
                                                     <td>
                                                         <div class="row mx-auto" >
                                                             <div class="col-12 col-lg-4 text-center ps-lg-0 m-auto" >
-                                                                <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="" >
+                                                                @php
+                                                                    $key2 = "building_{$key}";
+                                                                    $png  = Helper::getLevelImage( $key, $village->$key2 );
+                                                                    $img  = "{$key}{$png}.png";
+                                                                @endphp
+                                                                <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="" >
                                                             </div>
                                                             <div class="col-12 col-lg-8 text-center text-lg-start ps-lg-0 m-auto" >
                                                                 <a class="text-decoration-none text-dark" href="{{ route( "village.{$key}", [ "village" => $village ] ) }}" >
