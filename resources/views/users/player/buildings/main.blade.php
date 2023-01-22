@@ -89,7 +89,7 @@
                                                                 $lack_iron  = true;
                                                             }
 
-                                                            $free_pop = $buildings[ "farm" ][ "max_pop" ] - $village->pop;
+                                                            $free_pop = $buildingsOn[ "farm" ][ "max_pop" ] - $village->pop;
 
                                                             if ( $free_pop < 0 || $building[ "pop" ] > $free_pop )
                                                             {
@@ -119,7 +119,7 @@
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_pop }}" title="População" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}" alt="População" >
-                                                                    {{ ( int ) $building[ "pop"  ] }}
+                                                                    {{ $building[ "pop"  ] }}
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-8 col-lg-4" title="Tempo" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/time.png" ) }}" alt="Tempo" >

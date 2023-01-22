@@ -70,15 +70,24 @@ class Helper
         {
             $level = $village->{"building_{$key}"};
 
-            if ( $level > 1 )
+            if ( $level > 0 )
             {
-                foreach ( range( 2, $level ) as $i )
+                foreach ( range( 1, $level ) as $i )
                 {
-                    $building[ "wood"       ] = ( int ) $building[ "wood"       ] * $building[ "wood_factor"       ];
-                    $building[ "clay"       ] = ( int ) $building[ "clay"       ] * $building[ "clay_factor"       ];
-                    $building[ "iron"       ] = ( int ) $building[ "iron"       ] * $building[ "iron_factor"       ];
-                    $building[ "pop"        ] = ( int ) $building[ "pop"        ] * $building[ "pop_factor"        ];
-                    $building[ "points"     ] = ( int ) $building[ "points"     ] * $building[ "points_factor"     ];
+                    $building[ "wood"       ] = ( int ) $building[ "wood" ] * $building[ "wood_factor" ];
+                    $building[ "clay"       ] = ( int ) $building[ "clay" ] * $building[ "clay_factor" ];
+                    $building[ "iron"       ] = ( int ) $building[ "iron" ] * $building[ "iron_factor" ];
+
+                    $auxPop1                  = $building[ "pop" ] * $building[ "pop_factor" ];
+                    $auxPop2                  = round( $auxPop1, 0, PHP_ROUND_HALF_DOWN );
+                    $auxPop3                  = $auxPop2 - round( $building[ "pop" ], 0, PHP_ROUND_HALF_DOWN );
+                    $building[ "pop"        ] = ( $i == $level ) ? $auxPop3 : $auxPop1;
+
+                    $auxPoints1               = $building[ "points" ] * $building[ "points_factor" ];
+                    $auxPoints2               = round( $auxPoints1, 0, PHP_ROUND_HALF_DOWN );
+                    $auxPoints3               = $auxPoints2 - round( $building[ "points" ], 0, PHP_ROUND_HALF_DOWN );
+                    $building[ "points"     ] = ( $i == $level ) ? $auxPoints3 : $auxPoints1;
+
                     // $building[ "build_time" ] = $building[ "build_time" ] * $building[ "build_time_factor" ];
 
                     if ( isset( $building[ "time"       ] ) ) $building[ "time"       ] = ( int ) $building[ "time"       ] * $building[ "time_factor"       ];

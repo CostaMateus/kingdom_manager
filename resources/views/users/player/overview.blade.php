@@ -62,7 +62,7 @@
                                                         <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                             <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
-                                                                {{ ( int ) $village->prod_wood }} <span>por minuto</span>
+                                                                {{ ( int ) $village->prod_wood * config( "game.speed" ) }} <span>por minuto</span>
                                                                 {{-- {{ ( int ) $village->prod_wood }} <span>por hora</span> --}}
                                                             </p>
                                                         </td>
@@ -71,7 +71,7 @@
                                                         <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "clay" ][ "name" ] }}" >
                                                             <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
-                                                                {{ ( int ) $village->prod_clay }} <span>por minuto</span>
+                                                                {{ ( int ) $village->prod_clay * config( "game.speed" ) }} <span>por minuto</span>
                                                                 {{-- {{ ( int ) $village->prod_clay }} <span>por hora</span> --}}
                                                             </p>
                                                         </td>
@@ -80,7 +80,7 @@
                                                         <td class="d-flex align-items-center h-100 py-1" title="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                             <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                             <p class="flex-fill my-0 ms-2" >
-                                                                {{ ( int ) $village->prod_iron }} <span>por minuto</span>
+                                                                {{ ( int ) $village->prod_iron * config( "game.speed" ) }} <span>por minuto</span>
                                                                 {{-- {{ ( int ) $village->prod_iron }} <span>por hora</span> --}}
                                                             </p>
                                                         </td>

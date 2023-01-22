@@ -2,6 +2,6 @@
 
 return [
 
-    "speed" => 100,
+    "speed" => 10,
 
 ];
