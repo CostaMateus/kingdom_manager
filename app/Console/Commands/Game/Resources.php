@@ -41,9 +41,11 @@ class Resources extends Command
 
         foreach ( $villages as $village )
         {
+            $changed = false;
+
             $this->calc( $village, "warehouse", "capacity", $buildings );
 
-            if ( $village->building_wood > 0 )
+            if ( $village->building_wood > 0 && $village->stored_wood < $buildings[ "warehouse" ][ "capacity" ] )
             {
                 $this->calc( $village, "wood", "production", $buildings );
 
@@ -55,9 +57,11 @@ class Resources extends Command
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_wood = $buildings[ "warehouse" ][ "capacity" ];
+
+                $changed = true;
             }
 
-            if ( $village->building_clay > 0 )
+            if ( $village->building_clay > 0 && $village->stored_clay < $buildings[ "warehouse" ][ "capacity" ] )
             {
                 $this->calc( $village, "clay", "production", $buildings );
 
@@ -69,9 +73,11 @@ class Resources extends Command
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_clay = $buildings[ "warehouse" ][ "capacity" ];
+
+                $changed = true;
             }
 
-            if ( $village->building_iron > 0 )
+            if ( $village->building_iron > 0 && $village->stored_iron < $buildings[ "warehouse" ][ "capacity" ] )
             {
                 $this->calc( $village, "iron", "production", $buildings );
 
@@ -83,9 +89,11 @@ class Resources extends Command
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_iron = $buildings[ "warehouse" ][ "capacity" ];
+
+                $changed = true;
             }
 
-            $village->save();
+            if ( $changed ) $village->save();
 
             $buildings = $auxBuildings;
         }
