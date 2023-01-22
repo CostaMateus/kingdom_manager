@@ -692,7 +692,7 @@ return [
         "iron"              => 10000,
         "iron_factor"       => 1.18,
         "pop"               => 500,
-        "pop_factor"        => 1.18,
+        "pop_factor"        => 1.05,
         "build_time"        => 8250,
         "build_time_factor" => 1.2,
 
