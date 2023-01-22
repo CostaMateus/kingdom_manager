@@ -28,15 +28,16 @@ class Resources extends Command
      */
     public function handle()
     {
-        $speed     = config( "game.speed" );
+        $speed        = config( "game.speed" );
 
-        $villages  = Village::all();
-        $buildings = [
+        $villages     = Village::all();
+        $auxBuildings = [
             "wood"      => config( "game_buildings.wood"      ),
             "clay"      => config( "game_buildings.clay"      ),
             "iron"      => config( "game_buildings.iron"      ),
             "warehouse" => config( "game_buildings.warehouse" ),
         ];
+        $buildings    = $auxBuildings;
 
         foreach ( $villages as $village )
         {
@@ -50,7 +51,7 @@ class Resources extends Command
                  * TODO dividir por 60 no futuro
                  */
                 $wood = $buildings[ "wood" ][ "production" ] * $speed;
-                $village->stored_wood = round( $village->stored_wood + $wood, 0, PHP_ROUND_HALF_DOWN );
+                $village->stored_wood = ( int ) $village->stored_wood + $wood;
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_wood = $buildings[ "warehouse" ][ "capacity" ];
@@ -64,7 +65,7 @@ class Resources extends Command
                  * TODO dividir por 60 no futuro
                  */
                 $clay = $buildings[ "clay" ][ "production" ] * $speed;
-                $village->stored_clay = round( $village->stored_clay + $clay, 0, PHP_ROUND_HALF_DOWN );
+                $village->stored_clay = ( int ) $village->stored_clay + $clay;
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_clay = $buildings[ "warehouse" ][ "capacity" ];
@@ -78,13 +79,15 @@ class Resources extends Command
                  * TODO dividir por 60 no futuro
                  */
                 $iron = $buildings[ "iron" ][ "production" ] * $speed;
-                $village->stored_iron = round( $village->stored_iron + $iron, 0, PHP_ROUND_HALF_DOWN );
+                $village->stored_iron = ( int ) $village->stored_iron + $iron;
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_iron = $buildings[ "warehouse" ][ "capacity" ];
             }
 
             $village->save();
+
+            $buildings = $auxBuildings;
         }
     }
 
@@ -94,6 +97,6 @@ class Resources extends Command
 
         if ( $level > 1 )
             foreach ( range( 2, $level ) as $i )
-                $buildings[ $building ][ $type ] = $buildings[ $building ][ $type ] * $buildings[ $building ][ "{$type}_factor" ];
+                $buildings[ $building ][ $type ] = ( int ) $buildings[ $building ][ $type ] * $buildings[ $building ][ "{$type}_factor" ];
     }
 }
