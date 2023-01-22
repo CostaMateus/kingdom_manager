@@ -301,9 +301,13 @@ class VillageController extends Controller
      */
     public function upgradeBuilding( Village $village, string $building )
     {
+        $this->getInfos( $village );
+
         $b_name   = $building;
-        $building = $this->compact[ "buildings" ][ $building ];
-        $free_pop = $this->compact[ "buildings" ][ "farm" ][ "max_pop" ] - $village->pop;
+        $building = ( isset( $this->compact[ "buildingsOn" ][ $building ] ) )
+                    ? $this->compact[ "buildingsOn"  ][ $building ]
+                    : $this->compact[ "buildingsOff" ][ $building ];
+        $free_pop = $this->compact[ "buildingsOn" ][ "farm" ][ "max_pop" ] - $village->pop;
 
         $currLvl  = $village->{ "building_{$b_name}" };
         $maxLvl   = $building[ "max_level" ];
