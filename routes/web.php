@@ -132,7 +132,7 @@ Route::get( "/clear-cache", function() {
 
 Route::get( "/migrate-fresh", function() {
 
-    Artisan::call( "migrate:fresh --seed" );
+    Artisan::call( "migrate:fresh --seed --force" );
     return redirect( "/" );
 
 } )->name( "migrate.fresh" );
