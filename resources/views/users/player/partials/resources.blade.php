@@ -12,10 +12,10 @@
 
                 <div class="btn-group btn-group-sm float-end pb-2" role="group" aria-label="Resources" >
                     @php
-                        $class_wood = ( $village->stored_wood >= ( 0.9 * $buildings[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $class_clay = ( $village->stored_clay >= ( 0.9 * $buildings[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $class_iron = ( $village->stored_iron >= ( 0.9 * $buildings[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $class_pop  = ( $village->pop         >= ( 0.9 * $buildings[ "farm"      ][ "max_pop"  ] ) ) ? "text-danger" : "";
+                        $class_wood = ( $village->stored_wood >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
+                        $class_clay = ( $village->stored_clay >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
+                        $class_iron = ( $village->stored_iron >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
+                        $class_pop  = ( $village->pop         >= ( 0.9 * $buildingsOn[ "farm"      ][ "max_pop"  ] ) ) ? "text-danger" : "";
                     @endphp
 
                     {{-- wood --}}
@@ -43,14 +43,14 @@
                     <a class="btn btn-light {{ $class_pop  }}" href="{{ route( "village.farm",      [ "village" => $village ] ) }}" title="{{ $buildings[ "farm" ][ "name" ] }}" >
 
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm"      ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
-                        {{ $village->pop }}/{{ $buildings[ "farm" ][ "max_pop" ] }}
+                        {{ $village->pop }}/{{ ( int ) $buildingsOn[ "farm" ][ "max_pop" ] }}
                     </a>
 
                     {{-- warehouse --}}
                     <a class="btn btn-light"                   href="{{ route( "village.warehouse", [ "village" => $village ] ) }}" title="{{ $buildings[ "warehouse" ][ "name" ] }}" >
 
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "warehouse" ][ "name" ] }}" >
-                        {{ $buildings[ "warehouse" ][ "capacity" ] }}
+                        {{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}
                     </a>
                 </div>
             </div>
