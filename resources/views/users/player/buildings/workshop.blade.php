@@ -10,7 +10,7 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }}</div>
+                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
