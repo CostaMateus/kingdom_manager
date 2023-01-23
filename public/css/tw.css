@@ -10,8 +10,11 @@
 }
 
 body {
-    background-image: url( "/assets/graphic/background/body.jpg" );
-    background-repeat: repeat;
+    background-image: url( "/assets/graphic/background/bg-image.jpg" );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-attachment: fixed;
 }
 
 .cursor-none {
