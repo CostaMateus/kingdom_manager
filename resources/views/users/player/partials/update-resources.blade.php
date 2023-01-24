@@ -15,6 +15,7 @@
             forceTLS: false,
             wsHost: window.location.hostname,
             wsPort: 6001,
+            enabledTransports: ['ws', 'wss'],
         });
 
         var channel = pusher.subscribe( "events" );
