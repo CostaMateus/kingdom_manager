@@ -108,8 +108,8 @@ class Resources extends Command
     {
         $level = $village->{"building_{$building}"};
 
-        if ( $level > 1 )
-            foreach ( range( 2, $level ) as $i )
+        if ( $level > 0 )
+            foreach ( range( 1, $level ) as $i )
                 $buildings[ $building ][ $type ] = ( int ) $buildings[ $building ][ $type ] * $buildings[ $building ][ "{$type}_factor" ];
     }
 }
