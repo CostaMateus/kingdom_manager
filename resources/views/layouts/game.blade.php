@@ -161,9 +161,17 @@
 
             if ( data.village.id == id )
             {
+                console.log( data );
+
                 let w = parseInt( data.village.stored_wood );
                 let c = parseInt( data.village.stored_clay );
                 let i = parseInt( data.village.stored_iron );
+
+                let stored = parseInt( "{{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}" );
+
+                if ( w >= ( 0.9 * stored ) ) $( "#stored_wood" ).addClass( "text-danger" );
+                if ( i >= ( 0.9 * stored ) ) $( "#stored_clay" ).addClass( "text-danger" );
+                if ( c >= ( 0.9 * stored ) ) $( "#stored_iron" ).addClass( "text-danger" );
 
                 $( "#stored_wood span" ).text( w );
                 $( "#stored_clay span" ).text( c );
