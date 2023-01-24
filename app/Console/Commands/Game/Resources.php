@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Game;
 
 use App\Models\Village;
+use App\Events\RealTimeMessage;
 use Illuminate\Console\Command;
 
 class Resources extends Command
@@ -93,7 +94,18 @@ class Resources extends Command
                 $changed = true;
             }
 
-            if ( $changed ) $village->save();
+            if ( $changed )
+            {
+                $data = [
+                    "wood" => $village->stored_wood,
+                    "clay" => $village->stored_clay,
+                    "iron" => $village->stored_iron,
+                ];
+
+                event( new RealTimeMessage( json_encode( $data ) ) );
+
+                $village->save();
+            }
 
             $buildings = $auxBuildings;
         }
