@@ -151,3 +151,5 @@
         </div>
     </div>
 @endsection
+
+@include( "users/player/partials.update-resources" )
