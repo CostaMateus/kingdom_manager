@@ -53,7 +53,7 @@ class Resources extends Command
                 /**
                  * TODO dividir por 60 no futuro
                  */
-                $wood = $buildings[ "wood" ][ "production" ] * $speed;
+                $wood = ( int ) $buildings[ "wood" ][ "production" ] * $speed;
                 $village->stored_wood = ( int ) ( $village->stored_wood + $wood );
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
@@ -69,7 +69,7 @@ class Resources extends Command
                 /**
                  * TODO dividir por 60 no futuro
                  */
-                $clay = $buildings[ "clay" ][ "production" ] * $speed;
+                $clay = ( int ) $buildings[ "clay" ][ "production" ] * $speed;
                 $village->stored_clay = ( int ) ( $village->stored_clay + $clay );
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
@@ -85,7 +85,7 @@ class Resources extends Command
                 /**
                  * TODO dividir por 60 no futuro
                  */
-                $iron = $buildings[ "iron" ][ "production" ] * $speed;
+                $iron = ( int ) $buildings[ "iron" ][ "production" ] * $speed;
                 $village->stored_iron = ( int ) ( $village->stored_iron + $iron );
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
@@ -94,11 +94,7 @@ class Resources extends Command
                 $changed = true;
             }
 
-            if ( $changed )
-            {
-                event( new RealTimeMessage( json_encode( [ "village" => $village ] ) ) );
-                $village->save();
-            }
+            if ( $changed ) $village->save();
 
             $buildings = $auxBuildings;
         }
