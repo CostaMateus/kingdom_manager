@@ -2,47 +2,36 @@
 @section( "js" )
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://js.pusher.com/8.0/pusher.min.js"></script>
     <script>
-        let a_tok = document.querySelector('meta[name="csrf-token"]').content;
+        window.onload = function() {
+            let max    = parseInt( "{{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}"    );
 
-        //suscribing to pusher channel
-        Pusher.logToConsole = false;
-        var pusher = new Pusher( "123123", {
-            broadcaster: 'pusher',
-            key: "{{ env( "PUSHER_APP_KEY" ) }}",
-            cluster: "{{ env( "PUSHER_APP_CLUSTER" ) }}",
-            forceTLS: false,
-            wsHost: window.location.hostname,
-            wsPort: 6001,
-            enabledTransports: ['ws', 'wss'],
-        });
+            let p_wood = parseInt( "{{ ( int ) $village->prod_wood * config( "game.speed" ) }}" );
+            let p_clay = parseInt( "{{ ( int ) $village->prod_clay * config( "game.speed" ) }}" );
+            let p_iron = parseInt( "{{ ( int ) $village->prod_iron * config( "game.speed" ) }}" );
 
-        var channel = pusher.subscribe( "events" );
-        channel.bind( "App\\Events\\RealTimeMessage", ( d ) => {
+            let s_wood = parseInt( "{{ ( int ) $village->stored_wood }}" );
+            let s_clay = parseInt( "{{ ( int ) $village->stored_clay }}" );
+            let s_iron = parseInt( "{{ ( int ) $village->stored_iron }}" );
 
-            let id   = parseInt( "{{ $village->id }}" );
-            let data = JSON.parse( d.data );
+            setInterval( getResources, 1000 );
 
-            if ( data.village.id == id )
+            function getResources()
             {
-                console.log( data );
+                if ( s_wood < max ) s_wood = parseInt( s_wood + ( p_wood / 60 ) );
+                if ( s_clay < max ) s_clay = parseInt( s_clay + ( p_clay / 60 ) );
+                if ( s_iron < max ) s_iron = parseInt( s_iron + ( p_iron / 60 ) );
 
-                let w = parseInt( data.village.stored_wood );
-                let c = parseInt( data.village.stored_clay );
-                let i = parseInt( data.village.stored_iron );
+                if ( s_wood >= ( 0.9 * max ) ) $( "#stored_wood" ).addClass( "text-danger" );
+                if ( s_clay >= ( 0.9 * max ) ) $( "#stored_clay" ).addClass( "text-danger" );
+                if ( s_iron >= ( 0.9 * max ) ) $( "#stored_iron" ).addClass( "text-danger" );
 
-                let stored = parseInt( "{{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}" );
+                $( "#stored_wood span" ).text( s_wood );
+                $( "#stored_clay span" ).text( s_clay );
+                $( "#stored_iron span" ).text( s_iron );
 
-                if ( w >= ( 0.9 * stored ) ) $( "#stored_wood" ).addClass( "text-danger" );
-                if ( i >= ( 0.9 * stored ) ) $( "#stored_clay" ).addClass( "text-danger" );
-                if ( c >= ( 0.9 * stored ) ) $( "#stored_iron" ).addClass( "text-danger" );
-
-                $( "#stored_wood span" ).text( w );
-                $( "#stored_clay span" ).text( c );
-                $( "#stored_iron span" ).text( i );
+                console.log( s_wood, s_clay, s_iron );
             }
-        } );
+        };
     </script>
-
 @endsection
