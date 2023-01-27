@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command( "game:resources" )->everyMinute();
+        $schedule->command( "game:resources" )->everyMinute()->withoutOverlapping()->runInBackground();
     }
 
     /**
@@ -31,8 +31,18 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load( __DIR__ . "/Commands" );
 
-        require base_path('routes/console.php');
+        require base_path( "routes/console.php" );
+    }
+
+    /**
+     * Get the timezone that should be used by default for scheduled events.
+     *
+     * @return \DateTimeZone|string|null
+     */
+    protected function scheduleTimezone()
+    {
+        return "America/Sao_Paulo";
     }
 }
