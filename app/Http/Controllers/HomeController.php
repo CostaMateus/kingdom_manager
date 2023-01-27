@@ -15,8 +15,8 @@ class HomeController extends Controller
     {
         $this->helper = new Helper();
 
-        $buildings    = config( "game_buildings"   );
-        $units        = config( "game_units.units" );
+        $buildings    = config( "game_buildings" );
+        $units        = config( "game_units"     );
 
         foreach ( $buildings as $name => &$building )
         {
