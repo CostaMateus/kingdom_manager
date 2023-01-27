@@ -124,12 +124,12 @@
                                                                     <div>0/0</div>
                                                                 </div>
                                                                 <div class="col-12 d-block d-sm-none" >
-                                                                    <input class="form-control form-control-sm" type="number" name="{{ $key }}" id="unit-{{ $key }}" size="5" min="0" max="99999" step="1" >
+                                                                    <input class="form-control form-control-sm" {{ $disabled }} type="number" name="{{ $key }}" id="unit-{{ $key }}" size="5" min="0" max="99999" step="1" >
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td class="d-none d-sm-table-cell text-center" >
-                                                            <input class="form-control form-control-sm" type="number" name="{{ $key }}" id="unit-{{ $key }}" size="5" min="0" max="99999" step="1" >
+                                                            <input class="form-control form-control-sm" {{ $disabled }} type="number" name="{{ $key }}" id="unit-{{ $key }}" size="5" min="0" max="99999" step="1" >
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -141,7 +141,7 @@
                                                         <div class="row mx-auto">
                                                             <div class="col-12 px-0">
                                                                 <a class="btn btn-success w-100 btn-sm float-end"
-                                                                    onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
+                                                                    onclick="event.preventDefault(); document.getElementById( 'form-units' ).submit();"
                                                                     href="#" >
                                                                     Recrutar
                                                                 </a>
@@ -172,7 +172,7 @@
                                                         <td>
                                                             <div class="row mx-auto" >
                                                                 <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" >
-                                                                    <img src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" >
+                                                                    <img src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" style="filter: grayscale(100%);" >
                                                                 </div>
                                                                 <div class="col-12 col-lg-7 text-center text-lg-start ps-lg-0 m-auto" >
                                                                     <p class="mb-0" >
