@@ -187,9 +187,11 @@
                                                             @foreach ( $building[ "required" ] as $key2 => $level )
                                                                 @php
                                                                     $disabled = ( $village->{ "building_{$key2}" } < $level ) ? "disabled" : "";
+                                                                    $png      = Helper::getLevelImage( $key2, $level );
+                                                                    $img      = "{$key2}{$png}.png";
                                                                 @endphp
                                                                 <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
-                                                                    <img src="{{ asset( "assets/graphic/buildings/{$key2}1.png" ) }}" alt="{{ $buildings[ $key2 ][ "name" ] }}" >
+                                                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $key2 ][ "name" ] }}" >
                                                                     {{ $buildings[ $key2 ][ "name" ] }} - Nível {{ $level }}
                                                                 </button>
                                                             @endforeach
