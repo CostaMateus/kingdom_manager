@@ -20,8 +20,8 @@ class VillageController extends Controller
     {
         $this->helper = new Helper();
 
-        $buildings    = config( "game_buildings"   );
-        $units        = config( "game_units.units" );
+        $buildings    = config( "game_buildings" );
+        $units        = config( "game_units"     );
 
         foreach ( $buildings as $name => &$building )
         {
@@ -110,6 +110,7 @@ class VillageController extends Controller
     public function smithy( Village $village )
     {
         $this->getInfos( $village );
+        $this->getUnits( "smithy" );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
@@ -281,6 +282,46 @@ class VillageController extends Controller
         $this->getInfos( $village );
 
         return view( "users.player.buildings.watchtower", $this->compact );
+    }
+
+
+
+
+    /**
+     * Atualiza o nível do edifício
+     *
+     * @param Village $village
+     * @param string $unit
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function researchUnit( Village $village, string $unit )
+    {
+        $this->getInfos( $village );
+        $this->getUnits( "smithy" );
+
+        $currLvl = $village->{ "research_{$unit}" };
+
+        $unit    = ( isset( $this->compact[ "unitsOn" ][ $unit ] ) )
+                    ? $this->compact[ "unitsOn"  ][ $unit ]
+                    : $this->compact[ "unitsOff" ][ $unit ];
+
+        $maxLvl  = $unit[ "max_level" ];
+
+        if ( $currLvl < $maxLvl )
+        {
+            if ( $unit[ "research_wood" ] <= $village->stored_wood &&
+                 $unit[ "research_clay" ] <= $village->stored_clay &&
+                 $unit[ "research_iron" ] <= $village->stored_iron )
+            {
+                $village->stored_wood -= ( int ) $unit[ "research_wood" ];
+                $village->stored_clay -= ( int ) $unit[ "research_clay" ];
+                $village->stored_iron -= ( int ) $unit[ "research_iron" ];
+                $village->{ "research_{$unit[ "key" ] }" } += 1;
+                $village->save();
+            }
+        }
+
+        return redirect()->route( "village.smithy", [ "village" => $village ] );
     }
 
     /**
