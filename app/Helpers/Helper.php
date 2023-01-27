@@ -6,9 +6,9 @@ use App\Models\Village;
 
 class Helper
 {
-    public function getVillages( &$arrs )
+    public function getVillages( &$compact )
     {
-        if ( !isset( $arrs[ "villages" ] ) )
+        if ( !isset( $compact[ "villages" ] ) )
         {
             $villages = Village::where( "user_id", auth()->user()->id )->get();
 
@@ -28,7 +28,7 @@ class Helper
                 $village->full_research = in_array( false, $researched ) ? false : true;
             }
 
-            $arrs[ "villages" ] = $villages;
+            $compact[ "villages" ] = $villages;
         }
     }
 
@@ -74,9 +74,9 @@ class Helper
             {
                 foreach ( range( 1, $level ) as $i )
                 {
-                    $building[ "wood"       ] = ( int ) $building[ "wood" ] * $building[ "wood_factor" ];
-                    $building[ "clay"       ] = ( int ) $building[ "clay" ] * $building[ "clay_factor" ];
-                    $building[ "iron"       ] = ( int ) $building[ "iron" ] * $building[ "iron_factor" ];
+                    $building[ "wood"       ] = ( int ) ( $building[ "wood" ] * $building[ "wood_factor" ] );
+                    $building[ "clay"       ] = ( int ) ( $building[ "clay" ] * $building[ "clay_factor" ] );
+                    $building[ "iron"       ] = ( int ) ( $building[ "iron" ] * $building[ "iron_factor" ] );
 
                     $auxPop1                  = $building[ "pop" ] * $building[ "pop_factor" ];
                     $auxPop2                  = round( $auxPop1, 0, PHP_ROUND_HALF_DOWN );
@@ -90,13 +90,13 @@ class Helper
 
                     // $building[ "build_time" ] = $building[ "build_time" ] * $building[ "build_time_factor" ];
 
-                    if ( isset( $building[ "time"       ] ) ) $building[ "time"       ] = ( int ) $building[ "time"       ] * $building[ "time_factor"       ];
-                    if ( isset( $building[ "production" ] ) ) $building[ "production" ] = ( int ) $building[ "production" ] * $building[ "production_factor" ];
-                    if ( isset( $building[ "max_pop"    ] ) ) $building[ "max_pop"    ] = ( int ) $building[ "max_pop"    ] * $building[ "max_pop_factor"    ];
-                    if ( isset( $building[ "capacity"   ] ) ) $building[ "capacity"   ] = ( int ) $building[ "capacity"   ] * $building[ "capacity_factor"   ];
-                    if ( isset( $building[ "influence"  ] ) ) $building[ "influence"  ] = ( int ) $building[ "influence"  ] * $building[ "influence_factor"  ];
-                    if ( isset( $building[ "merchants"  ] ) ) $building[ "merchants"  ] = ( int ) $building[ "merchants"  ] * $building[ "merchants_factor"  ];
-                    if ( isset( $building[ "range"      ] ) ) $building[ "range"      ] = ( int ) $building[ "range"      ] * $building[ "range_factor"      ];
+                    if ( isset( $building[ "time"       ] ) ) $building[ "time"       ] = ( int ) ( $building[ "time"       ] * $building[ "time_factor"       ] );
+                    if ( isset( $building[ "production" ] ) ) $building[ "production" ] = ( int ) ( $building[ "production" ] * $building[ "production_factor" ] );
+                    if ( isset( $building[ "max_pop"    ] ) ) $building[ "max_pop"    ] = ( int ) ( $building[ "max_pop"    ] * $building[ "max_pop_factor"    ] );
+                    if ( isset( $building[ "capacity"   ] ) ) $building[ "capacity"   ] = ( int ) ( $building[ "capacity"   ] * $building[ "capacity_factor"   ] );
+                    if ( isset( $building[ "influence"  ] ) ) $building[ "influence"  ] = ( int ) ( $building[ "influence"  ] * $building[ "influence_factor"  ] );
+                    if ( isset( $building[ "merchants"  ] ) ) $building[ "merchants"  ] = ( int ) ( $building[ "merchants"  ] * $building[ "merchants_factor"  ] );
+                    if ( isset( $building[ "range"      ] ) ) $building[ "range"      ] = ( int ) ( $building[ "range"      ] * $building[ "range_factor"      ] );
                 }
             }
         }
@@ -155,10 +155,10 @@ class Helper
             "barracks" => [ "spear", "sword", "axe", "archer"  ],
             "stable"   => [ "spy", "light", "marcher", "heavy" ],
             "Workshop" => [ "ram", "catapult"                  ],
+            "smithy"   => [ "spear", "sword", "axe", "archer", "spy", "light", "marcher", "heavy", "ram", "catapult" ],
         ];
 
         $units     = $buildings[ $building ];
-
         $unitsOn   = [];
         $unitsOff  = [];
 
@@ -179,5 +179,33 @@ class Helper
 
         $compact[ "unitsOn"  ] = $unitsOn;
         $compact[ "unitsOff" ] = $unitsOff;
+
+        $this->calcUnitsProps( $compact );
+    }
+
+    private function calcUnitsProps( &$compact )
+    {
+        $units   = &$compact[ "unitsOn" ];
+        $village = &$compact[ "village" ];
+
+        foreach ( $units as $key => &$unit )
+        {
+            $level = $village->{"research_{$key}"};
+
+            if ( $level > 0 )
+            {
+                foreach ( range( 1, $level ) as $i )
+                {
+                    $unit[ "research_wood"   ] = ( int ) ( $unit[ "research_wood"   ] * $unit[ "research_factor" ] );
+                    $unit[ "research_clay"   ] = ( int ) ( $unit[ "research_clay"   ] * $unit[ "research_factor" ] );
+                    $unit[ "research_iron"   ] = ( int ) ( $unit[ "research_iron"   ] * $unit[ "research_factor" ] );
+
+                    $unit[ "attack"          ] = ( int ) ( $unit[ "attack"          ] * $unit[ "attack_factor"   ] );
+                    $unit[ "defense"         ] = ( int ) ( $unit[ "defense"         ] * $unit[ "defense_factor"  ] );
+                    $unit[ "defense_cavalry" ] = ( int ) ( $unit[ "defense_cavalry" ] * $unit[ "defense_factor"  ] );
+                    $unit[ "defense_archer"  ] = ( int ) ( $unit[ "defense_archer"  ] * $unit[ "defense_factor"  ] );
+                }
+            }
+        }
     }
 }
