@@ -70,6 +70,7 @@ class VillageController extends Controller
     public function barracks( Village $village )
     {
         $this->getInfos( $village );
+        $this->getUnits( "barracks" );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -282,16 +283,6 @@ class VillageController extends Controller
         return view( "users.player.buildings.watchtower", $this->compact );
     }
 
-
-    private function getInfos( Village $village )
-    {
-        $this->compact[ "village" ] = $village;
-
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
-        $this->helper->calcBuildingsProps( $this->compact );
-    }
-
     /**
      * Atualiza o nível do edifício
      *
@@ -365,4 +356,20 @@ class VillageController extends Controller
         return redirect()->back();
     }
 
+
+
+
+    private function getInfos( Village $village )
+    {
+        $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
+        $this->helper->calcBuildingsProps( $this->compact );
+    }
+
+    private function getUnits( string $building )
+    {
+        $this->helper->getUnits( $this->compact, $building );
+    }
 }

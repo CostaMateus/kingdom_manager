@@ -148,4 +148,36 @@ class Helper
 
         }
     }
+
+    public function getUnits( &$compact, $building )
+    {
+        $buildings = [
+            "barracks" => [ "spear", "sword", "axe", "archer"  ],
+            "stable"   => [ "spy", "light", "marcher", "heavy" ],
+            "Workshop" => [ "ram", "catapult"                  ],
+        ];
+
+        $units     = $buildings[ $building ];
+
+        $unitsOn   = [];
+        $unitsOff  = [];
+
+        foreach ( $compact[ "units" ] as $key => $unit )
+        {
+            if ( in_array( $key, $units ) )
+            {
+                if ( $compact[ "village" ]->{ "research_{$key}"} != 0 )
+                {
+                    $unitsOn[ $key ] = $unit;
+                }
+                else
+                {
+                    $unitsOff[ $key ] = $unit;
+                }
+            }
+        }
+
+        $compact[ "unitsOn"  ] = $unitsOn;
+        $compact[ "unitsOff" ] = $unitsOff;
+    }
 }
