@@ -32,7 +32,7 @@
                                             <tr>
                                                 <td class="border-bottom-0" >
                                                     <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "warehouse" ][ "name" ] }}" >
-                                                    Capacidade atual
+                                                    Capacidade atual por recurso
                                                 </td>
                                                 <td class="border-bottom-0" >
                                                     {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] ) }}
@@ -43,6 +43,13 @@
                                             </tr>
                                         </tbody>
                                     </table>
+
+                                    <p class="mt-3 mb-0 text-center fw-bold" >
+                                        <span class="fs-3" >POR FAZER</span>
+                                        <br>
+                                        Tabela de quando cada recurso chegará ao limite do armazém
+                                    </p>
+
                                 </div>
                             </div>
                         @else
