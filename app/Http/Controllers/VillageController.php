@@ -69,7 +69,7 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        $this->getInfos( $village );
+        $this->getInfos( $village   );
         $this->getUnits( "barracks" );
 
         return view( "users.player.buildings.barracks", $this->compact );
@@ -84,6 +84,7 @@ class VillageController extends Controller
     public function stable( Village $village )
     {
         $this->getInfos( $village );
+        $this->getUnits( "stable" );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
@@ -96,7 +97,8 @@ class VillageController extends Controller
      */
     public function workshop( Village $village )
     {
-        $this->getInfos( $village );
+        $this->getInfos( $village   );
+        $this->getUnits( "workshop" );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
