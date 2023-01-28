@@ -97,6 +97,7 @@ class Helper
                     if ( isset( $building[ "influence"  ] ) ) $building[ "influence"  ] = $building[ "influence"  ] * $building[ "influence_factor"  ];
                     if ( isset( $building[ "merchants"  ] ) ) $building[ "merchants"  ] = $building[ "merchants"  ] * $building[ "merchants_factor"  ];
                     if ( isset( $building[ "range"      ] ) ) $building[ "range"      ] = $building[ "range"      ] * $building[ "range_factor"      ];
+                    if ( isset( $building[ "defense"    ] ) ) $building[ "defense"    ] = $building[ "defense"    ] * $building[ "defense_factor"    ];
                 }
             }
         }
