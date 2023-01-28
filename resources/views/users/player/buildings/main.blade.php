@@ -15,7 +15,7 @@
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
 
-                        <div class="row" >
+                        <div class="row mt-4" >
 
                             {{-- edificios construidos --}}
                             <div class="col-12 col-xl-9 mx-auto" >

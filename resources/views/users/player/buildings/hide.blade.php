@@ -16,16 +16,20 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "hide" ] ] )
 
-                        @if ( $village->building_hide > 0 )
-                            {{-- TODO --}}
-                            <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
-                        @else
-                            @if ( !empty( $buildings[ "hide" ][ "required" ] ) )
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
-                            @endif
-                        @endif
+                        <div class="row mt-4" >
 
+                            @if ( $village->building_hide > 0 )
+                                {{-- TODO --}}
+                                <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
+                            @else
+                                @if ( !empty( $buildings[ "hide" ][ "required" ] ) )
+                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
+                                @endif
+                            @endif
+
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

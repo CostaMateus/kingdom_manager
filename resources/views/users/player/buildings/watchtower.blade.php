@@ -16,9 +16,10 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "watchtower" ] ] )
 
-                        @if ( $village->building_watchtower > 0 )
-                            {{-- capacidade --}}
-                            <div class="row mt-5">
+                        <div class="row mt-4" >
+
+                            @if ( $village->building_watchtower > 0 )
+                                {{-- capacidade --}}
                                 <div class="col-12 col-xl-5 ms-auto" >
                                     <p class="fs-3 fw-bold mb-0" >Torre ativa</p>
                                     <p>
@@ -82,15 +83,15 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-
-                        @else
-                            @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
+                            @else
+                                @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
+                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
+                                @endif
                             @endif
-                        @endif
 
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
