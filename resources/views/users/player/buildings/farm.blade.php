@@ -16,7 +16,67 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "farm" ] ] )
 
+                        <div class="row mt-4" >
+
+                            @if ( $village->building_farm > 0 )
+                                {{-- populacao --}}
+                                <div class="col-12 col-xl-9 mx-auto" >
+                                    <div class="table-responsive" >
+                                        <table id="builded" class="table table-hover table-sm align-middle mb-0" >
+                                            <thead>
+                                                <tr>
+                                                    <th>População</th>
+                                                    <th class="text-center" >Nível atual</th>
+                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="border-bottom-0" >
+                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
+                                                        População máxima atual
+                                                    </td>
+                                                    <td class="border-bottom-0 text-center" >
+                                                        {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] ) }}
+                                                    </td>
+                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] * $buildingsOn[ "farm" ][ "max_pop_factor" ] ) }}
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        {{-- TODO --}}
+                                        <p class="mt-3 mb-0 text-center fw-bold" >
+                                            <span class="fs-3" >POR FAZER</span>
+                                            <br>
+                                            Tabela de população usada na:
+                                            <br>
+                                            - construção dos edifícios
+                                            <br>
+                                            - no exército
+                                            <br>
+                                            - em recrutamento
+                                            <br>
+                                            <br>
+                                            Área da milícia
+                                        </p>
+
+                                    </div>
+                                </div>
+                            @else
+                                @if ( !empty( $buildings[ "farm" ][ "required" ] ) )
+                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "farm" ][ "key" ] ] )
+                                @endif
+                            @endif
+
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>

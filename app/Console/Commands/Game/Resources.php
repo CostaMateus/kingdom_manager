@@ -51,9 +51,9 @@ class Resources extends Command
                 $this->calc( $village, "wood", "production", $buildings );
 
                 /**
-                 * TODO dividir por 60 no futuro
+                 * TODO remover speed / alterar valor do speed
                  */
-                $wood = ( int ) $buildings[ "wood" ][ "production" ] * $speed;
+                $wood                 = ( int ) $buildings[ "wood" ][ "production" ] * $speed;
                 $village->stored_wood = ( int ) ( $village->stored_wood + $wood );
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
@@ -67,9 +67,9 @@ class Resources extends Command
                 $this->calc( $village, "clay", "production", $buildings );
 
                 /**
-                 * TODO dividir por 60 no futuro
+                 * TODO remover speed / alterar valor do speed
                  */
-                $clay = ( int ) $buildings[ "clay" ][ "production" ] * $speed;
+                $clay                 = ( int ) $buildings[ "clay" ][ "production" ] * $speed;
                 $village->stored_clay = ( int ) ( $village->stored_clay + $clay );
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
@@ -83,9 +83,9 @@ class Resources extends Command
                 $this->calc( $village, "iron", "production", $buildings );
 
                 /**
-                 * TODO dividir por 60 no futuro
+                 * TODO remover speed / alterar valor do speed
                  */
-                $iron = ( int ) $buildings[ "iron" ][ "production" ] * $speed;
+                $iron                 = ( int ) $buildings[ "iron" ][ "production" ] * $speed;
                 $village->stored_iron = ( int ) ( $village->stored_iron + $iron );
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
@@ -94,7 +94,11 @@ class Resources extends Command
                 $changed = true;
             }
 
-            if ( $changed ) $village->save();
+            if ( $changed )
+            {
+                // $village->updated_resource = now();
+                $village->save();
+            }
 
             $buildings = $auxBuildings;
         }

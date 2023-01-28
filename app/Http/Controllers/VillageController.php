@@ -20,13 +20,19 @@ class VillageController extends Controller
     {
         $this->helper = new Helper();
 
-        $buildings    = config( "game_buildings"   );
-        $units        = config( "game_units.units" );
+        $buildings    = config( "game_buildings" );
+        $units        = config( "game_units"     );
 
         foreach ( $buildings as $name => &$building )
         {
             $base = $building[ "build_time" ];
             $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        }
+
+        foreach ( $units as $name => &$unit )
+        {
+            $base = $unit[ "build_time" ];
+            $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
         }
 
         $this->compact = [
@@ -69,7 +75,8 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        $this->getInfos( $village );
+        $this->getInfos( $village   );
+        $this->getUnits( "barracks" );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -83,6 +90,7 @@ class VillageController extends Controller
     public function stable( Village $village )
     {
         $this->getInfos( $village );
+        $this->getUnits( "stable" );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
@@ -95,7 +103,8 @@ class VillageController extends Controller
      */
     public function workshop( Village $village )
     {
-        $this->getInfos( $village );
+        $this->getInfos( $village   );
+        $this->getUnits( "workshop" );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
@@ -109,6 +118,7 @@ class VillageController extends Controller
     public function smithy( Village $village )
     {
         $this->getInfos( $village );
+        $this->getUnits( "smithy" );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
@@ -283,13 +293,43 @@ class VillageController extends Controller
     }
 
 
-    private function getInfos( Village $village )
-    {
-        $this->compact[ "village" ] = $village;
 
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
-        $this->helper->calcBuildingsProps( $this->compact );
+
+    /**
+     * Atualiza o nível do edifício
+     *
+     * @param Village $village
+     * @param string $unit
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function researchUnit( Village $village, string $unit )
+    {
+        $this->getInfos( $village );
+        $this->getUnits( "smithy" );
+
+        $currLvl = $village->{ "research_{$unit}" };
+
+        $unit    = ( isset( $this->compact[ "unitsOn" ][ $unit ] ) )
+                    ? $this->compact[ "unitsOn"  ][ $unit ]
+                    : $this->compact[ "unitsOff" ][ $unit ];
+
+        $maxLvl  = $unit[ "max_level" ];
+
+        if ( $currLvl < $maxLvl )
+        {
+            if ( $unit[ "research_wood" ] <= $village->stored_wood &&
+                 $unit[ "research_clay" ] <= $village->stored_clay &&
+                 $unit[ "research_iron" ] <= $village->stored_iron )
+            {
+                $village->stored_wood -= ( int ) $unit[ "research_wood" ];
+                $village->stored_clay -= ( int ) $unit[ "research_clay" ];
+                $village->stored_iron -= ( int ) $unit[ "research_iron" ];
+                $village->{ "research_{$unit[ "key" ] }" } += 1;
+                $village->save();
+            }
+        }
+
+        return redirect()->route( "village.smithy", [ "village" => $village ] );
     }
 
     /**
@@ -365,4 +405,20 @@ class VillageController extends Controller
         return redirect()->back();
     }
 
+
+
+
+    private function getInfos( Village $village )
+    {
+        $this->compact[ "village" ] = $village;
+
+        $this->helper->getVillages( $this->compact );
+        $this->helper->getBuildingsLevel( $this->compact );
+        $this->helper->calcBuildingsProps( $this->compact );
+    }
+
+    private function getUnits( string $building )
+    {
+        $this->helper->getUnits( $this->compact, $building );
+    }
 }

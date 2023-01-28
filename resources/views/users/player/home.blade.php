@@ -9,6 +9,12 @@
                 <div class="card border-0" >
                     <div class="card-body" >
 
+                        {{--
+                            /**
+                              * TODO ajeitar os dados de cada aldeia
+                              */
+                        --}}
+
                         <div class="table-responsive table-fixed " >
                             <table id="villages" class="table table-hover table-sm align-middle mb-0" >
                                 <thead class="table-head" >

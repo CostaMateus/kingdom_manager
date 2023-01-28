@@ -15,7 +15,7 @@
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
 
-                        <div class="row" >
+                        <div class="row mt-4" >
 
                             {{-- edificios construidos --}}
                             <div class="col-12 col-xl-9 mx-auto" >
@@ -31,7 +31,7 @@
                                         <tbody>
                                             @foreach ( $buildingsOn as $key => $building )
                                                 <tr>
-                                                    <td>
+                                                    <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                         <div class="row mx-auto" >
                                                             <div class="col-12 col-lg-4 text-center ps-lg-0 m-auto" >
                                                                 @php
@@ -108,7 +108,7 @@
                                                                 $disabled   = "disabled";
                                                             }
                                                         @endphp
-                                                        <td>
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             <div class="row mx-auto" >
                                                                 <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_wood }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
@@ -132,8 +132,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>
-
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             <a class="btn btn-{{ $class }} btn-sm w-100 {{ $disabled }}" {{ $disabled }}
                                                                 onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
                                                                 href="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
@@ -147,8 +146,10 @@
                                                             </form>
                                                         </td>
                                                     @else
-                                                        <td class="text-center text-muted" >Totalmente construído</td>
-                                                        <td></td>
+                                                        <td class="text-center text-muted @if ( $loop->last ) border-bottom-0 @endif" >
+                                                            Totalmente construído
+                                                        </td>
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" ></td>
                                                     @endif
                                                 </tr>
                                             @endforeach
@@ -171,7 +172,7 @@
                                             <tbody>
                                                 @foreach ( $buildingsOff as $key => $building )
                                                     <tr>
-                                                        <td>
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             <div class="row mx-auto" >
                                                                 <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
@@ -183,13 +184,15 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             @foreach ( $building[ "required" ] as $key2 => $level )
                                                                 @php
                                                                     $disabled = ( $village->{ "building_{$key2}" } < $level ) ? "disabled" : "";
+                                                                    $png      = Helper::getLevelImage( $key2, $level );
+                                                                    $img      = "{$key2}{$png}.png";
                                                                 @endphp
                                                                 <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
-                                                                    <img src="{{ asset( "assets/graphic/buildings/{$key2}1.png" ) }}" alt="{{ $buildings[ $key2 ][ "name" ] }}" >
+                                                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $key2 ][ "name" ] }}" >
                                                                     {{ $buildings[ $key2 ][ "name" ] }} - Nível {{ $level }}
                                                                 </button>
                                                             @endforeach

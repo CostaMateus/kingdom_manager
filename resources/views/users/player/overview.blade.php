@@ -11,6 +11,12 @@
             <div class="col-12" >
                 <div class="card border-0" >
 
+                    {{--
+                        /**
+                         * TODO redesenhar essa tela, ta feio
+                         */
+                    --}}
+
                     <div class="card-body" >
                         <div class="row">
                             {{-- edificios --}}

@@ -66,6 +66,8 @@ return new class extends Migration
             $table->integer( "research_ram"        )->default( 0 );
             $table->integer( "research_catapult"   )->default( 0 );
 
+            // $table->timestamp( "updated_resource" )->default( DB::raw( "CURRENT_TIMESTAMP" ) );
+
             $table->timestamps();
 
         } );
