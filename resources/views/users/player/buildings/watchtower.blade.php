@@ -17,8 +17,73 @@
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "watchtower" ] ] )
 
                         @if ( $village->building_watchtower > 0 )
-                            {{-- TODO --}}
-                            <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
+                            {{-- capacidade --}}
+                            <div class="row mt-5">
+                                <div class="col-12 col-xl-5 ms-auto" >
+                                    <p class="fs-3 fw-bold mb-0" >Torre ativa</p>
+                                    <p>
+                                        Sua Torre de vigia está ativa e verificando ataques em suas aldeias. Quando um ataque estiver no alcance da torre ficará disponível. Ataques a caminho que eventualmente serão detectados pela torre de vigia serão marcados com o símbolo de um olho.
+                                    </p>
+
+                                    <p class="fs-3 fw-bold mb-0" >Tipos de ataque</p>
+                                    <p class="mb-0" >
+                                        <img src="{{ asset( "assets/graphic/attack/attack_small.png"    ) }}" alt="Ataque pequeno" >
+                                        Ataque pequeno (1 a 1000 tropas)
+                                    </p>
+                                    <p class="mb-0" >
+                                        <img src="{{ asset( "assets/graphic/attack/attack_medium.png"   ) }}" alt="Ataque médio" >
+                                        Ataque médio (1000 a 5000 tropas)
+                                    </p>
+                                    <p class="mb-0" >
+                                        <img src="{{ asset( "assets/graphic/attack/attack_large.png"    ) }}" alt="Ataque grande" >
+                                        Ataque grande (5000+ tropas)
+                                    </p>
+                                    <p class="mb-0" >
+                                        <img src="{{ asset( "assets/graphic/attack/attack_noble.png"    ) }}" alt="Ataque com nobre" >
+                                        Ataque com nobre
+                                    </p>
+                                    <p class="mb-0" >
+                                        <img src="{{ asset( "assets/graphic/attack/attack_detected.png" ) }}" alt="Ataque detectado" >
+                                        Ataque será detectado por uma torre vigia
+                                    </p>
+                                </div>
+
+                                <div class="col-12 col-xl-5 me-auto" >
+                                    <div class="table-responsive" >
+                                        <table class="table table-hover table-sm align-middle mb-0" >
+                                            <thead>
+                                                <tr class="text-center" >
+                                                    <th colspan="2" >Visão da torre</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $wt_max = $buildingsOn[ "watchtower" ][ "max_level"    ];
+                                                    $base   = $buildingsOn[ "watchtower" ][ "range"        ];
+                                                    $rate   = $buildingsOn[ "watchtower" ][ "range_factor" ];
+                                                @endphp
+                                                @foreach ( range( 1, $wt_max ) as $i )
+                                                    @php
+                                                        $cal   = $base * $rate;
+                                                        $base2 = round( $cal, 0, PHP_ROUND_HALF_DOWN );
+                                                        $base3 = $base2 - ( round( $base, 0, PHP_ROUND_HALF_DOWN ) );
+                                                        $base  = $cal;
+                                                    @endphp
+                                                    <tr class="text-center" >
+                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                            Nível {{ $i }}
+                                                        </td>
+                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                            {{ ( int ) ( $base3 ) }} campos
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         @else
                             @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
                                 @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
