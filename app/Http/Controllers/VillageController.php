@@ -29,6 +29,12 @@ class VillageController extends Controller
             $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
         }
 
+        foreach ( $units as $name => &$unit )
+        {
+            $base = $unit[ "build_time" ];
+            $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        }
+
         $this->compact = [
             "buildings" => $buildings,
             "units"     => $units,
