@@ -70,7 +70,7 @@ class Helper
         {
             $level = $village->{"building_{$key}"};
 
-            if ( $level > 1 )
+            if ( ( in_array( $key, [ "wood", "clay", "iron" ] ) && $level > 1 ) || ( $level > 0 ) )
             {
                 foreach ( range( 1, $level ) as $i )
                 {
