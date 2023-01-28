@@ -17,7 +17,7 @@
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "watchtower" ] ] )
 
                         @if ( $village->building_watchtower > 0 )
-                            <p>ok</p>
+                            <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
                         @else
                             @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
                                 @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )

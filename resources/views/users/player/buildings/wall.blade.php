@@ -17,7 +17,7 @@
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "wall" ] ] )
 
                         @if ( $village->building_wall > 0 )
-                            <p>ok</p>
+                            <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
                         @else
                             @if ( !empty( $buildings[ "wall" ][ "required" ] ) )
                                 @include( "users/player/partials.building-require", [ "name" => $buildings[ "wall" ][ "key" ] ] )
