@@ -19,7 +19,9 @@
                         @if ( $village->building_watchtower > 0 )
                             <p>ok</p>
                         @else
-                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
+                            @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
+                            @endif
                         @endif
 
                     </div>

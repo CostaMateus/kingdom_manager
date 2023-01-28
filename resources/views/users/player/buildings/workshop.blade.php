@@ -158,7 +158,9 @@
                                 </div>
                             @endif
                         @else
-                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "workshop" ][ "key" ] ] )
+                            @if ( !empty( $buildings[ "workshop" ][ "required" ] ) )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "workshop" ][ "key" ] ] )
+                            @endif
                         @endif
 
                         {{-- unidades ainda nao pesquisadas --}}

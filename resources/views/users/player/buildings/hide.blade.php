@@ -19,7 +19,9 @@
                         @if ( $village->building_hide > 0 )
                             <p>ok</p>
                         @else
-                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
+                            @if ( !empty( $buildings[ "hide" ][ "required" ] ) )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
+                            @endif
                         @endif
 
                     </div>

@@ -19,7 +19,9 @@
                         @if ( $village->building_clay > 0 )
                             <p>ok</p>
                         @else
-                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "clay" ][ "key" ] ] )
+                            @if ( !empty( $buildings[ "clay" ][ "required" ] ) )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "clay" ][ "key" ] ] )
+                            @endif
                         @endif
 
                     </div>

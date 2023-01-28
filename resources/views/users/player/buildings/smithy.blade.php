@@ -168,7 +168,9 @@
                                 @endforeach
                             </div>
                         @else
-                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "smithy" ][ "key" ] ] )
+                            @if ( !empty( $buildings[ "smithy" ][ "required" ] ) )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "smithy" ][ "key" ] ] )
+                            @endif
                         @endif
 
                     </div>
