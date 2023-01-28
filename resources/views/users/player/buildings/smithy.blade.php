@@ -50,9 +50,9 @@
                                                     @endif
                                                 </h4>
                                             </div>
-                                            @foreach ( $auxUnits as $key => $auxUnit )
+                                            @foreach ( $auxUnits as $keyUnit => $auxUnit )
                                                 @php
-                                                    $level      = $village->{ "research_{$key}" };
+                                                    $levelUnit  = $village->{ "research_{$keyUnit}" };
 
                                                     $class      = "success";
                                                     $disabled   = "";
@@ -69,19 +69,19 @@
                                                     $class_pop  = "";
                                                     $lack_pop   = false;
 
-                                                    if ( $auxUnit[ "wood" ] > $village->stored_wood )
+                                                    if ( $auxUnit[ "research_wood" ] > $village->stored_wood )
                                                     {
                                                         $class_wood = "text-danger";
                                                         $lack_wood  = true;
                                                     }
 
-                                                    if ( $auxUnit[ "clay" ] > $village->stored_clay )
+                                                    if ( $auxUnit[ "research_clay" ] > $village->stored_clay )
                                                     {
                                                         $class_clay = "text-danger";
                                                         $lack_clay  = true;
                                                     }
 
-                                                    if ( $auxUnit[ "iron" ] > $village->stored_iron )
+                                                    if ( $auxUnit[ "research_iron" ] > $village->stored_iron )
                                                     {
                                                         $class_iron = "text-danger";
                                                         $lack_iron  = true;
@@ -89,17 +89,17 @@
                                                 @endphp
                                                 <div class="col-12 @if ( !$loop->first ) mt-5 @endif" >
                                                     <div class="row mx-auto" >
-                                                        <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" @if ( $level == 0 ) style="filter: grayscale(100%);" @endif >
-                                                            <img src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $auxUnit[ "name" ] }}" >
+                                                        <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" @if ( $levelUnit == 0 ) style="filter: grayscale(100%);" @endif >
+                                                            <img src="{{ asset( "assets/graphic/units/icons/{$keyUnit}.png" ) }}" alt="{{ $auxUnit[ "name" ] }}" >
                                                         </div>
                                                         <div class="col-12 col-lg-7 text-center text-lg-start ps-lg-0 m-auto" >
                                                             <p class="mb-0 fs-5" >{{ $auxUnit[ "name" ] }}</p>
 
-                                                            @if ( $level < 3 )
-                                                                @if ( $level == 0 )
+                                                            @if ( $levelUnit < 3 )
+                                                                @if ( $levelUnit == 0 )
                                                                     <p class="text-danger" >Não pesquisado</p>
                                                                 @else
-                                                                    <p>Nível {{ $level }}</p>
+                                                                    <p>Nível {{ $levelUnit }}</p>
                                                                 @endif
 
                                                                 <div class="" >
@@ -118,20 +118,16 @@
                                                                 </div>
                                                             @else
                                                                 <p class="mb-0 text-success" >Pesquisado</p>
-                                                                <p class="mb-0" >Nível {{ $level }}</p>
+                                                                <p class="mb-0" >Nível {{ $levelUnit }}</p>
                                                             @endif
                                                         </div>
                                                     </div>
 
-                                                    @if ( $level < 3 )
+                                                    @if ( $levelUnit < 3 )
                                                         @php
-                                                            $available = false;
+                                                            $available = true;
 
-                                                            if ( empty( $auxUnit[ "required" ] ) )
-                                                            {
-                                                                $available = true;
-                                                            }
-                                                            else
+                                                            if ( !empty( $auxUnit[ "required" ] ) )
                                                             {
                                                                 $builded = [];
 
@@ -146,12 +142,12 @@
                                                             <div class="row mt-2" >
                                                                 <div class="col-12 text-center" >
                                                                     <a class="btn btn-{{ $class }} btn-sm {{ $disabled }}" {{ $disabled }}
-                                                                        onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
-                                                                        href="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
-                                                                        Pesquisar nível {{ $level + 1 }}
+                                                                        onclick="event.preventDefault(); document.getElementById( 'form-{{ $keyUnit }}' ).submit();"
+                                                                        href="{{ route( "village.research.unit", [ "village" => $village, "unit" => $keyUnit ] ) }}" >
+                                                                        Pesquisar nível {{ $levelUnit + 1 }}
                                                                     </a>
-                                                                    <form id="form-{{ $key }}" method="POST" class="d-none"
-                                                                        action="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
+                                                                    <form id="form-{{ $keyUnit }}" method="POST" class="d-none"
+                                                                        action="{{ route( "village.research.unit", [ "village" => $village, "unit" => $keyUnit ] ) }}" >
                                                                         @csrf
                                                                     </form>
                                                                 </div>
