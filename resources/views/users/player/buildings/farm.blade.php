@@ -17,6 +17,7 @@
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "farm" ] ] )
 
                         @if ( $village->building_farm > 0 )
+                            {{-- TODO --}}
                             <p class="mt-3 mb-0 text-center fw-bold fs-3" >POR FAZER</p>
                         @else
                             @if ( !empty( $buildings[ "farm" ][ "required" ] ) )
