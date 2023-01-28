@@ -16,6 +16,12 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "hide" ] ] )
 
+                        @if ( $village->building_hide > 0 )
+                            <p>ok</p>
+                        @else
+                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
+                        @endif
+
                     </div>
                 </div>
             </div>

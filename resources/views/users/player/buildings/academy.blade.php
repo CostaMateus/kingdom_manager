@@ -16,6 +16,12 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "academy" ] ] )
 
+                        @if ( $village->building_academy > 0 )
+                            <p>ok</p>
+                        @else
+                            @include( "users/player/partials.building-require", [ "name" => $buildings[ "academy" ][ "key" ] ] )
+                        @endif
+
                     </div>
                 </div>
             </div>
