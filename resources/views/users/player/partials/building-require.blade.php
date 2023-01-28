@@ -1,5 +1,5 @@
 
-                        {{-- requisitos do estabulo --}}
+                        {{-- requisitos do $name --}}
                         <div class="col-12 col-xl-9 mx-auto mt-5" >
                             <div class="table-responsive" >
                                 <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
