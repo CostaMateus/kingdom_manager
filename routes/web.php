@@ -118,9 +118,12 @@ Route::middleware( [ "auth" ] )->group( function () {
         Route::get( "/users",                [ UserController::class, "index"   ] )->name( "users.index"   );
         Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "users.approve" );
 
-        Route::get( "/new/villages/{user_id}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
+        Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
 
     } );
+
+    // temporario
+    Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
 
 } );
 
