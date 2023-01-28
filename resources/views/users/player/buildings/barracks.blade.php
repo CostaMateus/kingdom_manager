@@ -16,7 +16,8 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "barracks" ] ] )
 
-                            {{-- edificios construidos --}}
+                        @if ( $village->building_barracks > 0 )
+                            {{-- unidades pesquisadas --}}
                             <div class="col-12 col-xl-9 mx-auto" >
                                 <div class="table-responsive" >
                                     <table id="builded" class="table table-hover table-sm align-middle mb-0" >
@@ -134,10 +135,10 @@
                                                     </tr>
                                                 @endforeach
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td class="d-none d-sm-table-cell text-center" ></td>
-                                                    <td >
+                                                    <td class="border-bottom-0" ></td>
+                                                    <td class="border-bottom-0" ></td>
+                                                    <td class="border-bottom-0 d-none d-sm-table-cell text-center" ></td>
+                                                    <td class="border-bottom-0" >
                                                         <div class="row mx-auto">
                                                             <div class="col-12 px-0">
                                                                 <a class="btn btn-success w-100 btn-sm float-end"
@@ -154,70 +155,103 @@
                                     </table>
                                 </div>
                             </div>
-
-                            {{-- edificios ainda nao construidos --}}
-                            @if( !empty( $unitsOff ) )
-                                <div class="col-12 col-xl-9 mx-auto mt-5" >
-                                    <div class="table-responsive" >
-                                        <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Ainda não disponível</th>
-                                                    <th>Requerimentos</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ( $unitsOff as $key => $unit )
+                        @else
+                            {{-- requisitos do estabulo --}}
+                            <div class="col-12 col-xl-9 mx-auto mt-5" >
+                                <div class="table-responsive" >
+                                    <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
+                                        <thead>
+                                            <tr>
+                                                <th>Requerimentos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if ( $barracks = isset( $buildingsOn[ "barracks" ] ) ? $buildingsOn[ "barracks" ] : $buildingsOff[ "barracks" ] )
+                                                @foreach ( $barracks[ "required" ] as $key => $level )
                                                     <tr>
-                                                        <td>
-                                                            <div class="row mx-auto" >
-                                                                <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" >
-                                                                    <img src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" style="filter: grayscale(100%);" >
-                                                                </div>
-                                                                <div class="col-12 col-lg-7 text-center text-lg-start ps-lg-0 m-auto" >
-                                                                    <p class="mb-0" >
-                                                                        {{ $unit[ "name" ] }}
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
+                                                        <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             @php
-                                                                $allEnab = [];
+                                                                $disabled = ( $village->{ "building_{$key}" } < $level ) ? "disabled" : "";
+                                                                $png      = Helper::getLevelImage( $key, $level );
+                                                                $img      = "{$key}{$png}.png";
                                                             @endphp
-                                                            @foreach ( $unit[ "required" ] as $building => $level )
-                                                                @php
-                                                                    $disabled = "";
-
-                                                                    if ( $village->{ "building_{$building}" } < $level )
-                                                                    {
-                                                                        $disabled  = "disabled";
-                                                                        $allEnab[] = false;
-                                                                    }
-
-                                                                    $png      = Helper::getLevelImage( $building, $level );
-                                                                    $img      = "{$building}{$png}.png";
-                                                                @endphp
-                                                                <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
-                                                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $building ][ "name" ] }}" >
-                                                                    {{ $buildings[ $building ][ "name" ] }} - Nível {{ $level }}
-                                                                </button>
-                                                            @endforeach
-                                                            @if ( empty( $allEnab ) )
-                                                                <div class="float-end py-2" >
-                                                                    <a class="btn btn-primary btn-sm" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
-                                                                        Pesquisar
-                                                                    </a>
-                                                                </div>
-                                                            @endif
+                                                            <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
+                                                                <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $key ][ "name" ] }}" >
+                                                                {{ $buildings[ $key ][ "name" ] }} - Nível {{ $level }}
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endif
+                                        </tbody>
+                                    </table>
                                 </div>
-                            @endif
+                            </div>
+                        @endif
+
+                        {{-- unidades ainda nao pesquisadas --}}
+                        @if( !empty( $unitsOff ) )
+                            <div class="col-12 col-xl-9 mx-auto mt-5" >
+                                <div class="table-responsive" >
+                                    <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
+                                        <thead>
+                                            <tr>
+                                                <th>Ainda não disponível</th>
+                                                <th>Requerimentos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ( $unitsOff as $key => $unit )
+                                                <tr>
+                                                    <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                        <div class="row mx-auto" >
+                                                            <div class="col-12 col-lg-5 text-center ps-lg-0 m-auto" >
+                                                                <img src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" style="filter: grayscale(100%);" >
+                                                            </div>
+                                                            <div class="col-12 col-lg-7 text-center text-lg-start ps-lg-0 m-auto" >
+                                                                <p class="mb-0" >
+                                                                    {{ $unit[ "name" ] }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center @if ( $loop->last ) border-bottom-0 @endif" >
+                                                        @php
+                                                            $allEnab = [];
+                                                        @endphp
+                                                        @foreach ( $unit[ "required" ] as $building => $level )
+                                                            @php
+                                                                $disabled = "";
+
+                                                                if ( $village->{ "building_{$building}" } < $level )
+                                                                {
+                                                                    $disabled  = "disabled";
+                                                                    $allEnab[] = false;
+                                                                }
+
+                                                                $png      = Helper::getLevelImage( $building, $level );
+                                                                $img      = "{$building}{$png}.png";
+                                                            @endphp
+                                                            <button class="btn btn-link btn-sm text-decoration-none text-dark float-sm-start cursor-none {{ $disabled }}" >
+                                                                <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $building ][ "name" ] }}" >
+                                                                {{ $buildings[ $building ][ "name" ] }} - Nível {{ $level }}
+                                                            </button>
+                                                        @endforeach
+                                                        @if ( empty( $allEnab ) )
+                                                            <div class="py-2 text-center float-sm-end" >
+                                                                <a class="btn btn-primary btn-sm" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
+                                                                    Pesquisar
+                                                                </a>
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
