@@ -23,8 +23,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Produção</th>
-                                                <th>Por hora</th>
-                                                <th>Próximo hora</th>
+                                                <th>Nível atual (por hora)</th>
+                                                <th>Próximo nível</th>
                                             </tr>
                                         </thead>
                                         <tbody>
