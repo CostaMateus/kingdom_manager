@@ -124,19 +124,39 @@
                                                     </div>
 
                                                     @if ( $level < 3 )
-                                                        <div class="row mt-2" >
-                                                            <div class="col-12 text-center" >
-                                                                <a class="btn btn-{{ $class }} btn-sm {{ $disabled }}" {{ $disabled }}
-                                                                    onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
-                                                                    href="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
-                                                                    Pesquisar nível {{ $level + 1 }}
-                                                                </a>
-                                                                <form id="form-{{ $key }}" method="POST" class="d-none"
-                                                                    action="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
-                                                                    @csrf
-                                                                </form>
+                                                        @php
+                                                            $available = false;
+
+                                                            if ( empty( $auxUnit[ "required" ] ) )
+                                                            {
+                                                                $available = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                $builded = [];
+
+                                                                foreach ( $auxUnit[ "required" ] as $key => $level )
+                                                                    $builded[] = ( $village->{"building_{$key}"} >= $level ) ? true : false;
+
+                                                                $available = ( in_array( false, $builded ) ) ? false : true;
+                                                            }
+                                                        @endphp
+
+                                                        @if ( $available )
+                                                            <div class="row mt-2" >
+                                                                <div class="col-12 text-center" >
+                                                                    <a class="btn btn-{{ $class }} btn-sm {{ $disabled }}" {{ $disabled }}
+                                                                        onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
+                                                                        href="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
+                                                                        Pesquisar nível {{ $level + 1 }}
+                                                                    </a>
+                                                                    <form id="form-{{ $key }}" method="POST" class="d-none"
+                                                                        action="{{ route( "village.research.unit", [ "village" => $village, "unit" => $key ] ) }}" >
+                                                                        @csrf
+                                                                    </form>
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             @endforeach
