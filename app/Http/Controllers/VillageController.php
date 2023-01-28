@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Helpers\Helper;
 use App\Models\Village;
 use Illuminate\Http\Request;
@@ -392,13 +393,15 @@ class VillageController extends Controller
         return redirect()->route( "village.main", [ "village" => $village ] );
     }
 
-    public function generateVillages( $user_id )
+    public function generateVillages( User $user, $num = null )
     {
-        foreach ( range( 1, 150 ) as $i )
+        $num = ( !$num ) ? 1 : $num;
+
+        foreach ( range( 1, $num ) as $i )
         {
             Village::create( [
-                "user_id" => $user_id,
-                "name"    => "{$i} Aldeia"
+                "user_id" => $user->id,
+                "name"    => "{$i} Aldeia de {$user->nickname}"
             ] );
         }
 
