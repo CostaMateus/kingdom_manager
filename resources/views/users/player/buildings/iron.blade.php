@@ -26,8 +26,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th>Nível atual (por hora)</th>
-                                                    <th>Próximo nível</th>
+                                                    <th class="text-center" >Nível atual (por hora)</th>
+                                                    @if ( $village->building_iron != $buildings[ "iron" ][ "max_level" ] )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -36,12 +38,14 @@
                                                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
                                                         Produção atual
                                                     </td>
-                                                    <td class="border-bottom-0" >
+                                                    <td class="border-bottom-0 text-center" >
                                                         {{ ( int ) ( $village->prod_iron * config( "game.speed" ) ) }}
                                                     </td>
-                                                    <td class="border-bottom-0" >
-                                                        {{ ( int ) ( $village->prod_iron * config( "game.speed" ) * $buildings[ "iron" ][ "iron_factor" ] ) }}
-                                                    </td>
+                                                    @if ( $village->building_iron != $buildings[ "iron" ][ "max_level" ] )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $village->prod_iron * config( "game.speed" ) * $buildings[ "iron" ][ "iron_factor" ] ) }}
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>

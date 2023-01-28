@@ -26,8 +26,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th>Nível atual (por hora)</th>
-                                                    <th>Próximo nível</th>
+                                                    <th class="text-center" >Nível atual (por hora)</th>
+                                                    @if ( $village->building_wood != $buildings[ "wood" ][ "max_level" ] )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -36,12 +38,14 @@
                                                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
                                                         Produção atual
                                                     </td>
-                                                    <td class="border-bottom-0" >
+                                                    <td class="border-bottom-0 text-center" >
                                                         {{ ( int ) ( $village->prod_wood * config( "game.speed" ) ) }}
                                                     </td>
-                                                    <td class="border-bottom-0" >
-                                                        {{ ( int ) ( $buildings[ "wood" ][ "wood_factor" ] * $village->prod_wood * config( "game.speed" ) ) }}
-                                                    </td>
+                                                    @if ( $village->building_wood != $buildings[ "wood" ][ "max_level" ] )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $buildings[ "wood" ][ "wood_factor" ] * $village->prod_wood * config( "game.speed" ) ) }}
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -52,7 +56,7 @@
                                     @include( "users/player/partials.building-require", [ "name" => $buildings[ "wood" ][ "key" ] ] )
                                 @endif
                             @endif
-                            
+
                         </div>
                     </div>
 

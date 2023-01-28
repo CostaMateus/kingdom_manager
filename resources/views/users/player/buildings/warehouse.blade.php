@@ -26,8 +26,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Capacidade</th>
-                                                    <th>Nível atual</th>
-                                                    <th>Próximo nível</th>
+                                                    <th class="text-center" >Nível atual</th>
+                                                    @if ( $village->building_warehouse != $buildings[ "warehouse" ][ "max_level" ] )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -36,12 +38,14 @@
                                                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "warehouse" ][ "name" ] }}" >
                                                         Capacidade atual por recurso
                                                     </td>
-                                                    <td class="border-bottom-0" >
+                                                    <td class="border-bottom-0 text-center" >
                                                         {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] ) }}
                                                     </td>
-                                                    <td class="border-bottom-0" >
-                                                        {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] * $buildingsOn[ "warehouse" ][ "capacity_factor" ] ) }}
-                                                    </td>
+                                                    @if ( $village->building_warehouse != $buildings[ "warehouse" ][ "max_level" ] )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] * $buildingsOn[ "warehouse" ][ "capacity_factor" ] ) }}
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>

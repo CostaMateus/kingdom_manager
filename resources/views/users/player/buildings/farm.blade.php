@@ -26,8 +26,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>População</th>
-                                                    <th>Nível atual</th>
-                                                    <th>Próximo nível</th>
+                                                    <th class="text-center" >Nível atual</th>
+                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -36,12 +38,14 @@
                                                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
                                                         População máxima atual
                                                     </td>
-                                                    <td class="border-bottom-0" >
+                                                    <td class="border-bottom-0 text-center" >
                                                         {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] ) }}
                                                     </td>
-                                                    <td class="border-bottom-0" >
-                                                        {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] * $buildingsOn[ "farm" ][ "max_pop_factor" ] ) }}
-                                                    </td>
+                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] * $buildingsOn[ "farm" ][ "max_pop_factor" ] ) }}
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>
