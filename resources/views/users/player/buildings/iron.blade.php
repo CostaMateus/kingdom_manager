@@ -17,6 +17,7 @@
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "iron" ] ] )
 
                         @if ( $village->building_iron > 0 )
+                            {{-- producao --}}
                             <div class="col-12 col-xl-9 mx-auto" >
                                 <div class="table-responsive" >
                                     <table id="builded" class="table table-hover table-sm align-middle mb-0" >
