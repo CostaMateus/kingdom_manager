@@ -30,7 +30,7 @@
                 $( "#stored_clay span" ).text( s_clay );
                 $( "#stored_iron span" ).text( s_iron );
 
-                console.log( s_wood, s_clay, s_iron );
+                // console.log( s_wood, s_clay, s_iron );
             }
         };
     </script>
