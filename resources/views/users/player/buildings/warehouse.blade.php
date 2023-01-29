@@ -16,6 +16,10 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "warehouse" ] ] )
 
+                        {{-- TODO --}}
+                        {{-- não implementado --}}
+                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 70%" ] )
+
                         <div class="row mt-4" >
 
                             @if ( $village->building_warehouse > 0 )
@@ -50,12 +54,9 @@
                                             </tbody>
                                         </table>
 
-                                        {{-- TODO --}}
-                                        <p class="mt-3 mb-0 text-center fw-bold" >
-                                            <span class="fs-3" >POR FAZER</span>
-                                            <br>
+                                        {{-- <p class="mt-3 mb-0 text-center fw-bold" >
                                             Tabela de quando cada recurso chegará ao limite do armazém
-                                        </p>
+                                        </p> --}}
 
                                     </div>
                                 </div>

@@ -16,6 +16,10 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "farm" ] ] )
 
+                        {{-- TODO --}}
+                        {{-- não implementado --}}
+                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 60%" ] )
+
                         <div class="row mt-4" >
 
                             @if ( $village->building_farm > 0 )
@@ -50,10 +54,7 @@
                                             </tbody>
                                         </table>
 
-                                        {{-- TODO --}}
-                                        <p class="mt-3 mb-0 text-center fw-bold" >
-                                            <span class="fs-3" >POR FAZER</span>
-                                            <br>
+                                        {{-- <p class="mt-3 mb-0 text-center fw-bold" >
                                             Tabela de população usada na:
                                             <br>
                                             - construção dos edifícios
@@ -64,7 +65,7 @@
                                             <br>
                                             <br>
                                             Área da milícia
-                                        </p>
+                                        </p> --}}
 
                                     </div>
                                 </div>
