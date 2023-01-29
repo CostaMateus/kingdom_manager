@@ -16,7 +16,10 @@
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [ "building" => $buildings[ "stable" ] ] )
 
-                        <div class="row mt-4">
+                        {{-- não implementado --}}
+                        @include( "users/player/partials.warning", [ "warning_text" => "Recrutamento de cavalaria não implementado!" ] )
+
+                        <div class="row" >
 
                             @if ( $village->building_stable > 0 )
                                 @if ( !empty( $unitsOn ) )
@@ -145,7 +148,8 @@
                                                                 <div class="row mx-auto">
                                                                     <div class="col-12 px-0">
                                                                         <a class="btn btn-success w-100 btn-sm float-end"
-                                                                            onclick="event.preventDefault(); document.getElementById( 'form-units' ).submit();"
+                                                                            {{-- TODO descomentar --}}
+                                                                            {{-- onclick="event.preventDefault(); document.getElementById( 'form-units' ).submit();" --}}
                                                                             href="#" >
                                                                             Recrutar
                                                                         </a>
@@ -228,7 +232,7 @@
                                     </div>
                                 </div>
                             @endif
-                            
+
                         </div>
                     </div>
 
