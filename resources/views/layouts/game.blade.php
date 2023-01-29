@@ -50,7 +50,7 @@
                                         Visualizações
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown" >
-                                        <a class="dropdown-item {{ Route::currentRouteNamed( "home" ) ? "active" : "" }}" href="{{ route( "home" ) }}" >Início</a>
+                                        <a class="dropdown-item bg-km {{ Route::currentRouteNamed( "home" ) ? "active" : "" }}" href="{{ route( "home" ) }}" >Início</a>
                                         {{--
                                             Combinado
                                                 - lista as construções e o que está em andamento nelas
@@ -106,10 +106,10 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
-                                        <a class="dropdown-item {{ Route::currentRouteNamed( "profile" ) ? "active" : "" }}" href="{{ route( "profile" ) }}" >Perfil</a>
+                                        <a class="dropdown-item bg-km {{ Route::currentRouteNamed( "profile" ) ? "active" : "" }}" href="{{ route( "profile" ) }}" >Perfil</a>
                                         {{-- nick | Inventário | Realizações | Estatísticas | Amigos | Bônus diário | Mentor | Lista de bloqueados --}}
 
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                        <a class="dropdown-item bg-km" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();" >
                                             {{ __('Logout') }}
