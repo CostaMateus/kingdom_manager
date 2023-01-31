@@ -3,14 +3,13 @@
                         <div class="col-12 col-xl-9 mx-auto mt-5" >
 
                             @php
-                                $b = ( property_exists( $village->on, $name ) ) ? $village->on->$name : $village->off->$name;
+                                $b     = ( property_exists( $village->on, $name ) ) ? $village->on->$name : $village->off->$name;
+                                $png   = Helper::getLevelImage( $village->on->main->key, $village->on->main->level );
+                                $img   = "{$village->on->main->key}{$png}.png";
+                                $ready = [];
                             @endphp
 
                             @if ( empty( $b->required ) )
-                                @php
-                                    $png = Helper::getLevelImage( $village->on->main->key, $village->on->main->level );
-                                    $img = "{$village->on->main->key}{$png}.png";
-                                @endphp
                                 <div class="py-2 text-center" >
                                     <a class="btn btn-link" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
                                         <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
@@ -34,6 +33,8 @@
                                                             $disabled = ( $village->{ "building_{$key}" } < $level ) ? "disabled" : "";
                                                             $png      = Helper::getLevelImage( $key, $level );
                                                             $img      = "{$key}{$png}.png";
+
+                                                            $ready[]  = empty( $disabled ) ? true : false;
                                                         @endphp
                                                         <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
                                                             <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
@@ -46,5 +47,14 @@
                                     </table>
                                 </div>
 
+                                @if ( !in_array( false, $ready ) )
+                                    <div class="py-2 text-center" >
+                                        <a class="btn btn-link text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
+                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
+                                            <br>
+                                            Construir {{ $b->name }}
+                                        </a>
+                                    </div>
+                                @endif
                             @endif
                         </div>
