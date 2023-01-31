@@ -17,7 +17,7 @@
                         @include( "users/player/partials.building-description", [
                             "title"    => "Produção por nível",
                             "field"    => "production",
-                            "uni"      => "/h",
+                            "uni"      => "/min",
                             "building" => $buildings[ "wood" ]
                         ] )
 
@@ -31,7 +31,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th class="text-center" >Nível atual (por hora)</th>
+                                                    <th class="text-center" >Nível atual (por min)</th>
                                                     @if ( $village->building_wood != $buildings[ "wood" ][ "max_level" ] )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
@@ -44,11 +44,11 @@
                                                         Produção atual
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->prod_wood * config( "game.speed" ) ) }}
+                                                        {{ ( int ) ( $village->prod_wood ) }}
                                                     </td>
                                                     @if ( $village->building_wood != $buildings[ "wood" ][ "max_level" ] )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $buildings[ "wood" ][ "wood_factor" ] * $village->prod_wood * config( "game.speed" ) ) }}
+                                                            {{ ( int ) ( $buildings[ "wood" ][ "wood_factor" ] * $village->prod_wood ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
