@@ -74,6 +74,7 @@ table td, table th {
     overflow: auto;
 }
 
+
 @media ( min-width:  768px ) { .table-fixed { height: calc( 100vh - 180px ); } }
 @media ( min-width: 1400px ) { .table-fixed { height: calc( 100vh - 185px ); } }
 
