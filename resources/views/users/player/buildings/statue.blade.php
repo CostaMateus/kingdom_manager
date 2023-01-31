@@ -15,10 +15,10 @@
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
                         @include( "users/player/partials.building-description", [
-                            "title"    => "Tempo reduzido por nível",
-                            "field"    => "time",
-                            "uni"      => "%",
-                            "building" => $buildings[ "stable" ]
+                            "title"    => null,
+                            "field"    => null,
+                            "uni"      => null,
+                            "building" => $buildings[ "statue" ]
                         ] )
 
                         {{-- TODO --}}
@@ -30,9 +30,7 @@
                             @if ( $village->building_statue > 0 )
                                 {{--  --}}
                             @else
-                                @if ( !empty( $buildings[ "statue" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "statue" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "statue" ][ "key" ] ] )
                             @endif
 
                         </div>

@@ -12,10 +12,10 @@
 
                 <div class="btn-group btn-group-sm btn-group-km float-end pb-2" role="group" aria-label="Resources" >
                     @php
-                        $text_wood   = ( $village->stored_wood >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $text_clay   = ( $village->stored_clay >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $text_iron   = ( $village->stored_iron >= ( 0.9 * $buildingsOn[ "warehouse" ][ "capacity" ] ) ) ? "text-danger" : "";
-                        $text_farm   = ( $village->pop         >= ( 0.9 * $buildingsOn[ "farm"      ][ "max_pop"  ] ) ) ? "text-danger" : "";
+                        $text_wood   = ( $village->stored_wood >= ( 0.9 * $village->on->warehouse->capacity ) ) ? "text-danger" : "";
+                        $text_clay   = ( $village->stored_clay >= ( 0.9 * $village->on->warehouse->capacity ) ) ? "text-danger" : "";
+                        $text_iron   = ( $village->stored_iron >= ( 0.9 * $village->on->warehouse->capacity ) ) ? "text-danger" : "";
+                        $text_farm   = ( $village->pop         >= ( 0.9 * $village->on->farm->max_pop       ) ) ? "text-danger" : "";
 
                         $active_wood = Route::currentRouteNamed( "village.wood"      ) ? "active" : "";
                         $active_clay = Route::currentRouteNamed( "village.clay"      ) ? "active" : "";
@@ -41,9 +41,9 @@
                         $title_farm  = $buildings[ "farm"      ][ "name" ];
                         $title_wh    = $buildings[ "warehouse" ][ "name" ];
 
-                        $compl_wood  = $title_wood . ": " . ( int ) ( $village->prod_wood * config( "game.speed" ) ) . "/min";
-                        $compl_clay  = $title_clay . ": " . ( int ) ( $village->prod_clay * config( "game.speed" ) ) . "/min";
-                        $compl_iron  = $title_iron . ": " . ( int ) ( $village->prod_iron * config( "game.speed" ) ) . "/min";
+                        $compl_wood  = $title_wood . ": " . number_format( $village->prod_wood, 0, ",", "." ) . "/min";
+                        $compl_clay  = $title_clay . ": " . number_format( $village->prod_clay, 0, ",", "." ) . "/min";
+                        $compl_iron  = $title_iron . ": " . number_format( $village->prod_iron, 0, ",", "." ) . "/min";
                     @endphp
 
                     {{-- wood --}}
@@ -67,13 +67,13 @@
                     {{-- warehouse --}}
                     <a                  class="btn btn-light btn-km {{ $class_wh   }}" href="{{ $route_wh   }}" title="{{ $title_wh }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $title_wh }}" >
-                        {{ ( int ) $buildingsOn[ "warehouse" ][ "capacity" ] }}
+                        {{ ( int ) $village->on->warehouse->capacity }}
                     </a>
 
                     {{-- pop --}}
                     <a                  class="btn btn-light btn-km {{ $class_farm }}" href="{{ $route_farm }}" title="{{ $title_farm }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}"                                  alt="{{ $title_farm }}" >
-                        {{ $village->pop }}/{{ ( int ) $buildingsOn[ "farm" ][ "max_pop" ] }}
+                        {{ $village->pop }}/{{ ( int ) $village->on->farm->max_pop }}
                     </a>
                 </div>
             </div>

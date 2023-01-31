@@ -24,17 +24,17 @@ class VillageController extends Controller
         $buildings    = config( "game_buildings" );
         $units        = config( "game_units"     );
 
-        foreach ( $buildings as $name => &$building )
-        {
-            $base = $building[ "build_time" ];
-            $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        }
+        // foreach ( $buildings as $name => &$building )
+        // {
+        //     $base = $building[ "build_time" ];
+        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
-        foreach ( $units as $name => &$unit )
-        {
-            $base = $unit[ "build_time" ];
-            $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        }
+        // foreach ( $units as $name => &$unit )
+        // {
+        //     $base = $unit[ "build_time" ];
+        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
         $this->compact = [
             "buildings" => $buildings,
@@ -344,28 +344,30 @@ class VillageController extends Controller
     {
         $this->getInfos( $village );
 
-        $b_name   = $building;
-        $building = ( isset( $this->compact[ "buildingsOn" ][ $building ] ) )
-                    ? $this->compact[ "buildingsOn"  ][ $building ]
-                    : $this->compact[ "buildingsOff" ][ $building ];
-        $free_pop = $this->compact[ "buildingsOn" ][ "farm" ][ "max_pop" ] - $village->pop;
+        $auxVlg   = $this->compact[ "village" ];
 
-        $currLvl  = $village->{ "building_{$b_name}" };
-        $maxLvl   = $building[ "max_level" ];
+        $building = ( property_exists( $auxVlg->on, $building ) )
+                    ? $auxVlg->on->$building
+                    : $auxVlg->off->$building;
+
+        $free_pop = $auxVlg->on->farm->max_pop - $auxVlg->pop;
+
+        $currLvl  = $building->level;
+        $maxLvl   = $building->max_level;
 
         if ( $currLvl < $maxLvl )
         {
-            if ( $building[ "wood" ] <= $village->stored_wood &&
-                 $building[ "clay" ] <= $village->stored_clay &&
-                 $building[ "iron" ] <= $village->stored_iron &&
-                 $building[ "pop"  ] <= $free_pop )
+            if ( $building->wood <= $auxVlg->stored_wood &&
+                 $building->clay <= $auxVlg->stored_clay &&
+                 $building->iron <= $auxVlg->stored_iron &&
+                 $building->pop  <= $free_pop )
             {
-                $village->stored_wood -= ( int ) $building[ "wood"   ];
-                $village->stored_clay -= ( int ) $building[ "clay"   ];
-                $village->stored_iron -= ( int ) $building[ "iron"   ];
-                $village->pop         += ( int ) $building[ "pop"    ];
-                $village->points      += ( int ) $building[ "points" ];
-                $village->{ "building_{$b_name}" } += 1;
+                $village->stored_wood -= ( int ) $building->wood;
+                $village->stored_clay -= ( int ) $building->clay;
+                $village->stored_iron -= ( int ) $building->iron;
+                $village->pop         += ( int ) $building->pop;
+                $village->points      += ( int ) $building->points;
+                $village->{ "building_{$building->key}" } += 1;
                 $village->save();
             }
         }
@@ -382,9 +384,7 @@ class VillageController extends Controller
      */
     public function changeVillageName( Request $request, Village $village )
     {
-        $name = $request->name;
-
-        if ( $village->name != $name )
+        if ( $village->name != $name = $request->name )
         {
             $village->name = $name;
             $village->save();
@@ -413,11 +413,11 @@ class VillageController extends Controller
 
     private function getInfos( Village $village )
     {
-        $this->compact[ "village" ] = $village;
+        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
 
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
-        $this->helper->calcBuildingsProps( $this->compact );
+        foreach ( $this->compact[ "villages" ] as $v )
+            if ( $v->id == $village->id )
+                $this->compact[ "village"  ] = $v;
     }
 
     private function getUnits( string $building )

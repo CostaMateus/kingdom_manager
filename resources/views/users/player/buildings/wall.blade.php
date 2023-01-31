@@ -24,6 +24,10 @@
                         <div class="row mt-4" >
 
                             @if ( $village->building_wall > 0 )
+                                @php
+                                    $wall = $village->on->wall;
+                                @endphp
+
                                 {{-- defesa --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
@@ -32,26 +36,31 @@
                                                 <tr>
                                                     <th>Defesa</th>
                                                     <th class="text-center" >Nível atual</th>
+                                                    @if ( $wall->level != $wall->max_level )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0" >
-                                                        {{-- <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wall" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" > --}}
                                                         Percentual de defesa bônus
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $buildingsOn[ "wall" ][ "defense" ] ) }}%
+                                                        {{ ( int ) ( $village->on->wall->defense ) }}%
                                                     </td>
+                                                    @if ( $wall->level != $wall->max_level )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $village->on->wall->defense * $village->on->wall->defense_factor ) }}%
+                                                        </td>
+                                                    @endif
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "wall" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "wall" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "wall" ][ "key" ] ] )
                             @endif
 
                         </div>

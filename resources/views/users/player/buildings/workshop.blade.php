@@ -78,7 +78,7 @@
                                                                     $lack_iron  = true;
                                                                 }
 
-                                                                $free_pop = $buildingsOn[ "farm" ][ "max_pop" ] - $village->pop;
+                                                                $free_pop = $village->on->farm->max_pop - $village->pop;
 
                                                                 if ( $free_pop < 0 || $unit[ "pop" ] > $free_pop )
                                                                 {
@@ -206,12 +206,12 @@
                                                             $pointsBase  = $cal;
                                                         }
                                                     @endphp
-                                                    <tr class="text-center @if ($i == $village->building_wood) table-active @endif" >
+                                                    <tr class="text-center @if ( $i == $village->building_wood ) table-active @endif" >
                                                         <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                             Nível {{ $i }}
                                                         </td>
                                                         <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            {{ ( int ) ( $prodBase2 * config( "game.speed" ) ) }}/h
+                                                            {{ ( int ) ( $prodBase2 ) }}/h
                                                         </td>
                                                         <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                             {{ ( int ) ( $pointsBase2 ) }}
@@ -223,9 +223,7 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "workshop" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "workshop" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "workshop" ][ "key" ] ] )
                             @endif
 
                             {{-- unidades ainda nao pesquisadas --}}

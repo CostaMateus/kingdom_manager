@@ -78,7 +78,7 @@
                                                                     $lack_iron  = true;
                                                                 }
 
-                                                                $free_pop = $buildingsOn[ "farm" ][ "max_pop" ] - $village->pop;
+                                                                $free_pop = $village->on->farm->max_pop - $village->pop;
 
                                                                 if ( $free_pop < 0 || $unit[ "pop" ] > $free_pop )
                                                                 {
@@ -169,9 +169,7 @@
                                     </div>
                                 @endif
                             @else
-                                @if ( !empty( $buildings[ "barracks" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "barracks" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "barracks" ][ "key" ] ] )
                             @endif
 
                             {{-- unidades ainda nao pesquisadas --}}

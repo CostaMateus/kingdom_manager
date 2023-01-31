@@ -28,6 +28,10 @@
                         <div class="row mt-4" >
 
                             @if ( $village->building_farm > 0 )
+                                @php
+                                    $farm = $village->on->farm;
+                                @endphp
+
                                 {{-- populacao --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
@@ -36,7 +40,7 @@
                                                 <tr>
                                                     <th>População</th>
                                                     <th class="text-center" >Nível atual</th>
-                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                    @if ( $farm->level != $farm->max_level )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
                                                 </tr>
@@ -44,15 +48,15 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0" >
-                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "farm" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "farm" ][ "name" ] }}" >
+                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$farm->key}.png" ) }}" alt="{{ $farm->name }}" >
                                                         População máxima atual
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] ) }}
+                                                        {{ ( int ) ( $village->on->farm->max_pop ) }}
                                                     </td>
-                                                    @if ( $village->building_farm != $buildings[ "farm" ][ "max_level" ] )
+                                                    @if ( $farm->level != $farm->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $buildingsOn[ "farm" ][ "max_pop" ] * $buildingsOn[ "farm" ][ "max_pop_factor" ] ) }}
+                                                            {{ ( int ) ( $village->on->farm->max_pop * $village->on->farm->max_pop_factor ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -75,9 +79,7 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "farm" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "farm" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $village->on->farm->key ] )
                             @endif
 
                         </div>

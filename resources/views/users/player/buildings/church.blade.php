@@ -30,9 +30,7 @@
                             @if ( $village->building_church > 0 )
                                 {{--  --}}
                             @else
-                                @if ( !empty( $buildings[ "church" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "church" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "church" ][ "key" ] ] )
                             @endif
 
                         </div>

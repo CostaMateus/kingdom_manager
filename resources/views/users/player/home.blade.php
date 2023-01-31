@@ -11,7 +11,7 @@
 
                         {{--
                             /**
-                              * TODO ajeitar os dados de cada aldeia
+                              * TODO ajeitar os dados de mercadores de cada aldeia
                               */
                         --}}
 
@@ -41,7 +41,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $villages as $id => $village )
+                                    @foreach ( $villages as $village )
                                         <tr class="align-middle" >
                                             <th scope="row" >
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.overview", [ "village" => $village ] ) }}" >
@@ -121,10 +121,10 @@
                                             {{-- fazenda --}}
                                             <td class="text-center" >
                                                 @php
-                                                    $class_pop = ( $village->pop >= ( 0.9 * $buildings[ "farm" ][ "max_pop" ] ) ) ? "text-danger" : "";
+                                                    $class_pop = ( $village->pop >= ( 0.9 * $village->on->farm->max_pop ) ) ? "text-danger" : "";
                                                 @endphp
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
-                                                    {{ $village->pop }}/{{ $buildings[ "farm" ][ "max_pop" ] }}
+                                                    {{ ( int ) $village->pop }}/{{ ( int ) $village->on->farm->max_pop }}
                                                 </a>
                                             </td>
 

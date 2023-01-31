@@ -28,6 +28,10 @@
                         <div class="row mt-4" >
 
                             @if ( $village->building_warehouse > 0 )
+                                @php
+                                    $warehouse = $village->on->warehouse;
+                                @endphp
+
                                 {{-- capacidade --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
@@ -36,7 +40,7 @@
                                                 <tr>
                                                     <th>Capacidade</th>
                                                     <th class="text-center" >Nível atual</th>
-                                                    @if ( $village->building_warehouse != $buildings[ "warehouse" ][ "max_level" ] )
+                                                    @if ( $warehouse->level != $warehouse->max_level )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
                                                 </tr>
@@ -44,15 +48,15 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0" >
-                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "warehouse" ][ "name" ] }}" >
+                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$warehouse->key}.png" ) }}" alt="{{ $warehouse->name }}" >
                                                         Capacidade atual por recurso
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] ) }}
+                                                        {{ ( int ) ( $village->on->warehouse->capacity ) }}
                                                     </td>
-                                                    @if ( $village->building_warehouse != $buildings[ "warehouse" ][ "max_level" ] )
+                                                    @if ( $warehouse->level != $warehouse->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $buildingsOn[ "warehouse" ][ "capacity" ] * $buildingsOn[ "warehouse" ][ "capacity_factor" ] ) }}
+                                                            {{ ( int ) ( $village->on->->warehouse->capacity * $village->on->->warehouse->capacity_factor ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -66,9 +70,7 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "warehouse" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "warehouse" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $village->on->warehouse->key ] )
                             @endif
 
                         </div>
