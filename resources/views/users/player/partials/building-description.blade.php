@@ -62,6 +62,8 @@
 
                                                     @foreach ( range( 1, $maxLevel ) as $i )
                                                         @php
+                                                            $print = "";
+
                                                             if ( $field )
                                                             {
                                                                 $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
