@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "clay" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Produção por nível",
+                            "field"    => "production",
+                            "uni"      => "/h",
+                            "building" => $buildings[ "clay" ]
+                        ] )
 
                         <div class="row mt-4" >
 
@@ -51,13 +56,6 @@
                                         </table>
                                     </div>
                                 </div>
-
-                                @include( "users/player/partials.building-details", [
-                                    "title"    => "Produção por nível",
-                                    "field"    => "production",
-                                    "uni"      => "/h",
-                                    "building" => $buildings[ "clay" ]
-                                ] )
                             @else
                                 @if ( !empty( $buildings[ "clay" ][ "required" ] ) )
                                     @include( "users/player/partials.building-require", [ "name" => $buildings[ "clay" ][ "key" ] ] )
