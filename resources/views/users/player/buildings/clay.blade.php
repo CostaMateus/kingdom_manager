@@ -51,6 +51,59 @@
                                         </table>
                                     </div>
                                 </div>
+
+                                <div class="col-12 col-sm-8 col-md-6 col-lg-5 mx-auto mt-5" >
+                                    <div class="table-responsive" >
+                                        <table class="table table-hover table-sm align-middle mb-0" >
+                                            <thead>
+                                                <tr class="text-center" >
+                                                    <th></th>
+                                                    <th>Produção por nível</th>
+                                                    <th>Pontos ganhos por nível</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $clayMax    = $buildings[ "clay" ][ "max_level"         ];
+
+                                                    $prodBase   = $buildings[ "clay" ][ "production"        ];
+                                                    $prodRate   = $buildings[ "clay" ][ "production_factor" ];
+
+                                                    $pointsBase = $buildings[ "clay" ][ "points"            ];
+                                                    $pointsRate = $buildings[ "clay" ][ "points_factor"     ];
+                                                @endphp
+                                                @foreach ( range( 1, $clayMax ) as $i )
+                                                    @php
+                                                        $prodBase2   = $prodBase;
+                                                        $pointsBase2 = $pointsBase;
+
+                                                        if ( $i > 1 )
+                                                        {
+                                                            $cal         = $prodBase * $prodRate;
+                                                            $prodBase    = $cal;
+                                                            $prodBase2   = $cal;
+
+                                                            $cal         = $pointsBase * $pointsRate;
+                                                            $pointsBase2 = $cal - $pointsBase;
+                                                            $pointsBase  = $cal;
+                                                        }
+                                                    @endphp
+                                                    <tr class="text-center @if ($i == $village->building_clay) table-active @endif" >
+                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                            Nível {{ $i }}
+                                                        </td>
+                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                            {{ ( int ) ( $prodBase2 * config( "game.speed" ) ) }}/h
+                                                        </td>
+                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                            {{ ( int ) ( $pointsBase2 ) }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             @else
                                 @if ( !empty( $buildings[ "clay" ][ "required" ] ) )
                                     @include( "users/player/partials.building-require", [ "name" => $buildings[ "clay" ][ "key" ] ] )
