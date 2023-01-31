@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "stable" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Tempo reduzido por nível",
+                            "field"    => "time",
+                            "uni"      => "%",
+                            "building" => $buildings[ "stable" ]
+                        ] )
 
                         {{-- não implementado --}}
                         @include( "users/player/partials.warning", [ "warning_text" => "Recrutamento de cavalaria não implementado!" ] )
