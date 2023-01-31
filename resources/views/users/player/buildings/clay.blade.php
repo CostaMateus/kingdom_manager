@@ -17,13 +17,15 @@
                         @include( "users/player/partials.building-description", [
                             "title"    => "Produção por nível",
                             "field"    => "production",
-                            "uni"      => "/h",
+                            "uni"      => "/min",
                             "building" => $buildings[ "clay" ]
                         ] )
 
                         <div class="row mt-4" >
-
-                            @if ( $village->building_clay > 0 )
+                            @php
+                                $clay = ( property_exists( $village->on, "clay" ) ) ? $village->on->clay : $$village->off->clay;
+                            @endphp
+                            @if ( $clay->level > 0 )
                                 {{-- producao --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
@@ -31,8 +33,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th class="text-center" >Nível atual (por hora)</th>
-                                                    @if ( $village->building_clay != $buildings[ "clay" ][ "max_level" ] )
+                                                    <th class="text-center" >Nível atual (por minuto)</th>
+                                                    @if ( $clay->level != $clay->max_level )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
                                                 </tr>
@@ -40,15 +42,15 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0" >
-                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$clay->key}.png" ) }}" alt="{{ $clay->name }}" >
                                                         Produção atual
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->prod_clay * config( "game.speed" ) ) }}
+                                                        {{ number_format( $village->prod_clay, 0, ",", "." ) }}
                                                     </td>
-                                                    @if ( $village->building_clay != $buildings[ "clay" ][ "max_level" ] )
+                                                    @if ( $clay->level != $clay->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $buildings[ "clay" ][ "clay_factor" ] * $village->prod_clay * config( "game.speed" ) ) }}
+                                                            {{ number_format( ( $village->prod_clay * $clay->clay_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -57,8 +59,8 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "clay" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "clay" ][ "key" ] ] )
+                                @if ( !empty( $clay->required ) )
+                                    @include( "users/player/partials.building-require", [ "name" => $clay->key ] )
                                 @endif
                             @endif
 

@@ -17,13 +17,15 @@
                         @include( "users/player/partials.building-description", [
                             "title"    => "Produção por nível",
                             "field"    => "production",
-                            "uni"      => "/h",
+                            "uni"      => "/min",
                             "building" => $buildings[ "iron" ]
                         ] )
 
                         <div class="row mt-4" >
-
-                            @if ( $village->building_iron > 0 )
+                            @php
+                                $iron = ( property_exists( $village->on, "iron" ) ) ? $village->on->iron : $$village->off->iron;
+                            @endphp
+                            @if ( $iron->level > 0 )
                                 {{-- producao --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
@@ -31,8 +33,8 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th class="text-center" >Nível atual (por hora)</th>
-                                                    @if ( $village->building_iron != $buildings[ "iron" ][ "max_level" ] )
+                                                    <th class="text-center" >Nível atual (por minuto)</th>
+                                                    @if ( $iron->level != $iron->max_level )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
                                                 </tr>
@@ -40,15 +42,15 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="border-bottom-0" >
-                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$iron->key}.png" ) }}" alt="{{ $iron->name }}" >
                                                         Produção atual
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->prod_iron * config( "game.speed" ) ) }}
+                                                        {{ number_format( $village->prod_iron, 0, ",", "." ) }}
                                                     </td>
-                                                    @if ( $village->building_iron != $buildings[ "iron" ][ "max_level" ] )
+                                                    @if ( $iron->level != $iron->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $village->prod_iron * config( "game.speed" ) * $buildings[ "iron" ][ "iron_factor" ] ) }}
+                                                            {{ number_format( ( $village->prod_iron * $iron->iron_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -57,8 +59,8 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $buildings[ "iron" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "iron" ][ "key" ] ] )
+                                @if ( !empty( $iron->required ) )
+                                    @include( "users/player/partials.building-require", [ "name" => $iron->key ] )
                                 @endif
                             @endif
 
