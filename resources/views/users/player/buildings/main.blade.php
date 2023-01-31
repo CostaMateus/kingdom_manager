@@ -14,10 +14,10 @@
 
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [
-                            "title"    => "Tempo reduzido por nível",
-                            "field"    => "time",
-                            "uni"      => "%",
-                            "building" => $buildings[ "main" ]
+                            "title" => "Tempo reduzido por nível",
+                            "field" => "time",
+                            "uni"   => "%",
+                            "key"   => $buildings[ "main" ][ "key" ]
                         ] )
 
                         <div class="row mt-4" >
