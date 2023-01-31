@@ -41,9 +41,9 @@
                         $title_farm  = $buildings[ "farm"      ][ "name" ];
                         $title_wh    = $buildings[ "warehouse" ][ "name" ];
 
-                        $compl_wood  = $title_wood . ": " . ( int ) $village->prod_wood . "/min";
-                        $compl_clay  = $title_clay . ": " . ( int ) $village->prod_clay . "/min";
-                        $compl_iron  = $title_iron . ": " . ( int ) $village->prod_iron . "/min";
+                        $compl_wood  = $title_wood . ": " . number_format( $village->prod_wood, 0, ",", "." ) . "/min";
+                        $compl_clay  = $title_clay . ": " . number_format( $village->prod_clay, 0, ",", "." ) . "/min";
+                        $compl_iron  = $title_iron . ": " . number_format( $village->prod_iron, 0, ",", "." ) . "/min";
                     @endphp
 
                     {{-- wood --}}

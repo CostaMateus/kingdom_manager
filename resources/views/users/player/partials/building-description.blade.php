@@ -64,7 +64,7 @@
                                                         @php
                                                             if ( $field )
                                                             {
-                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base;
+                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
                                                                 $base2 = $base;
                                                             }
 
@@ -96,6 +96,8 @@
                                                                 $pointsBase2 = $cal - $pointsBase;
                                                                 $pointsBase  = $cal;
                                                             }
+
+                                                            if ( $field && $field == "production" ) $print = number_format( $print, 0, ",", "." );
                                                         @endphp
 
                                                         <tr class="text-center @if ( $i == $auxLevel ) table-active @endif" >
@@ -104,7 +106,7 @@
                                                             </td>
                                                             @if ( $title && $field )
                                                                 <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                                    {{ ( int ) ( $print ) }}{{ $uni }}
+                                                                    {{ $print }}{{ $uni }}
                                                                 </td>
                                                             @endif
                                                             <td @if ( $loop->last ) class="border-bottom-0" @endif >
