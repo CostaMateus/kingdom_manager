@@ -33,12 +33,11 @@
                                                             $disabled = ( $village->{ "building_{$key}" } < $level ) ? "disabled" : "";
                                                             $png      = Helper::getLevelImage( $key, $level );
                                                             $img      = "{$key}{$png}.png";
-
                                                             $ready[]  = empty( $disabled ) ? true : false;
                                                         @endphp
                                                         <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
-                                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
-                                                            {{ $b->name }} - Nível {{ $level }}
+                                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $key ][ "name" ] }}" >
+                                                            {{ $buildings[ $key ][ "name" ] }} - Nível {{ $level }}
                                                         </button>
                                                     </td>
                                                 </tr>
