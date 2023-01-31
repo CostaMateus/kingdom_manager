@@ -52,58 +52,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-sm-8 col-md-6 col-lg-5 mx-auto mt-5" >
-                                    <div class="table-responsive" >
-                                        <table class="table table-hover table-sm align-middle mb-0" >
-                                            <thead>
-                                                <tr class="text-center" >
-                                                    <th></th>
-                                                    <th>Produção por nível</th>
-                                                    <th>Pontos ganhos por nível</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                    $woodMax    = $buildings[ "wood" ][ "max_level"         ];
-
-                                                    $prodBase   = $buildings[ "wood" ][ "production"        ];
-                                                    $prodRate   = $buildings[ "wood" ][ "production_factor" ];
-
-                                                    $pointsBase = $buildings[ "wood" ][ "points"            ];
-                                                    $pointsRate = $buildings[ "wood" ][ "points_factor"     ];
-                                                @endphp
-                                                @foreach ( range( 1, $woodMax ) as $i )
-                                                    @php
-                                                        $prodBase2   = $prodBase;
-                                                        $pointsBase2 = $pointsBase;
-
-                                                        if ( $i > 1 )
-                                                        {
-                                                            $cal         = $prodBase * $prodRate;
-                                                            $prodBase    = $cal;
-                                                            $prodBase2   = $cal;
-
-                                                            $cal         = $pointsBase * $pointsRate;
-                                                            $pointsBase2 = $cal - $pointsBase;
-                                                            $pointsBase  = $cal;
-                                                        }
-                                                    @endphp
-                                                    <tr class="text-center @if ($i == $village->building_wood) table-active @endif" >
-                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            Nível {{ $i }}
-                                                        </td>
-                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            {{ ( int ) ( $prodBase2 * config( "game.speed" ) ) }}/h
-                                                        </td>
-                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            {{ ( int ) ( $pointsBase2 ) }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                @include( "users/player/partials.building-details", [
+                                    "title"    => "Produção por nível",
+                                    "field"    => "production",
+                                    "uni"      => "/h",
+                                    "building" => $buildings[ "wood" ]
+                                ] )
                             @else
                                 @if ( !empty( $buildings[ "wood" ][ "required" ] ) )
                                     @include( "users/player/partials.building-require", [ "name" => $buildings[ "wood" ][ "key" ] ] )
