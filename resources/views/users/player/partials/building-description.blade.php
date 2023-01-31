@@ -19,7 +19,7 @@
                                     {{ $building->description }}
                                 </p>
                                 @if ( $key != "place" )
-                                    <button class="fs-6 btn btn-link px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $key }}" >
+                                    <button class="fs-6 btn btn-link text-decoration-none px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $key }}" >
                                         Mais informações
                                     </button>
                                 @endif
