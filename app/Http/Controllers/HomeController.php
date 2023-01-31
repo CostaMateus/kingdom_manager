@@ -18,17 +18,17 @@ class HomeController extends Controller
         $buildings    = config( "game_buildings" );
         $units        = config( "game_units"     );
 
-        foreach ( $buildings as $name => &$building )
-        {
-            if ( !isset( $building[ "level" ] ) )
-            {
-                $building[ "level" ] = $building[ "min_level" ];
-                if ( $name == "farm" ) $building[ "level" ] = 20;
-            }
+        // foreach ( $buildings as $name => &$building )
+        // {
+        //     $base = $building[ "build_time" ];
+        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
-            $base = $building[ "build_time" ];
-            $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        }
+        // foreach ( $units as $name => &$unit )
+        // {
+        //     $base = $unit[ "build_time" ];
+        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
         $this->compact = [
             "buildings" => $buildings,
@@ -46,7 +46,7 @@ class HomeController extends Controller
         if ( auth()->user()->is_admin )
             return view( "users.admin.home" );
 
-        $this->helper->getVillages( $this->compact );
+        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
 
         return view( "users.player.home", $this->compact );
     }

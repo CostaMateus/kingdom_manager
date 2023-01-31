@@ -6,13 +6,15 @@ use App\Models\Village;
 
 class Helper
 {
-    public function getVillages( &$compact )
+    public function getVillages( array $data )
     {
-        if ( !isset( $compact[ "villages" ] ) )
+        $villages = null;
+
+        if ( !isset( $data[ "villages" ] ) )
         {
             $villages = Village::where( "user_id", auth()->user()->id )->get();
 
-            foreach ( $villages as $key => &$village )
+            foreach ( $villages as &$village )
             {
                 $researched[] = $village->research_spear;
                 $researched[] = $village->research_sword;
@@ -26,20 +28,26 @@ class Helper
                 $researched[] = $village->research_catapult;
 
                 $village->full_research = in_array( false, $researched ) ? false : true;
-            }
 
-            $compact[ "villages" ] = $villages;
+                $auxOnOff     = $this->getBuildingsLevel( $data[ "buildings" ], $village );
+                $village->on  = $auxOnOff[ "on"  ];
+                $village->off = $auxOnOff[ "off" ];
+
+                $village      = $this->calcBuildingsProps( $data[ "buildings" ], $village );
+            }
         }
+
+        return $villages;
     }
 
-    public function getBuildingsLevel( &$compact )
+    private function getBuildingsLevel( array $buildings, Village $village )
     {
         $buildingsOn  = [];
         $buildingsOff = [];
 
-        foreach ( $compact[ "buildings" ] as $key1 => $building )
+        foreach ( $buildings as $key1 => $building )
         {
-            if ( $compact[ "village" ]->{ "building_{$key1}" } != 0 || empty( $building[ "required" ] ) )
+            if ( $village->{ "building_{$key1}" } != 0 || empty( $building[ "required" ] ) )
             {
                 $buildingsOn[ $key1 ] = $building;
             }
@@ -48,7 +56,7 @@ class Helper
                 $toBuild = [];
 
                 foreach ( $building[ "required" ] as $key2 => $level )
-                    $toBuild[] = ( $compact[ "village" ]->{ "building_{$key2}" } >= $level ) ? true : false;
+                    $toBuild[] = ( $village->{ "building_{$key2}" } >= $level ) ? true : false;
 
                 if ( in_array( false, $toBuild ) )
                     $buildingsOff[ $key1 ] = $building;
@@ -57,54 +65,53 @@ class Helper
             }
         }
 
-        $compact[ "buildingsOn"  ] = $buildingsOn;
-        $compact[ "buildingsOff" ] = $buildingsOff;
+        return [
+            "on"  => json_decode( json_encode( $buildingsOn  ), FALSE ),
+            "off" => json_decode( json_encode( $buildingsOff ), FALSE ),
+        ];
     }
 
-    public function calcBuildingsProps( &$compact )
+    private function calcBuildingsProps( array $buildings, Village $village )
     {
-        $buildings = &$compact[ "buildingsOn" ];
-        $village   = &$compact[ "village"     ];
-
-        foreach ( $buildings as $key => &$building )
+        foreach ( $village->on as $key => &$building )
         {
-            $level = $village->{"building_{$key}"};
+            $level           = $village->{"building_{$key}"};
+            $building->level = $level;
 
-            if ( ( in_array( $key, [ "wood", "clay", "iron" ] ) && $level > 1 ) || ( $level > 0 ) )
+            if ( $level > 1 )
             {
-                foreach ( range( 1, $level ) as $i )
+                foreach ( range( 2, $level ) as $i )
                 {
-                    $building[ "wood"       ] = $building[ "wood" ] * $building[ "wood_factor" ];
-                    $building[ "clay"       ] = $building[ "clay" ] * $building[ "clay_factor" ];
-                    $building[ "iron"       ] = $building[ "iron" ] * $building[ "iron_factor" ];
+                    $building->wood       = $building->wood       * $building->wood_factor;
+                    $building->clay       = $building->clay       * $building->clay_factor;
+                    $building->iron       = $building->iron       * $building->iron_factor;
+                    $building->build_time = $building->build_time * $building->build_time_factor;
 
-                    $auxPop1                  = $building[ "pop" ] * $building[ "pop_factor" ];
-                    $auxPop2                  = round( $auxPop1, 0, PHP_ROUND_HALF_DOWN );
-                    $auxPop3                  = $auxPop2 - round( $building[ "pop" ], 0, PHP_ROUND_HALF_DOWN );
-                    $building[ "pop"        ] = ( $i == $level ) ? $auxPop3 : $auxPop1;
+                    $auxPop1              = $building->pop        * $building->pop_factor;
+                    $auxPoints1           = $building->points     * $building->points_factor;
+                    $auxPop2              = $auxPop1    - $building->pop;
+                    $auxPoints2           = $auxPoints1 - $building->points;
 
-                    $auxPoints1               = $building[ "points" ] * $building[ "points_factor" ];
-                    $auxPoints2               = round( $auxPoints1, 0, PHP_ROUND_HALF_DOWN );
-                    $auxPoints3               = $auxPoints2 - round( $building[ "points" ], 0, PHP_ROUND_HALF_DOWN );
-                    $building[ "points"     ] = ( $i == $level ) ? $auxPoints3 : $auxPoints1;
+                    $building->pop        = ( $i == $level ) ? $auxPop2    : $auxPop1;
+                    $building->points     = ( $i == $level ) ? $auxPoints2 : $auxPoints1;
 
-                    // $building[ "build_time" ] = $building[ "build_time" ] * $building[ "build_time_factor" ];
-
-                    if ( isset( $building[ "time"       ] ) ) $building[ "time"       ] = $building[ "time"       ] * $building[ "time_factor"       ];
-                    if ( isset( $building[ "production" ] ) ) $building[ "production" ] = $building[ "production" ] * $building[ "production_factor" ];
-                    if ( isset( $building[ "max_pop"    ] ) ) $building[ "max_pop"    ] = $building[ "max_pop"    ] * $building[ "max_pop_factor"    ];
-                    if ( isset( $building[ "capacity"   ] ) ) $building[ "capacity"   ] = $building[ "capacity"   ] * $building[ "capacity_factor"   ];
-                    if ( isset( $building[ "influence"  ] ) ) $building[ "influence"  ] = $building[ "influence"  ] * $building[ "influence_factor"  ];
-                    if ( isset( $building[ "merchants"  ] ) ) $building[ "merchants"  ] = $building[ "merchants"  ] * $building[ "merchants_factor"  ];
-                    if ( isset( $building[ "range"      ] ) ) $building[ "range"      ] = $building[ "range"      ] * $building[ "range_factor"      ];
-                    if ( isset( $building[ "defense"    ] ) ) $building[ "defense"    ] = $building[ "defense"    ] * $building[ "defense_factor"    ];
+                    if ( property_exists( $building, "time"       ) ) $building->time       = $building->time       * $building->time_factor;
+                    if ( property_exists( $building, "production" ) ) $building->production = $building->production * $building->production_factor;
+                    if ( property_exists( $building, "max_pop"    ) ) $building->max_pop    = $building->max_pop    * $building->max_pop_factor;
+                    if ( property_exists( $building, "capacity"   ) ) $building->capacity   = $building->capacity   * $building->capacity_factor;
+                    if ( property_exists( $building, "influence"  ) ) $building->influence  = $building->influence  * $building->influence_factor;
+                    if ( property_exists( $building, "merchants"  ) ) $building->merchants  = $building->merchants  * $building->merchants_factor;
+                    if ( property_exists( $building, "range"      ) ) $building->range      = $building->range      * $building->range_factor;
+                    if ( property_exists( $building, "defense"    ) ) $building->defense    = $building->defense    * $building->defense_factor;
                 }
             }
         }
 
-        $village->prod_wood = ( $village->building_wood > 0 ) ? $buildings[ "wood" ][ "production" ] : 0;
-        $village->prod_clay = ( $village->building_clay > 0 ) ? $buildings[ "clay" ][ "production" ] : 0;
-        $village->prod_iron = ( $village->building_iron > 0 ) ? $buildings[ "iron" ][ "production" ] : 0;
+        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->on->wood->production : 0 ) * config( "game.speed" );
+        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->on->clay->production : 0 ) * config( "game.speed" );
+        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->on->iron->production : 0 ) * config( "game.speed" );
+
+        return $village;
     }
 
     public static function getLevelImage( $building, $level )
@@ -193,9 +200,9 @@ class Helper
         {
             $level = $village->{"research_{$key}"};
 
-            if ( $level > 0 )
+            if ( $level > 1 )
             {
-                foreach ( range( 1, $level ) as $i )
+                foreach ( range( 2, $level ) as $i )
                 {
                     $unit[ "research_wood"   ] = $unit[ "research_wood"   ] * $unit[ "research_factor" ];
                     $unit[ "research_clay"   ] = $unit[ "research_clay"   ] * $unit[ "research_factor" ];

@@ -24,17 +24,17 @@ class VillageController extends Controller
         $buildings    = config( "game_buildings" );
         $units        = config( "game_units"     );
 
-        foreach ( $buildings as $name => &$building )
-        {
-            $base = $building[ "build_time" ];
-            $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        }
+        // foreach ( $buildings as $name => &$building )
+        // {
+        //     $base = $building[ "build_time" ];
+        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
-        foreach ( $units as $name => &$unit )
-        {
-            $base = $unit[ "build_time" ];
-            $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        }
+        // foreach ( $units as $name => &$unit )
+        // {
+        //     $base = $unit[ "build_time" ];
+        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
+        // }
 
         $this->compact = [
             "buildings" => $buildings,
@@ -413,11 +413,11 @@ class VillageController extends Controller
 
     private function getInfos( Village $village )
     {
-        $this->compact[ "village" ] = $village;
+        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
 
-        $this->helper->getVillages( $this->compact );
-        $this->helper->getBuildingsLevel( $this->compact );
-        $this->helper->calcBuildingsProps( $this->compact );
+        foreach ( $this->compact[ "villages" ] as $v )
+            if ( $v->id == $village->id )
+                $this->compact[ "village"  ] = $v;
     }
 
     private function getUnits( string $building )
