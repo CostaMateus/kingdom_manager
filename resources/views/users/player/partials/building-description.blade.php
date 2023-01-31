@@ -1,35 +1,37 @@
 
                         <div class="row" >
                             @php
-                                $key   = $building[ "key" ];
-                                $key2  = "building_{$key}";
-                                $level = ( $village->$key2 != 0 ) ? "Nível {$village->$key2}" : "não construído";
-                                $png   = Helper::getLevelImage( $key, $village->$key2 );
-                                $img   = "{$key}{$png}.png";
+                                $building = config( "game_buildings.{$key}" );
+                                $building = json_decode( json_encode( $building ), false );
+
+                                $auxLevel = ( property_exists( $village->on, $key ) ) ? $village->on->$key->level : $village->off->$key->level;
+                                $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
+                                $png      = Helper::getLevelImage( $key, $auxLevel );
+                                $img      = "{$key}{$png}.png";
                             @endphp
                             <div class="col-12 col-sm-4 col-md-3 col-lg-2 text-center my-auto" >
-                                <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $building[ "name" ] }}" >
+                                <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $building->name }}" >
                             </div>
                             <div class="col-12 col-sm-8 col-md-9 col-lg-10 mt-3 mt-sm-0" >
                                 <p class="h3 mb-2" >
-                                    <b>{{ $building[ "name" ] }} ({{ $level }})</b>
+                                    <b>{{ $building->name }} ({{ $level }})</b>
                                 </p>
                                 <p class="h5 mb-0" >
-                                    {{ $building[ "description" ] }}
+                                    {{ $building->description }}
                                 </p>
-                                @if ( $building[ "key" ] != "place" )
-                                    <button class="fs-6 btn btn-link px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $building[ "key" ] }}" >
+                                @if ( $key != "place" )
+                                    <button class="fs-6 btn btn-link px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $key }}" >
                                         Mais informações
                                     </button>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="modal fade" id="modal_{{ $building[ "key" ] }}" tabindex="-1" aria-labelledby="modal_{{ $building[ "key" ] }}_label" aria-hidden="true" >
+                        <div class="modal fade" id="modal_{{ $key }}" tabindex="-1" aria-labelledby="modal_{{ $key }}_label" aria-hidden="true" >
                             <div class="modal-dialog" >
                                 <div class="modal-content" >
                                     <div class="modal-header" >
-                                        <h1 class="modal-title fs-5 fw-bold" id="modal_{{ $building[ "key" ] }}_label" >{{ $building[ "name" ] }}</h1>
+                                        <h1 class="modal-title fs-5 fw-bold" id="modal_{{ $key }}_label" >{{ $building->name }}</h1>
                                         <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                                     </div>
                                     <div class="modal-body" >
@@ -39,31 +41,31 @@
                                                 <thead>
                                                     <tr class="text-center" >
                                                         <th class="w-25" ></th>
-                                                        @if ( $title )
-                                                            <th>{{ $title }}</th>
-                                                        @endif
-                                                        <th              >Pontos ganhos por nível</th>
+                                                        @if ( $title ) <th>{{ $title }}</th> @endif
+                                                        <th>Pontos ganhos por nível</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @php
                                                         $arr        = [ "capacity", "max_pop", "time", "influence", "merchants", "defense", "range" ];
-                                                        $maxLevel   = $building[ "max_level" ];
+                                                        $maxLevel   = $building->max_level;
 
                                                         if ( $field )
                                                         {
-                                                            $base = $building[ $field            ];
-                                                            $rate = $building[ "{$field}_factor" ];
+                                                            $base = $building->$field;
+                                                            $rate = $building->{"{$field}_factor"};
                                                         }
 
-                                                        $pointsBase = $building[ "points"        ];
-                                                        $pointsRate = $building[ "points_factor" ];
+                                                        $pointsBase = $building->points;
+                                                        $pointsRate = $building->points_factor;
+
                                                     @endphp
+
                                                     @foreach ( range( 1, $maxLevel ) as $i )
                                                         @php
                                                             if ( $field )
                                                             {
-                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
+                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base;
                                                                 $base2 = $base;
                                                             }
 
@@ -90,17 +92,14 @@
                                                                         $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
                                                                     }
                                                                 }
-                                                                else
-                                                                {
-                                                                    $cal         = $pointsBase * $pointsRate;
-                                                                    $pointsBase2 = $cal - $pointsBase;
-                                                                    $pointsBase  = $cal;
-                                                                }
-                                                            }
 
-                                                            $key = $building[ "key" ];
+                                                                $cal         = $pointsBase * $pointsRate;
+                                                                $pointsBase2 = $cal - $pointsBase;
+                                                                $pointsBase  = $cal;
+                                                            }
                                                         @endphp
-                                                        <tr class="text-center @if ( $i == $village->{"building_{$key}"} ) table-active @endif" >
+
+                                                        <tr class="text-center @if ( $i == $auxLevel ) table-active @endif" >
                                                             <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                                 Nível {{ $i }}
                                                             </td>
@@ -110,7 +109,7 @@
                                                                 </td>
                                                             @endif
                                                             <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                                {{ ( int ) ( $pointsBase2 ) }}
+                                                                +{{ ( int ) ( $pointsBase2 ) }}
                                                             </td>
                                                         </tr>
                                                     @endforeach
