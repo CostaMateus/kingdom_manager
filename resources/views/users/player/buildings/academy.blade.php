@@ -30,9 +30,7 @@
                             @if ( $village->building_academy > 0 )
                                 {{--  --}}
                             @else
-                                @if ( !empty( $buildings[ "academy" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "academy" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "academy" ][ "key" ] ] )
                             @endif
 
                         </div>
