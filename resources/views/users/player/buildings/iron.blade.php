@@ -61,9 +61,7 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $iron->required ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $iron->key ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $village->on->iron->key ] )
                             @endif
 
                         </div>

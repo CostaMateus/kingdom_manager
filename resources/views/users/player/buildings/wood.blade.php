@@ -61,9 +61,7 @@
                                     </div>
                                 </div>
                             @else
-                                @if ( !empty( $wood->required ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $wood->key ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $village->on->wood->key ] )
                             @endif
 
                         </div>
