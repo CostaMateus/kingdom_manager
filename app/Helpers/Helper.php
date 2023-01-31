@@ -66,8 +66,8 @@ class Helper
         }
 
         return [
-            "on"  => json_decode( json_encode( $buildingsOn  ), FALSE ),
-            "off" => json_decode( json_encode( $buildingsOff ), FALSE ),
+            "on"  => json_decode( json_encode( $buildingsOn  ), false ),
+            "off" => json_decode( json_encode( $buildingsOff ), false ),
         ];
     }
 
@@ -75,12 +75,11 @@ class Helper
     {
         foreach ( $village->on as $key => &$building )
         {
-            $level           = $village->{"building_{$key}"};
-            $building->level = $level;
+            $building->level = $village->{"building_{$key}"};
 
-            if ( $level > 1 )
+            if ( $building->level > 1 )
             {
-                foreach ( range( 2, $level ) as $i )
+                foreach ( range( 2, $building->level ) as $i )
                 {
                     $building->wood       = $building->wood       * $building->wood_factor;
                     $building->clay       = $building->clay       * $building->clay_factor;
@@ -92,8 +91,8 @@ class Helper
                     $auxPop2              = $auxPop1    - $building->pop;
                     $auxPoints2           = $auxPoints1 - $building->points;
 
-                    $building->pop        = ( $i == $level ) ? $auxPop2    : $auxPop1;
-                    $building->points     = ( $i == $level ) ? $auxPoints2 : $auxPoints1;
+                    $building->pop        = ( $i == $building->level ) ? $auxPop2    : $auxPop1;
+                    $building->points     = ( $i == $building->level ) ? $auxPoints2 : $auxPoints1;
 
                     if ( property_exists( $building, "time"       ) ) $building->time       = $building->time       * $building->time_factor;
                     if ( property_exists( $building, "production" ) ) $building->production = $building->production * $building->production_factor;
@@ -105,6 +104,12 @@ class Helper
                     if ( property_exists( $building, "defense"    ) ) $building->defense    = $building->defense    * $building->defense_factor;
                 }
             }
+        }
+
+        if ( $village->off )
+        {
+            foreach ( $village->off as &$building )
+                $building->level = 0;
         }
 
         $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->on->wood->production : 0 ) * config( "game.speed" );
