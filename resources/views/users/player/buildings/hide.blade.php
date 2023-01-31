@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "hide" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Capacidade por nível",
+                            "field"    => "capacity",
+                            "uni"      => "",
+                            "building" => $buildings[ "hide" ]
+                        ] )
 
                         {{-- TODO --}}
                         {{-- não implementado --}}

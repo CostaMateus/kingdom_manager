@@ -43,6 +43,7 @@
                                                 </thead>
                                                 <tbody>
                                                     @php
+                                                        $arr        = [ "capacity", "max_pop", "time", "influence", "merchants", "defense", "range" ];
                                                         $maxLevel   = $building[ "max_level"       ];
 
                                                         $base       = $building[ $field            ];
@@ -53,7 +54,7 @@
                                                     @endphp
                                                     @foreach ( range( 1, $maxLevel ) as $i )
                                                         @php
-                                                            $print       = ( $field == "time" ) ? $base : $base * config( "game.speed" );
+                                                            $print       = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
                                                             $base2       = $base;
                                                             $pointsBase2 = $pointsBase;
 
@@ -73,7 +74,7 @@
                                                                     $base  = $cal;
                                                                     $base2 = $cal;
 
-                                                                    $print = $base2 * config( "game.speed" );
+                                                                    $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
                                                                 }
 
                                                                 $cal         = $pointsBase * $pointsRate;

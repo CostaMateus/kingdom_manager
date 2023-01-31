@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "church" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Área de influência por nível",
+                            "field"    => "influence",
+                            "uni"      => " campos",
+                            "building" => $buildings[ "church" ]
+                        ] )
 
                         {{-- TODO --}}
                         {{-- não implementado --}}
