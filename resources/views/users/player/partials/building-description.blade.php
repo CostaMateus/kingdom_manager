@@ -1,9 +1,8 @@
 
                         <div class="row" >
                             @php
-                                $building = config( "game_buildings.{$key}" );
                                 $building = json_decode( json_encode( $building ), false );
-
+                                $key      = $building->key;
                                 $auxLevel = ( property_exists( $village->on, $key ) ) ? $village->on->$key->level : $village->off->$key->level;
                                 $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
                                 $png      = Helper::getLevelImage( $key, $auxLevel );
