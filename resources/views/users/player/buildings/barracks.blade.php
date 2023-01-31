@@ -45,7 +45,6 @@
                                                         @csrf
                                                         @foreach ( $unitsOn as $key => $unit )
                                                             @php
-                                                                dd($unit);
                                                                 $class      = "success";
                                                                 $disabled   = "";
 
