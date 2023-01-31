@@ -22,10 +22,12 @@
                         ] )
 
                         <div class="row mt-4" >
-                            @php
-                                $iron = ( property_exists( $village->on, "iron" ) ) ? $village->on->iron : $$village->off->iron;
-                            @endphp
-                            @if ( $iron->level > 0 )
+
+                            @if ( $village->building_iron > 0 )
+                                @php
+                                    $iron = $village->on->iron;
+                                @endphp
+
                                 {{-- producao --}}
                                 <div class="col-12 col-xl-9 mx-auto" >
                                     <div class="table-responsive" >
