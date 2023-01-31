@@ -52,7 +52,10 @@ body {
     background-repeat: repeat;
 }
 
-#app .navbar, .bg-km, .btn-km {
+#app .navbar,
+.bg-km,
+.btn-km,
+.modal-content {
     background-image: url( "/assets/graphic/background/main.jpg" );
     background-repeat: repeat;
 }

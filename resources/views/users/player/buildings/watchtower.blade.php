@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "watchtower" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Alcance por nível",
+                            "field"    => "range",
+                            "uni"      => " campos",
+                            "building" => $buildings[ "watchtower" ]
+                        ] )
 
                         <div class="row mt-4" >
 
@@ -66,16 +71,15 @@
                                                 @foreach ( range( 1, $wt_max ) as $i )
                                                     @php
                                                         $cal   = $base * $rate;
-                                                        $base2 = round( $cal, 0, PHP_ROUND_HALF_DOWN );
-                                                        $base3 = $base2 - ( round( $base, 0, PHP_ROUND_HALF_DOWN ) );
                                                         $base  = $cal;
+                                                        $base2 = $cal;
                                                     @endphp
                                                     <tr class="text-center" >
                                                         <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                             Nível {{ $i }}
                                                         </td>
                                                         <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            {{ ( int ) ( $base3 ) }} campos
+                                                            {{ ( int ) ( $base2 ) }} campos
                                                         </td>
                                                     </tr>
                                                 @endforeach

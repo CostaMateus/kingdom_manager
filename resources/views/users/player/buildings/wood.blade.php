@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "wood" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Produção por nível",
+                            "field"    => "production",
+                            "uni"      => "/h",
+                            "building" => $buildings[ "wood" ]
+                        ] )
 
                         <div class="row mt-4" >
 

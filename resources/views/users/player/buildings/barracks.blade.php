@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "barracks" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Tempo reduzido por nível",
+                            "field"    => "time",
+                            "uni"      => "%",
+                            "building" => $buildings[ "barracks" ]
+                        ] )
 
                         {{-- não implementado --}}
                         @include( "users/player/partials.warning", [ "warning_text" => "Recrutamento de infantaria não implementado!" ] )

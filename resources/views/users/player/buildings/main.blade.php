@@ -13,7 +13,12 @@
                     <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
 
                     <div class="card-body" >
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "main" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => "Tempo reduzido por nível",
+                            "field"    => "time",
+                            "uni"      => "%",
+                            "building" => $buildings[ "main" ]
+                        ] )
 
                         <div class="row mt-4" >
 
