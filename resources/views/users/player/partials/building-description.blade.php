@@ -17,9 +17,11 @@
                                 <p class="h5 mb-0" >
                                     {{ $building[ "description" ] }}
                                 </p>
-                                <button class="fs-6 btn btn-link px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $building[ "key" ] }}" >
-                                    Mais informações
-                                </button>
+                                @if ( $building[ "key" ] != "place" )
+                                    <button class="fs-6 btn btn-link px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $building[ "key" ] }}" >
+                                        Mais informações
+                                    </button>
+                                @endif
                             </div>
                         </div>
 
@@ -27,7 +29,7 @@
                             <div class="modal-dialog" >
                                 <div class="modal-content" >
                                     <div class="modal-header" >
-                                        <h1 class="modal-title fs-5" id="modal_{{ $building[ "key" ] }}_label" >{{ $building[ "name" ] }}</h1>
+                                        <h1 class="modal-title fs-5 fw-bold" id="modal_{{ $building[ "key" ] }}_label" >{{ $building[ "name" ] }}</h1>
                                         <button type="button" class="btn-sm btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                                     </div>
                                     <div class="modal-body" >
@@ -37,49 +39,63 @@
                                                 <thead>
                                                     <tr class="text-center" >
                                                         <th class="w-25" ></th>
-                                                        <th              >{{ $title }}</th>
+                                                        @if ( $title )
+                                                            <th>{{ $title }}</th>
+                                                        @endif
                                                         <th              >Pontos ganhos por nível</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @php
                                                         $arr        = [ "capacity", "max_pop", "time", "influence", "merchants", "defense", "range" ];
-                                                        $maxLevel   = $building[ "max_level"       ];
+                                                        $maxLevel   = $building[ "max_level" ];
 
-                                                        $base       = $building[ $field            ];
-                                                        $rate       = $building[ "{$field}_factor" ];
+                                                        if ( $field )
+                                                        {
+                                                            $base = $building[ $field            ];
+                                                            $rate = $building[ "{$field}_factor" ];
+                                                        }
 
-                                                        $pointsBase = $building[ "points"          ];
-                                                        $pointsRate = $building[ "points_factor"   ];
+                                                        $pointsBase = $building[ "points"        ];
+                                                        $pointsRate = $building[ "points_factor" ];
                                                     @endphp
                                                     @foreach ( range( 1, $maxLevel ) as $i )
                                                         @php
-                                                            $print       = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
-                                                            $base2       = $base;
+                                                            if ( $field )
+                                                            {
+                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
+                                                                $base2 = $base;
+                                                            }
+
                                                             $pointsBase2 = $pointsBase;
 
                                                             if ( $i > 1 )
                                                             {
-                                                                if ( $field == "time" )
+                                                                if ( $field )
                                                                 {
-                                                                    $cal   = $base * $rate;
-                                                                    $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
-                                                                    $base2 = ( $cal - $base ) * -1;
+                                                                    if ( $field == "time" )
+                                                                    {
+                                                                        $cal   = $base * $rate;
+                                                                        $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
+                                                                        $base2 = ( $cal - $base ) * -1;
 
-                                                                    $print = $base2;
+                                                                        $print = $base2;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $cal   = $base * $rate;
+                                                                        $base  = $cal;
+                                                                        $base2 = $cal;
+
+                                                                        $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
+                                                                    }
                                                                 }
                                                                 else
                                                                 {
-                                                                    $cal   = $base * $rate;
-                                                                    $base  = $cal;
-                                                                    $base2 = $cal;
-
-                                                                    $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
+                                                                    $cal         = $pointsBase * $pointsRate;
+                                                                    $pointsBase2 = $cal - $pointsBase;
+                                                                    $pointsBase  = $cal;
                                                                 }
-
-                                                                $cal         = $pointsBase * $pointsRate;
-                                                                $pointsBase2 = $cal - $pointsBase;
-                                                                $pointsBase  = $cal;
                                                             }
 
                                                             $key = $building[ "key" ];
@@ -88,9 +104,11 @@
                                                             <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                                 Nível {{ $i }}
                                                             </td>
-                                                            <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                                {{ ( int ) ( $print ) }}{{ $uni }}
-                                                            </td>
+                                                            @if ( $title && $field )
+                                                                <td @if ( $loop->last ) class="border-bottom-0" @endif >
+                                                                    {{ ( int ) ( $print ) }}{{ $uni }}
+                                                                </td>
+                                                            @endif
                                                             <td @if ( $loop->last ) class="border-bottom-0" @endif >
                                                                 {{ ( int ) ( $pointsBase2 ) }}
                                                             </td>

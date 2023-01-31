@@ -14,7 +14,12 @@
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
-                        @include( "users/player/partials.building-description", [ "building" => $buildings[ "place" ] ] )
+                        @include( "users/player/partials.building-description", [
+                            "title"    => null,
+                            "field"    => null,
+                            "uni"      => null,
+                            "building" => $buildings[ "place" ]
+                        ] )
 
                         {{-- TODO --}}
                         {{-- não implementado --}}
