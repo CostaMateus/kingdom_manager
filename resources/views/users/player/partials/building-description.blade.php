@@ -97,7 +97,10 @@
                                                                 $pointsBase  = $cal;
                                                             }
 
-                                                            if ( $field && $field == "production" ) $print = number_format( $print, 0, ",", "." );
+                                                            if ( $field && $field == "production" )
+                                                                $print = number_format( $print, 0, ",", "." );
+                                                            else
+                                                                $print = ( int ) $print;
                                                         @endphp
 
                                                         <tr class="text-center @if ( $i == $auxLevel ) table-active @endif" >

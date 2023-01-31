@@ -4,15 +4,15 @@
 
                             @php
                                 $b     = ( property_exists( $village->on, $name ) ) ? $village->on->$name : $village->off->$name;
-                                $png   = Helper::getLevelImage( $village->on->main->key, $village->on->main->level );
-                                $img   = "{$village->on->main->key}{$png}.png";
+                                $pngR  = Helper::getLevelImage( $village->on->main->key, $village->on->main->level );
+                                $imgR  = "{$village->on->main->key}{$pngR}.png";
                                 $ready = [];
                             @endphp
 
                             @if ( empty( $b->required ) )
                                 <div class="py-2 text-center" >
                                     <a class="btn btn-link" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
-                                        <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
+                                        <img src="{{ asset( "assets/graphic/buildings/{$imgR}" ) }}" alt="{{ $b->name }}" >
                                         <br>
                                         Construir {{ $b->name }}
                                     </a>
@@ -50,7 +50,7 @@
                                 @if ( !in_array( false, $ready ) )
                                     <div class="py-2 text-center" >
                                         <a class="btn btn-link text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
-                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $b->name }}" >
+                                            <img src="{{ asset( "assets/graphic/buildings/{$imgR}" ) }}" alt="{{ $b->name }}" >
                                             <br>
                                             Construir {{ $b->name }}
                                         </a>
