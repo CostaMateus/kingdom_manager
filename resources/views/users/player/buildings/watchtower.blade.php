@@ -24,8 +24,43 @@
                         <div class="row mt-4" >
 
                             @if ( $village->building_watchtower > 0 )
-                                {{-- capacidade --}}
-                                <div class="col-12 col-xl-5 ms-auto" >
+                                @php
+                                    $watchtower = $village->on->watchtower;
+                                @endphp
+
+                                {{-- visao --}}
+                                <div class="col-12 col-xl-9 mx-auto" >
+                                    <div class="table-responsive" >
+                                        <table class="table table-hover table-sm align-middle mb-0" >
+                                            <thead>
+                                                <tr>
+                                                    <th>Visão da torre</th>
+                                                    <th class="text-center" >Nível atual</th>
+                                                    @if ( $watchtower->level != $watchtower->max_level )
+                                                        <th class="text-center" >Próximo nível</th>
+                                                    @endif
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="border-bottom-0" >
+                                                        Alcanse da visão
+                                                    </td>
+                                                    <td class="border-bottom-0 text-center" >
+                                                        {{ ( int ) ( $village->on->watchtower->range ) }} campos
+                                                    </td>
+                                                    @if ( $watchtower->level != $watchtower->max_level )
+                                                        <td class="border-bottom-0 text-center" >
+                                                            {{ ( int ) ( $village->on->watchtower->range * $village->on->watchtower->range_factor ) }} campos
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-xl-9 mx-auto mt-5" >
                                     <p class="fs-3 fw-bold mb-0" >Torre ativa</p>
                                     <p>
                                         Sua Torre de vigia está ativa e verificando ataques em suas aldeias. Quando um ataque estiver no alcance da torre ficará disponível. Ataques a caminho que eventualmente serão detectados pela torre de vigia serão marcados com o símbolo de um olho.
@@ -53,44 +88,8 @@
                                         Ataque será detectado por uma torre vigia
                                     </p>
                                 </div>
-
-                                <div class="col-12 col-xl-5 me-auto" >
-                                    <div class="table-responsive" >
-                                        <table class="table table-hover table-sm align-middle mb-0" >
-                                            <thead>
-                                                <tr class="text-center" >
-                                                    <th colspan="2" >Visão da torre</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @php
-                                                    $wt_max = $buildingsOn[ "watchtower" ][ "max_level"    ];
-                                                    $base   = $buildingsOn[ "watchtower" ][ "range"        ];
-                                                    $rate   = $buildingsOn[ "watchtower" ][ "range_factor" ];
-                                                @endphp
-                                                @foreach ( range( 1, $wt_max ) as $i )
-                                                    @php
-                                                        $cal   = $base * $rate;
-                                                        $base  = $cal;
-                                                        $base2 = $cal;
-                                                    @endphp
-                                                    <tr class="text-center" >
-                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            Nível {{ $i }}
-                                                        </td>
-                                                        <td @if ( $loop->last ) class="border-bottom-0" @endif >
-                                                            {{ ( int ) ( $base2 ) }} campos
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
                             @else
-                                @if ( !empty( $buildings[ "watchtower" ][ "required" ] ) )
-                                    @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
-                                @endif
+                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
                             @endif
 
                         </div>
