@@ -25,7 +25,7 @@
 
                             @if ( $village->building_iron > 0 )
                                 @php
-                                    $iron = $village->on->iron;
+                                    $iron = $village->buildings->on->iron;
                                 @endphp
 
                                 {{-- producao --}}
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $village->on->iron->key ] )
+                                @include( "users/player/partials.building-require", [ "name" => $village->buildings->on->iron->key ] )
                             @endif
 
                         </div>

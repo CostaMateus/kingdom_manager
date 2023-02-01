@@ -25,7 +25,7 @@
 
                             @if ( $village->building_wood > 0 )
                                 @php
-                                    $wood = $village->on->wood;
+                                    $wood = $village->buildings->on->wood;
                                 @endphp
 
                                 {{-- producao --}}
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $village->on->wood->key ] )
+                                @include( "users/player/partials.building-require", [ "name" => $village->buildings->on->wood->key ] )
                             @endif
 
                         </div>

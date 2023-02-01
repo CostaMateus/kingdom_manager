@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         window.onload = function() {
-            let max    = parseInt( "{{ ( int ) $village->on->warehouse->capacity }}" );
+            let max    = parseInt( "{{ ( int ) $village->buildings->on->warehouse->capacity }}" );
 
             let p_wood = parseInt( "{{ ( int ) $village->prod_wood * config( "game.speed" ) }}" );
             let p_clay = parseInt( "{{ ( int ) $village->prod_clay * config( "game.speed" ) }}" );

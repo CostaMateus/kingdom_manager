@@ -78,7 +78,7 @@
                                                                     $lack_iron  = true;
                                                                 }
 
-                                                                $free_pop = $village->on->farm->max_pop - $village->pop;
+                                                                $free_pop = $village->buildings->on->farm->max_pop - $village->pop;
 
                                                                 if ( $free_pop < 0 || $unit[ "pop" ] > $free_pop )
                                                                 {

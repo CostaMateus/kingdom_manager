@@ -34,7 +34,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ( $village->on as $key => $building )
+                                            @foreach ( $village->buildings->on as $key => $building )
                                                 <tr>
                                                     <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                         <div class="row mx-auto" >
@@ -98,7 +98,7 @@
                                                                 $lack_iron  = true;
                                                             }
 
-                                                            $free_pop = $village->on->farm->max_pop - $village->pop;
+                                                            $free_pop = $village->buildings->on->farm->max_pop - $village->pop;
 
                                                             if ( $free_pop < 0 || $building->pop > $free_pop )
                                                             {
@@ -158,7 +158,7 @@
                             </div>
 
                             {{-- edificios ainda nao construidos --}}
-                            @if( !empty( $village->off ) )
+                            @if( !empty( $village->buildings->off ) )
                                 <div class="col-12 col-xl-9 mx-auto mt-5" >
                                     <div class="table-responsive" >
                                         <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
@@ -169,7 +169,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ( $village->off as $key => $building )
+                                                @foreach ( $village->buildings->off as $key => $building )
                                                     <tr>
                                                         <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             <div class="row mx-auto" >
@@ -186,7 +186,7 @@
                                                         <td class="@if ( $loop->last ) border-bottom-0 @endif" >
                                                             @foreach ( $building->required as $key2 => $level )
                                                                 @php
-                                                                    $disabled = ( property_exists( $village->on, $key2 ) ) ? ( ( $village->on->$key2->level < $level ) ? "disabled" : "" ) : "disabled";
+                                                                    $disabled = ( property_exists( $village->buildings->on, $key2 ) ) ? ( ( $village->buildings->on->$key2->level < $level ) ? "disabled" : "" ) : "disabled";
                                                                     $png      = Helper::getLevelImage( $key2, $level );
                                                                     $img      = "{$key2}{$png}.png";
                                                                 @endphp

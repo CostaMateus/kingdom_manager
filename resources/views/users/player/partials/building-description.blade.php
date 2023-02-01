@@ -3,7 +3,7 @@
                             @php
                                 $building = json_decode( json_encode( $building ), false );
                                 $key      = $building->key;
-                                $auxLevel = ( property_exists( $village->on, $key ) ) ? $village->on->$key->level : $village->off->$key->level;
+                                $auxLevel = ( property_exists( $village->buildings->on, $key ) ) ? $village->buildings->on->$key->level : $village->buildings->off->$key->level;
                                 $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
                                 $png      = Helper::getLevelImage( $key, $auxLevel );
                                 $img      = "{$key}{$png}.png";

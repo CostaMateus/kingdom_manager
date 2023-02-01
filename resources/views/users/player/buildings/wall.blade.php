@@ -25,7 +25,7 @@
 
                             @if ( $village->building_wall > 0 )
                                 @php
-                                    $wall = $village->on->wall;
+                                    $wall = $village->buildings->on->wall;
                                 @endphp
 
                                 {{-- defesa --}}
@@ -47,11 +47,11 @@
                                                         Percentual de defesa bônus
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->on->wall->defense ) }}%
+                                                        {{ ( int ) ( $village->buildings->on->wall->defense ) }}%
                                                     </td>
                                                     @if ( $wall->level != $wall->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $village->on->wall->defense * $village->on->wall->defense_factor ) }}%
+                                                            {{ ( int ) ( $village->buildings->on->wall->defense * $village->buildings->on->wall->defense_factor ) }}%
                                                         </td>
                                                     @endif
                                                 </tr>

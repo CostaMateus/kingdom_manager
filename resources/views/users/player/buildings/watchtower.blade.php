@@ -25,7 +25,7 @@
 
                             @if ( $village->building_watchtower > 0 )
                                 @php
-                                    $watchtower = $village->on->watchtower;
+                                    $watchtower = $village->buildings->on->watchtower;
                                 @endphp
 
                                 {{-- visao --}}
@@ -47,11 +47,11 @@
                                                         Alcanse da visão
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->on->watchtower->range ) }} campos
+                                                        {{ ( int ) ( $village->buildings->on->watchtower->range ) }} campos
                                                     </td>
                                                     @if ( $watchtower->level != $watchtower->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $village->on->watchtower->range * $village->on->watchtower->range_factor ) }} campos
+                                                            {{ ( int ) ( $village->buildings->on->watchtower->range * $village->buildings->on->watchtower->range_factor ) }} campos
                                                         </td>
                                                     @endif
                                                 </tr>
