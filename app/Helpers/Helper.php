@@ -29,11 +29,13 @@ class Helper
 
                 $village->full_research = in_array( false, $researched ) ? false : true;
 
-                $auxOnOff     = $this->getBuildingsLevel( $data[ "buildings" ], $village );
-                $village->on  = $auxOnOff[ "on"  ];
-                $village->off = $auxOnOff[ "off" ];
+                $auxOnOff               = $this->getBuildingsLevel( $data[ "buildings" ], $village );
+                $village->buildings     = json_decode( json_encode( [
+                    "on"  => $auxOnOff[ "on"  ],
+                    "off" => $auxOnOff[ "off" ],
+                ] ), false );
 
-                $village      = $this->calcBuildingsProps( $data[ "buildings" ], $village );
+                $village                = $this->calcBuildingsProps( $data[ "buildings" ], $village );
             }
         }
 
@@ -73,7 +75,7 @@ class Helper
 
     private function calcBuildingsProps( array $buildings, Village $village )
     {
-        foreach ( $village->on as $key => &$building )
+        foreach ( $village->buildings->on as $key => &$building )
         {
             $building->level = $village->{"building_{$key}"};
 
@@ -112,9 +114,9 @@ class Helper
                 $building->level = 0;
         }
 
-        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->on->wood->production : 0 ) * config( "game.speed" );
-        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->on->clay->production : 0 ) * config( "game.speed" );
-        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->on->iron->production : 0 ) * config( "game.speed" );
+        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * config( "game.speed" );
+        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->buildings->on->clay->production : 0 ) * config( "game.speed" );
+        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->buildings->on->iron->production : 0 ) * config( "game.speed" );
 
         return $village;
     }
@@ -164,6 +166,9 @@ class Helper
 
     public function getUnits( &$compact, $building )
     {
+        // unidades por aldeia
+        // tratar como objeto/json
+
         $buildings = [
             "barracks" => [ "spear", "sword", "axe", "archer"  ],
             "stable"   => [ "spy", "light", "marcher", "heavy" ],
