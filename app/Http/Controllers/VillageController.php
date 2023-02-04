@@ -333,6 +333,11 @@ class VillageController extends Controller
         return redirect()->route( "village.smithy", [ "village" => $village ] );
     }
 
+    public function trainUnit( Request $request, Village $village )
+    {
+        dd( $request->all() );
+    }
+
     /**
      * Atualiza o nível do edifício
      *
@@ -346,11 +351,11 @@ class VillageController extends Controller
 
         $auxVlg   = $this->compact[ "village" ];
 
-        $building = ( property_exists( $auxVlg->on, $building ) )
-                    ? $auxVlg->on->$building
-                    : $auxVlg->off->$building;
+        $building = ( property_exists( $auxVlg->buildings->on, $building ) )
+                    ? $auxVlg->buildings->on->$building
+                    : $auxVlg->buildings->off->$building;
 
-        $free_pop = $auxVlg->on->farm->max_pop - $auxVlg->pop;
+        $free_pop = $auxVlg->buildings->on->farm->max_pop - $auxVlg->pop;
 
         $currLvl  = $building->level;
         $maxLvl   = $building->max_level;
