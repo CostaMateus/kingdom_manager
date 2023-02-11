@@ -18,6 +18,10 @@
 
             function getResources()
             {
+                const d = new Date();
+
+                if ( d.getSeconds() != 0 ) return;
+
                 if ( s_wood < max ) s_wood = parseInt( s_wood + ( p_wood / 60 ) );
                 if ( s_clay < max ) s_clay = parseInt( s_clay + ( p_clay / 60 ) );
                 if ( s_iron < max ) s_iron = parseInt( s_iron + ( p_iron / 60 ) );
@@ -29,8 +33,6 @@
                 $( "#stored_wood span" ).text( s_wood );
                 $( "#stored_clay span" ).text( s_clay );
                 $( "#stored_iron span" ).text( s_iron );
-
-                // console.log( s_wood, s_clay, s_iron );
             }
         };
     </script>
