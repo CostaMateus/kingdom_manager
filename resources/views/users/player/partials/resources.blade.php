@@ -75,5 +75,19 @@
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/pop.png" ) }}"                                  alt="{{ $title_farm }}" >
                         {{ $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
                     </a>
+
+                    {{-- ataque chegando --}}
+                    {{-- esconder qnd não tiver ataques chegando --}}
+                    <a class="btn btn-light btn-km" href="#" title="Ataque chegando" >
+                        <img width="15" src="{{ asset( "assets/graphic/attack/att.png" ) }}" alt="Ataque chegando" >
+                        4
+                    </a>
+
+                    {{-- apoio chegando --}}
+                    {{-- esconder qnd não tiver ataques chegando --}}
+                    <a class="btn btn-light btn-km" href="#" title="Apoio chegando" >
+                        <img width="15" src="{{ asset( "assets/graphic/attack/def.png" ) }}" alt="Apoio chegando" >
+                        6
+                    </a>
                 </div>
             </div>
