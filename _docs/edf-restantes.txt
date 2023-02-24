@@ -1,0 +1,11 @@
+
+- church     | area de influencia
+- farm       | milicia
+- warehouse  | qnd ficara cheio
+- hide       | qndtt de recurso escondido por nivel
+- wall       | % de defesa por nivel
+
+- academy    | recrutamento nobre e cunhar moeda
+- place      | menus de ataque/coleta e etc
+- statue     | paladino
+- market     | venda/compra e todos menus
