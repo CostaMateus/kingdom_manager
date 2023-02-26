@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
