@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
@@ -29,7 +30,7 @@
 
                             @if ( $village->building_farm > 0 )
                                 @php
-                                    $farm = $village->on->farm;
+                                    $farm = $village->buildings->on->farm;
                                 @endphp
 
                                 {{-- populacao --}}
@@ -52,11 +53,11 @@
                                                         População máxima atual
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->on->farm->max_pop ) }}
+                                                        {{ ( int ) ( $village->buildings->on->farm->max_pop ) }}
                                                     </td>
                                                     @if ( $farm->level != $farm->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $village->on->farm->max_pop * $village->on->farm->max_pop_factor ) }}
+                                                            {{ ( int ) ( $village->buildings->on->farm->max_pop * $village->buildings->on->farm->max_pop_factor ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -79,7 +80,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $village->on->farm->key ] )
+                                @include( "users/player/partials.building-require", [ "name" => $village->buildings->on->farm->key ] )
                             @endif
 
                         </div>

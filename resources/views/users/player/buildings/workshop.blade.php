@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
@@ -78,7 +79,7 @@
                                                                     $lack_iron  = true;
                                                                 }
 
-                                                                $free_pop = $village->on->farm->max_pop - $village->pop;
+                                                                $free_pop = $village->buildings->on->farm->max_pop - $village->pop;
 
                                                                 if ( $free_pop < 0 || $unit[ "pop" ] > $free_pop )
                                                                 {

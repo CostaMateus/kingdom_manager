@@ -107,9 +107,10 @@ Route::middleware( [ "auth" ] )->group( function () {
             Route::get( "/wall",       [ VillageController::class, "wall"       ] )->name( "wall"       );
             Route::get( "/watchtower", [ VillageController::class, "watchtower" ] )->name( "watchtower" );
 
-            Route::post( "/research/{unit}",    [ VillageController::class, "researchUnit"      ] )->name( "research.unit"    );
-            Route::post( "/upgrade/{building}", [ VillageController::class, "upgradeBuilding"   ] )->name( "upgrade.building" );
-            Route::post( "/changeName",         [ VillageController::class, "changeVillageName" ] )->name( "change.name"      );
+            Route::post( "/unit/train/",          [ VillageController::class, "trainUnit"         ] )->name( "train.unit"       );
+            Route::post( "/unit/research/{unit}", [ VillageController::class, "researchUnit"      ] )->name( "research.unit"    );
+            Route::post( "/upgrade/{building}",   [ VillageController::class, "upgradeBuilding"   ] )->name( "upgrade.building" );
+            Route::post( "/changeName",           [ VillageController::class, "changeVillageName" ] )->name( "change.name"      );
         } );
     } );
 

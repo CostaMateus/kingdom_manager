@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Game;
 
+use Carbon\Carbon;
 use App\Models\Village;
 use App\Events\RealTimeMessage;
 use Illuminate\Console\Command;
@@ -29,7 +30,7 @@ class Resources extends Command
      */
     public function handle()
     {
-        $speed        = config( "game.speed" );
+        $current_time = Carbon::now();
 
         $villages     = Village::all();
         $auxBuildings = [
@@ -42,7 +43,9 @@ class Resources extends Command
 
         foreach ( $villages as $village )
         {
-            $changed = false;
+            $changed      = false;
+            $last_update  = new Carbon( $village->updated_stored );
+            $time_elapsed = $current_time->diffInSeconds( $last_update );
 
             $this->calc( $village, "warehouse", "capacity", $buildings );
 
@@ -50,11 +53,9 @@ class Resources extends Command
             {
                 $this->calc( $village, "wood", "production", $buildings );
 
-                /**
-                 * TODO remover speed / alterar valor do speed
-                 */
-                $wood                 = ( int ) $buildings[ "wood" ][ "production" ] * $speed;
-                $village->stored_wood = ( int ) ( $village->stored_wood + $wood );
+                $wood_produced        = $time_elapsed * ( $buildings[ "wood" ][ "production" ] / 60 / 60 );
+                $new_wood             = $village->stored_wood + $wood_produced;
+                $village->stored_wood = $new_wood;
 
                 if ( $village->stored_wood > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_wood = $buildings[ "warehouse" ][ "capacity" ];
@@ -66,11 +67,9 @@ class Resources extends Command
             {
                 $this->calc( $village, "clay", "production", $buildings );
 
-                /**
-                 * TODO remover speed / alterar valor do speed
-                 */
-                $clay                 = ( int ) $buildings[ "clay" ][ "production" ] * $speed;
-                $village->stored_clay = ( int ) ( $village->stored_clay + $clay );
+                $clay_produced        = $time_elapsed * ( $buildings[ "clay" ][ "production" ] / 60 / 60 );
+                $new_clay             = $village->stored_clay + $clay_produced;
+                $village->stored_clay = $new_clay;
 
                 if ( $village->stored_clay > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_clay = $buildings[ "warehouse" ][ "capacity" ];
@@ -82,11 +81,9 @@ class Resources extends Command
             {
                 $this->calc( $village, "iron", "production", $buildings );
 
-                /**
-                 * TODO remover speed / alterar valor do speed
-                 */
-                $iron                 = ( int ) $buildings[ "iron" ][ "production" ] * $speed;
-                $village->stored_iron = ( int ) ( $village->stored_iron + $iron );
+                $iron_produced        = $time_elapsed * ( $buildings[ "iron" ][ "production" ] / 60 / 60 );
+                $new_iron             = $village->stored_iron + $iron_produced;
+                $village->stored_iron = $new_iron;
 
                 if ( $village->stored_iron > $buildings[ "warehouse" ][ "capacity" ] )
                     $village->stored_iron = $buildings[ "warehouse" ][ "capacity" ];
@@ -96,7 +93,7 @@ class Resources extends Command
 
             if ( $changed )
             {
-                // $village->updated_resource = now();
+                $village->updated_stored = now();
                 $village->save();
             }
 
@@ -106,10 +103,18 @@ class Resources extends Command
 
     private function calc( Village $village, string $building, string $type, array &$buildings )
     {
+        $speed = config( "game.speed" );
         $level = $village->{"building_{$building}"};
 
         if ( $level > 0 )
+        {
             foreach ( range( 1, $level ) as $i )
-                $buildings[ $building ][ $type ] = ( int ) $buildings[ $building ][ $type ] * $buildings[ $building ][ "{$type}_factor" ];
+            {
+                $t  = $buildings[ $building ][ $type ];
+                $tf = $buildings[ $building ][ "{$type}_factor" ];
+
+                $buildings[ $building ][ $type ] = $t * $tf * $speed;
+            }
+        }
     }
 }

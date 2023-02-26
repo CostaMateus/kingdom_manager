@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
@@ -25,7 +26,7 @@
 
                             @if ( $village->building_wood > 0 )
                                 @php
-                                    $wood = $village->on->wood;
+                                    $wood = $village->buildings->on->wood;
                                 @endphp
 
                                 {{-- producao --}}
@@ -35,7 +36,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Produção</th>
-                                                    <th class="text-center" >Nível atual (por minuto)</th>
+                                                    <th class="text-center" >Nível atual (por hora)</th>
                                                     @if ( $wood->level != $wood->max_level )
                                                         <th class="text-center" >Próximo nível</th>
                                                     @endif
@@ -61,7 +62,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $village->on->wood->key ] )
+                                @include( "users/player/partials.building-require", [ "name" => $village->buildings->on->wood->key ] )
                             @endif
 
                         </div>

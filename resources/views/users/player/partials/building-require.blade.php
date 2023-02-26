@@ -3,9 +3,9 @@
                         <div class="col-12 col-xl-9 mx-auto mt-5" >
 
                             @php
-                                $b     = ( property_exists( $village->on, $name ) ) ? $village->on->$name : $village->off->$name;
-                                $pngR  = Helper::getLevelImage( $village->on->main->key, $village->on->main->level );
-                                $imgR  = "{$village->on->main->key}{$pngR}.png";
+                                $b     = ( property_exists( $village->buildings->on, $name ) ) ? $village->buildings->on->$name : $village->buildings->off->$name;
+                                $pngR  = Helper::getLevelImage( $village->buildings->on->main->key, $village->buildings->on->main->level );
+                                $imgR  = "{$village->buildings->on->main->key}{$pngR}.png";
                                 $ready = [];
                             @endphp
 

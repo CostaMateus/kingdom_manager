@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
@@ -29,7 +30,7 @@
 
                             @if ( $village->building_warehouse > 0 )
                                 @php
-                                    $warehouse = $village->on->warehouse;
+                                    $warehouse = $village->buildings->on->warehouse;
                                 @endphp
 
                                 {{-- capacidade --}}
@@ -52,11 +53,11 @@
                                                         Capacidade atual por recurso
                                                     </td>
                                                     <td class="border-bottom-0 text-center" >
-                                                        {{ ( int ) ( $village->on->warehouse->capacity ) }}
+                                                        {{ ( int ) ( $village->buildings->on->warehouse->capacity ) }}
                                                     </td>
                                                     @if ( $warehouse->level != $warehouse->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{ ( int ) ( $village->on->->warehouse->capacity * $village->on->->warehouse->capacity_factor ) }}
+                                                            {{ ( int ) ( $village->buildings->on->warehouse->capacity * $village->buildings->on->warehouse->capacity_factor ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
@@ -70,7 +71,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $village->on->warehouse->key ] )
+                                @include( "users/player/partials.building-require", [ "name" => $village->buildings->on->warehouse->key ] )
                             @endif
 
                         </div>

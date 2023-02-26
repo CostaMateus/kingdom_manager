@@ -3,7 +3,7 @@
                             @php
                                 $building = json_decode( json_encode( $building ), false );
                                 $key      = $building->key;
-                                $auxLevel = ( property_exists( $village->on, $key ) ) ? $village->on->$key->level : $village->off->$key->level;
+                                $auxLevel = ( property_exists( $village->buildings->on, $key ) ) ? $village->buildings->on->$key->level : $village->buildings->off->$key->level;
                                 $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
                                 $png      = Helper::getLevelImage( $key, $auxLevel );
                                 $img      = "{$key}{$png}.png";
@@ -18,6 +18,11 @@
                                 <p class="h5 mb-0" >
                                     {{ $building->description }}
                                 </p>
+                                {{-- @if ( $key == "wood" || $key == "clay" || $key == "iron" )
+                                    <p class="h5 mt-3 mb-0" >
+                                        Os recursos são atualizados de <b>minuto em minuto</b>.
+                                    </p>
+                                @endif --}}
                                 @if ( $key != "place" )
                                     <button class="fs-6 btn btn-link text-decoration-none px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $key }}" >
                                         Mais informações

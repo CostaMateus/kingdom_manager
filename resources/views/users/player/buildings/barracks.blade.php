@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         {{-- descricao do edificio --}}
@@ -41,7 +42,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <form id="form-units" method="POST" action="#" >
+                                                    <form id="form-units" method="POST" action="{{ route( "village.train.unit", [ "village" => $village ] ) }}" >
                                                         @csrf
                                                         @foreach ( $unitsOn as $key => $unit )
                                                             @php
@@ -65,11 +66,19 @@
                                                                     $class_wood = "text-danger";
                                                                     $lack_wood  = true;
                                                                 }
+                                                                else
+                                                                {
+                                                                    $calc_wood  = $village->stored_wood / $unit[ "wood" ];
+                                                                }
 
                                                                 if ( $unit[ "clay" ] > $village->stored_clay )
                                                                 {
                                                                     $class_clay = "text-danger";
                                                                     $lack_clay  = true;
+                                                                }
+                                                                else
+                                                                {
+                                                                    $calc_clay  = $village->stored_clay / $unit[ "clay" ];
                                                                 }
 
                                                                 if ( $unit[ "iron" ] > $village->stored_iron )
@@ -77,8 +86,14 @@
                                                                     $class_iron = "text-danger";
                                                                     $lack_iron  = true;
                                                                 }
+                                                                else
+                                                                {
+                                                                    $calc_iron  = $village->stored_iron / $unit[ "iron" ];
+                                                                }
 
-                                                                $free_pop = $village->on->farm->max_pop - $village->pop;
+                                                                // dd( $calc_wood, $calc_clay, $calc_iron );
+
+                                                                $free_pop = $village->buildings->on->farm->max_pop - $village->pop;
 
                                                                 if ( $free_pop < 0 || $unit[ "pop" ] > $free_pop )
                                                                 {

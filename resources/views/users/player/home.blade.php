@@ -121,10 +121,10 @@
                                             {{-- fazenda --}}
                                             <td class="text-center" >
                                                 @php
-                                                    $class_pop = ( $village->pop >= ( 0.9 * $village->on->farm->max_pop ) ) ? "text-danger" : "";
+                                                    $class_pop = ( $village->pop >= ( 0.9 * $village->buildings->on->farm->max_pop ) ) ? "text-danger" : "";
                                                 @endphp
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
-                                                    {{ ( int ) $village->pop }}/{{ ( int ) $village->on->farm->max_pop }}
+                                                    {{ ( int ) $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
                                                 </a>
                                             </td>
 

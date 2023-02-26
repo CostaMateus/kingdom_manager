@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command( "game:resources" )->everyMinute()->withoutOverlapping()->runInBackground();
+        $schedule->command( "game:resources" )->hourly()->withoutOverlapping()->runInBackground();
     }
 
     /**
