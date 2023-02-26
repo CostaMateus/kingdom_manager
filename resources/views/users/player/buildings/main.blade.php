@@ -10,7 +10,8 @@
 
             <div class="col-12" >
                 <div class="card border-0" >
-                    <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
+                    {{-- nome e pontuação da aldeia --}}
+                    @include( "users/player/partials.building-name" )
 
                     <div class="card-body" >
                         @include( "users/player/partials.building-description", [
@@ -142,7 +143,13 @@
                                                                 href="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
                                                                 Nível {{ $building->level + 1 }}
                                                             </a>
-                                                            <form id="form-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" > @csrf </form>
+                                                            <form id="form-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
+                                                                @csrf
+                                                                <input type="hidden" name="wood" value="{{ $building->wood }}" >
+                                                                <input type="hidden" name="clay" value="{{ $building->clay }}" >
+                                                                <input type="hidden" name="iron" value="{{ $building->iron }}" >
+                                                                <input type="hidden" name="pop"  value="{{ $building->pop  }}" >
+                                                            </form>
                                                         </td>
                                                     @else
                                                         <td class="text-center text-muted @if ( $loop->last ) border-bottom-0 @endif" >
