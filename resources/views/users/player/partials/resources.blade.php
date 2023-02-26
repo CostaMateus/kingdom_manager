@@ -41,27 +41,27 @@
                         $title_farm  = $buildings[ "farm"      ][ "name" ];
                         $title_wh    = $buildings[ "warehouse" ][ "name" ];
 
-                        $compl_wood  = $title_wood . ": " . number_format( $village->prod_wood, 0, ",", "." ) . "/min";
-                        $compl_clay  = $title_clay . ": " . number_format( $village->prod_clay, 0, ",", "." ) . "/min";
-                        $compl_iron  = $title_iron . ": " . number_format( $village->prod_iron, 0, ",", "." ) . "/min";
+                        $compl_wood  = $title_wood . ": " . number_format( $village->prod_wood, 0, ",", "." ) . "/h";
+                        $compl_clay  = $title_clay . ": " . number_format( $village->prod_clay, 0, ",", "." ) . "/h";
+                        $compl_iron  = $title_iron . ": " . number_format( $village->prod_iron, 0, ",", "." ) . "/h";
                     @endphp
 
                     {{-- wood --}}
                     <a id="stored_wood" class="btn btn-light btn-km {{ $class_wood }}" href="{{ $route_wood }}" title="{{ $compl_wood }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood"      ][ "key" ]}.png" ) }}" alt="{{ $title_wood }}" >
-                        <span>{{ $village->stored_wood }}</span>
+                        <span>{{ ( int ) $village->stored_wood }}</span>
                     </a>
 
                     {{-- clay --}}
                     <a id="stored_clay" class="btn btn-light btn-km {{ $class_clay }}" href="{{ $route_clay }}" title="{{ $compl_clay }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay"      ][ "key" ]}.png" ) }}" alt="{{ $title_clay }}" >
-                        <span>{{ $village->stored_clay }}</span>
+                        <span>{{ ( int ) $village->stored_clay }}</span>
                     </a>
 
                     {{-- iron --}}
                     <a id="stored_iron" class="btn btn-light btn-km {{ $class_iron }}" href="{{ $route_iron }}" title="{{ $compl_iron }}" >
                         <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron"      ][ "key" ]}.png" ) }}" alt="{{ $title_iron }}" >
-                        <span>{{ $village->stored_iron }}</span>
+                        <span>{{ ( int ) $village->stored_iron }}</span>
                     </a>
 
                     {{-- warehouse --}}
