@@ -406,17 +406,17 @@ class VillageController extends Controller
         $currLvl  = $building->level;
         $maxLvl   = $building->max_level;
 
-        $w        = $building->wood == $request->wood;
-        $c        = $building->clay == $request->clay;
-        $i        = $building->iron == $request->iron;
+        $w        = ( int ) $building->wood == ( int ) $request->wood;
+        $c        = ( int ) $building->clay == ( int ) $request->clay;
+        $i        = ( int ) $building->iron == ( int ) $request->iron;
+        $bw       = $building->wood <= $auxVlg->stored_wood;
+        $bc       = $building->clay <= $auxVlg->stored_clay;
+        $bi       = $building->iron <= $auxVlg->stored_iron;
+        $bp       = $building->pop  <= $free_pop;
 
         if ( $currLvl < $maxLvl )
         {
-            if ( $w && $c && $i &&
-                 $building->wood <= $auxVlg->stored_wood &&
-                 $building->clay <= $auxVlg->stored_clay &&
-                 $building->iron <= $auxVlg->stored_iron &&
-                 $building->pop  <= $free_pop )
+            if ( $w && $c && $i && $bw && $bc && $bi && $bp )
             {
                 $current_time = Carbon::now();
                 $last_update  = new Carbon( $village->updated_stored );
