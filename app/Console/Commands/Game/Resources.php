@@ -110,10 +110,11 @@ class Resources extends Command
         {
             foreach ( range( 1, $level ) as $i )
             {
-                $t  = $buildings[ $building ][ $type ];
-                $tf = $buildings[ $building ][ "{$type}_factor" ];
+                $t   = $buildings[ $building ][ $type ];
+                $tf  = $buildings[ $building ][ "{$type}_factor" ];
+                $aux = ( $type == "production" ) ? $t * $tf * $speed : $t * $tf;
 
-                $buildings[ $building ][ $type ] = $t * $tf * $speed;
+                $buildings[ $building ][ $type ] = $aux;
             }
         }
     }
