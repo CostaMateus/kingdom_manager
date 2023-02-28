@@ -133,7 +133,7 @@
                                                                 </div>
                                                                 <div class="px-1 col-12 col-sm-8 col-lg-4" title="Tempo" >
                                                                     <img src="{{ asset( "assets/graphic/buildings/icons/time.png" ) }}" alt="Tempo" >
-                                                                    {{ ( int ) $building->build_time }}
+                                                                    {{ Helper::formatBuildTime( ( int ) $building->build_time ) }}
                                                                 </div>
                                                             </div>
                                                         </td>

@@ -35,12 +35,8 @@ class Helper
                 $village->full_research = in_array( false, $researched ) ? false : true;
 
                 $auxOnOff               = $this->getBuildingsLevel( $data[ "buildings" ], $village );
-                $village->buildings     = json_decode( json_encode( [
-                    "on"  => $auxOnOff[ "on"  ],
-                    "off" => $auxOnOff[ "off" ],
-                ] ), false );
-
-                $village                = $this->calcBuildingsProps( $data[ "buildings" ], $village );
+                $village->buildings     = json_decode( json_encode( $auxOnOff ), false );
+                $village                = $this->calcBuildingsProps( $village );
             }
         }
 
@@ -78,50 +74,78 @@ class Helper
         ];
     }
 
-    private function calcBuildingsProps( array $buildings, Village $village )
+    private function calcBuildingsProps( Village $village )
     {
         foreach ( $village->buildings->on as $key => &$building )
         {
             $building->level = $village->{"building_{$key}"};
 
-            if ( $building->level > 1 )
+            foreach ( range( 1, $building->level ) as $i )
             {
-                foreach ( range( 2, $building->level ) as $i )
+                $building->build_time = $this->getBuildTIme( $village->buildings->on->main, $building );
+
+                if ( $building->level == 1 ) continue;
+
+                $building->wood       = $building->wood       * $building->wood_factor;
+                $building->clay       = $building->clay       * $building->clay_factor;
+                $building->iron       = $building->iron       * $building->iron_factor;
+
+                $building->pop        = $building->pop        * $building->pop_factor;
+
+                $auxPoints1           = $building->points     * $building->points_factor;
+                $auxPoints2           = $auxPoints1 - $building->points;
+                $building->points     = ( $i == $building->level ) ? $auxPoints2 : $auxPoints1;
+
+                if ( property_exists( $building, "time" ) )
                 {
-                    $building->wood       = $building->wood       * $building->wood_factor;
-                    $building->clay       = $building->clay       * $building->clay_factor;
-                    $building->iron       = $building->iron       * $building->iron_factor;
-                    $building->build_time = $building->build_time * $building->build_time_factor;
+                    $cal   = $building->time * $building->time_factor;
+                    $base  = $building->time + round( $cal, 0, PHP_ROUND_HALF_DOWN );
+                    $base2 = ( $cal - $base ) * -1;
 
-                    $building->pop        = $building->pop        * $building->pop_factor;
-
-                    $auxPoints1           = $building->points     * $building->points_factor;
-                    $auxPoints2           = $auxPoints1 - $building->points;
-                    $building->points     = ( $i == $building->level ) ? $auxPoints2 : $auxPoints1;
-
-                    if ( property_exists( $building, "time"       ) ) $building->time       = $building->time       * $building->time_factor;
-                    if ( property_exists( $building, "production" ) ) $building->production = $building->production * $building->production_factor;
-                    if ( property_exists( $building, "max_pop"    ) ) $building->max_pop    = $building->max_pop    * $building->max_pop_factor;
-                    if ( property_exists( $building, "capacity"   ) ) $building->capacity   = $building->capacity   * $building->capacity_factor;
-                    if ( property_exists( $building, "influence"  ) ) $building->influence  = $building->influence  * $building->influence_factor;
-                    if ( property_exists( $building, "merchants"  ) ) $building->merchants  = $building->merchants  * $building->merchants_factor;
-                    if ( property_exists( $building, "range"      ) ) $building->range      = $building->range      * $building->range_factor;
-                    if ( property_exists( $building, "defense"    ) ) $building->defense    = $building->defense    * $building->defense_factor;
+                    $building->time = ( $i == $building->level ) ? $base2 : $base;
                 }
+
+                if ( property_exists( $building, "production" ) ) $building->production = $building->production * $building->production_factor;
+                if ( property_exists( $building, "max_pop"    ) ) $building->max_pop    = $building->max_pop    * $building->max_pop_factor;
+                if ( property_exists( $building, "capacity"   ) ) $building->capacity   = $building->capacity   * $building->capacity_factor;
+                if ( property_exists( $building, "influence"  ) ) $building->influence  = $building->influence  * $building->influence_factor;
+                if ( property_exists( $building, "merchants"  ) ) $building->merchants  = $building->merchants  * $building->merchants_factor;
+                if ( property_exists( $building, "range"      ) ) $building->range      = $building->range      * $building->range_factor;
+                if ( property_exists( $building, "defense"    ) ) $building->defense    = $building->defense    * $building->defense_factor;
             }
         }
 
         if ( $village->off )
-        {
             foreach ( $village->off as &$building )
                 $building->level = 0;
-        }
 
         $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * $this->getSpeed();
         $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->buildings->on->clay->production : 0 ) * $this->getSpeed();
         $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->buildings->on->iron->production : 0 ) * $this->getSpeed();
 
         return $village;
+    }
+
+    private function getBuildTIme( $main, $building )
+    {
+        if ( $building->key == "main" ) return $building->build_time * $building->build_time_factor;
+
+        $base = $building->build_time * $building->build_time_factor;
+
+        $perc = 100 - $main->time;
+        $cal  = $base - ( ( $base * $perc ) / 100 );
+        $cal  = round( $cal, 0, PHP_ROUND_HALF_DOWN );
+
+        return $cal;
+    }
+
+    public static function formatBuildTime( int $seconds )
+    {
+        $h = $seconds / 3600;
+        $m = $seconds / 60 % 60;
+        $s = $seconds % 60;
+
+        return sprintf( "%02d:%02d:%02d", $h, $m, $s );
     }
 
     public static function getLevelImage( $building, $level )

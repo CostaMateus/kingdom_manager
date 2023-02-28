@@ -1,0 +1,53 @@
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/tribe_header.png[/img]
+
+[i]Caros jogadores,
+
+Hoje gostaríamos de apresentar as "habilidades de Tribo". Com esta funcionalidade ao alistar numa tribo e permanecer dentro de suas fileiras irá conceder-lhe benefícios para ajudá-lo nas guerras em diante.
+
+Esta primeira fase irá ganhar "Prestigio" durante semana após juntar-se a uma tribo. O prestigio pode ser usado para impulsionar suas aldeias e / ou tropas, ou pode ser doado à tribo para desbloquear ainda mais bônus e tornar os atuais mais poderosos.[/i]
+
+[size=12][b][i][u]Habilidades de Tribo[/u][/i][/b][/size]
+[i]Para uma breve introdução à funcionalidade preparamos este video.[/i]
+:arrow_down::arrow_down::arrow_down::arrow_down::arrow_down:
+[i][url]https://youtu.be/BFX26qlB7JI[/url][/i]
+
+[size=12][u][b][i]Prestigio[/i][/b][/u][/size]
+[i]O prestígio é a moeda usada para ativar as habilidades ou pode ser doado para aumentar o nível da tribo. Atualmente pode obter prestígio semanalmente. A quantia que obtém depende do tempo que no qual é um membro da tribo. Os membros de longa data terão mais prestígio semanal para gastar do que os recém-chegados. O prestígio pode ser acumulado e guardado para uma data posterior, mas ao deixar a tribo o prestígio não usado será perdido.[/i]
+
+[size=12][b][i]Habilidades[/i][/b][/size]
+[i]Atualmente, existem sete habilidades para escolher. Cada uma confere um bônus específico do jogo e pode ser ativado em troca de algum prestígio. As habilidades são desbloqueadas alcançando um nível de tribo específico e seu poder aumenta com o nível da tribo. Cada membro da tribo pode escolher livremente qual das habilidades disponíveis que deseja ativar para suas próprias aldeias. As habilidades são ativadas instantaneamente e mostradas no lado direito do menu. Um temporizador e uma barra de progresso mostram quanto tempo as habilidades atualmente ativas permanecerão. A tabela a seguir fornece uma visão geral das habilidades, seus efeitos e custos.[/i]
+
+[b][i]Amizade (Nível 1)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill1_80px.png[/img]
+[i]50 [color=#0000a5](pontos prestigio)[/color]	Apoios em viagem viajam n% mais rápido, não afecta apoios já a caminho de acordo com configuração do mundo.[/i]
+
+[b][i]Saques rápidos (Nível 2)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill2_80px.png[/img]
+[i]70 [color=#0000a5](pontos prestigio)[/color]	Ataques a aldeias barbaras viajam n% mais rápido de acordo com configuração do mundo[/i].
+
+[b][i]Tempo extra (Nível 4)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill3_80px.png[/img]
+[i][color=#0000a5] 100 (pontos prestigio)[/color] +n% produção de madeira, +n% produção de argila, +n% produção de ferro de acordo com configuração do mundo[/i]
+
+[b][i]Tecnocracia (Nível 6)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill4_80px.png[/img]
+[i]100[color=#0000a5](pontos prestigio)[/color] As construções são aceleradas em n%! de acordo com configuração do mundo.[/i]
+
+[b][i]Conscrição (Nível 8)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill5_80px.png[/img]
+[i]100 [color=#0000a5](pontos prestigio)[/color] O recrutamento é acelerado em n%! de acordo com configuração do mundo. [/i]
+
+[b][i]Vanguarda (Nível 10)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill6_80px.png[/img]
+[i]140 [color=#0000a5](pontos prestigio)[/color] Aumenta o poder dos vikings em +n%, e cavalaria leve em +n% de acordo com configuração do mundo.[/i]
+
+[b][i]Guarda do rei (Nível 10)[/i][/b]
+[img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/skill7_80px.png[/img]
+[i]140 [color=#0000a5](pontos prestigio)[/color] +n% defesa para lanceiros, +n% defesa para espadachinsde acordo com configuração do mundo .[/i]
+
+[size=12][b][i][u]Nível da Tribo[/u][/i][/b][/size]
+[i]O nível da tribo determina quais habilidades são desbloqueadas para os membros, bem como o poder das habilidades desbloqueadas. Para aumentar o nível tribo membros terão de doar parte do seu prestígio para a tribo para aumentar a tribo experiência pontos (XP). Ao atingir a quantidade necessária de XP, o nível da tribo aumentará.
+
+Enquanto uma tribo nunca pode ter menos de zero XP, as tribos podem perder algum XP ao dispensarem jogadores. A quantidade de XP que uma tribo perde depende de quanto tempo o jogador tem permanecido na tribo e da quantidade de membros que a tribo tem atualmente. Se uma tribo perde um nível removendo membros as habilidades previamente desbloqueadas serão bloqueadas até que a exigência seja alcançada novamente. Jogadores que deixam uma tribo não deduzirão qualquer XP da tribo. Remover jogadores inativos também não irá deduzir qualquer prestígio tribo. A quantidade de XP perdida por remover um jogador será mostrada numa dica.[/i]
+
+[spoiler=ᴄʟɪᴄᴋ ᴀǫᴜɪ ᴘᴀʀᴀ ᴍᴀɪs ɪɴғᴏʀᴍᴀçᴏᴇs ][img]https://media.innogamescdn.com/TribalWars/announcements/tribeskills/tribe_lvl16_active.png[/img][/spoiler]
