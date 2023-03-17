@@ -254,17 +254,25 @@ class Helper
         }
     }
 
-    public function upgradeBuildingProcessResource( Village $village, string $resource, int $capacity, int $prod, int $time )
+    public function processStoredResource( Village $village, int $capacity, array $prods, int $time )
     {
-        $new = $village->{"stored_{$resource}"};
+        $resources = [
+            "wood" => 0,
+            "clay" => 0,
+            "iron" => 0,
+        ];
 
-        if ( $new < $capacity )
+        foreach ( $resources as $key => &$value )
         {
-            $new += $time * ( $prod / 60 / 60 );
+            $value = $village->{"stored_{$key}"};
 
-            if ( $new > $capacity ) $new = $capacity;
+            if ( $value < $capacity )
+                $value += $time * ( $prods[ $key ] / 60 / 60 );
+
+            if ( $value > $capacity )
+                $value  = $capacity;
         }
 
-        return $new;
+        return $resources;
     }
 }
