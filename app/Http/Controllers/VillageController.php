@@ -418,15 +418,13 @@ class VillageController extends Controller
         {
             if ( $w && $c && $i && $bw && $bc && $bi && $bp )
             {
-                $current_time = Carbon::now();
-                $last_update  = new Carbon( $village->updated_stored );
-                $time_elapsed = $current_time->diffInSeconds( $last_update );
+                $new_wood  = 0;
+                $new_clay  = 0;
+                $new_iron  = 0;
 
-                $capacity     = $auxVlg->buildings->on->warehouse->capacity;
+                $resources = $this->processStoredResource( $village, $auxVlg );
 
-                $new_wood     = $this->helper->upgradeBuildingProcessResource( $village, "wood", $capacity, $auxVlg->prod_wood, $time_elapsed );
-                $new_clay     = $this->helper->upgradeBuildingProcessResource( $village, "clay", $capacity, $auxVlg->prod_clay, $time_elapsed );
-                $new_iron     = $this->helper->upgradeBuildingProcessResource( $village, "iron", $capacity, $auxVlg->prod_iron, $time_elapsed );
+                foreach ( $resources as $key => $value ) ${"new_{$key}"} = $value;
 
                 if ( $new_wood >= $building->wood &&
                      $new_clay >= $building->clay &&
@@ -496,8 +494,43 @@ class VillageController extends Controller
         $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
 
         foreach ( $this->compact[ "villages" ] as $v )
+        {
             if ( $v->id == $village->id )
+            {
+                $resources = $this->processStoredResource( $village, $v );
+
+                foreach ( $resources as $key => $value )
+                    $v->{"stored_{$key}"} = $value;
+
                 $this->compact[ "village"  ] = $v;
+                break;
+            }
+        }
+    }
+
+    private function processStoredResource( Village $v_origin, Village $v_processed )
+    {
+        $current_time = Carbon::now();
+        $last_update  = new Carbon( $v_origin->updated_stored );
+        $time_elapsed = $current_time->diffInSeconds( $last_update );
+
+        $capacity     = $v_processed->buildings->on->warehouse->capacity;
+
+        $prods        = [
+            "wood" => $v_processed->prod_wood,
+            "clay" => $v_processed->prod_clay,
+            "iron" => $v_processed->prod_iron,
+        ];
+
+        $resources    = $this->helper->processStoredResource( $v_origin, $capacity, $prods, $time_elapsed );
+
+        foreach ( $resources as $key => $value ) ${$key} = $value;
+
+        return [
+            "wood" => $wood,
+            "clay" => $clay,
+            "iron" => $iron,
+        ];
     }
 
     private function getUnits( string $building )
