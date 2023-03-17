@@ -122,9 +122,12 @@
                                             <td class="text-center" >
                                                 @php
                                                     $class_pop = ( $village->pop >= ( 0.9 * $village->buildings->on->farm->max_pop ) ) ? "text-danger" : "";
+                                                    $pop       = ( int ) $village->buildings->on->farm->max_pop - ( int ) $village->pop;
+                                                    $level     = $village->buildings->on->farm->level;
                                                 @endphp
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
-                                                    {{ ( int ) $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}"
+                                                    title="População disponível (Nível)" >
+                                                    {{ $pop }} ({{ $level }})
                                                 </a>
                                             </td>
 
