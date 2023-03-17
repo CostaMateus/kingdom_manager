@@ -3,6 +3,12 @@ window._ = _;
 
 import 'bootstrap';
 
+import jQuery from 'jquery';
+window.$      = jQuery;
+
+import moment from 'moment/moment';
+window.moment = moment;
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
