@@ -23,6 +23,9 @@
 
                         <div class="row mt-4" >
 
+                            {{-- fila de construção --}}
+                            @include( "users/player/partials.building-queue" )
+
                             {{-- edificios construidos --}}
                             <div class="col-12 col-xl-9 mx-auto" >
                                 <div class="table-responsive" >
@@ -58,8 +61,8 @@
                                                                                 Nível {{ $building->level }}
                                                                             @endif
                                                                         </span>
-                                                                    </a>
-                                                                </p>
+                                                                    </p>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </td>
