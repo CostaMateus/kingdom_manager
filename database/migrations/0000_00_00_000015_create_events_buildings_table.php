@@ -18,6 +18,9 @@ return new class extends Migration
 
             $table->bigInteger( "event_id" )->unsigned()->index()->foreign()->references( "id" )->on( "events" )->onDelete( "cascade" );
             $table->string( "technology" );
+            $table->integer( "wood" );
+            $table->integer( "clay" );
+            $table->integer( "iron" );
             $table->timestamps();
 
         } );
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists( "events_builds" );
+        Schema::dropIfExists( "events_buildings" );
     }
 };
