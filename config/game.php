@@ -2,7 +2,7 @@
 
 return [
 
-    "speed"          => 10,
-    "speed_building" => 10,
+    "speed_resource" => 10,
+    "speed_build"    => 10,
 
 ];

@@ -6,9 +6,14 @@ use App\Models\Village;
 
 class Helper
 {
-    public function getSpeed()
+    public function getResourceSpeed()
     {
-        return config( "game.speed" );
+        return config( "game.speed_resource" );
+    }
+
+    public function getBuildSpeed()
+    {
+        return config( "game.speed_build" );
     }
 
     public function getVillages( array $data )
@@ -82,7 +87,7 @@ class Helper
 
             foreach ( range( 1, $building->level ) as $i )
             {
-                $building->build_time = $this->getBuildTIme( $village->buildings->on->main, $building );
+                $building->build_time = $this->getBuildTIme( $village->buildings->on->main, $building ) / $this->getBuildSpeed();
 
                 if ( $building->level == 1 ) continue;
 
@@ -119,9 +124,9 @@ class Helper
             foreach ( $village->off as &$building )
                 $building->level = 0;
 
-        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * $this->getSpeed();
-        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->buildings->on->clay->production : 0 ) * $this->getSpeed();
-        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->buildings->on->iron->production : 0 ) * $this->getSpeed();
+        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * $this->getResourceSpeed();
+        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->buildings->on->clay->production : 0 ) * $this->getResourceSpeed();
+        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->buildings->on->iron->production : 0 ) * $this->getResourceSpeed();
 
         return $village;
     }
@@ -274,5 +279,16 @@ class Helper
         }
 
         return $resources;
+    }
+
+    public static function searchBuildingInEvents( string $key, array $events )
+    {
+        $count = 0;
+
+        foreach ( $events as $event )
+            if ( $event[ "key" ] == $key )
+                $count++;
+
+        return $count;
     }
 }
