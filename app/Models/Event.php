@@ -16,6 +16,13 @@ class Event extends Model
      */
     protected $fillable = [
         "village_id",
+
+        /**
+         * 1 - army
+         * 2 - building
+         * 3 - research
+         * 4 - train
+         */
         "type",
         "start",
         "finish",
