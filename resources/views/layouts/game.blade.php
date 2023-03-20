@@ -137,6 +137,7 @@
         </footer>
     </div>
 
-    @yield( "js" )
+    @yield( "js_main"        )
+    @yield( "js_queue_build" )
 </body>
 </html>
