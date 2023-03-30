@@ -79,25 +79,29 @@ class Helper
         ];
     }
 
-    private function calcBuildingsProps( Village $village )
+    public function calcBuildingsProps( Village $village, string $b_key = "", int $start = 1 )
     {
         foreach ( $village->buildings->on as $key => &$building )
         {
+            if ( !empty( $b_key ) )
+                if ( $key != $b_key )
+                    continue;
+
             $building->level = $village->{"building_{$key}"};
 
-            foreach ( range( 1, $building->level ) as $i )
+            foreach ( range( $start, $building->level ) as $i )
             {
-                $building->build_time = $this->getBuildTIme( $village->buildings->on->main, $building ) / $this->getBuildSpeed();
+                $building->build_time = $this->getBuildTIme( $village->buildings->on->main, $building );
 
                 if ( $building->level == 1 ) continue;
 
-                $building->wood       = $building->wood       * $building->wood_factor;
-                $building->clay       = $building->clay       * $building->clay_factor;
-                $building->iron       = $building->iron       * $building->iron_factor;
+                $building->wood       = $building->wood   * $building->wood_factor;
+                $building->clay       = $building->clay   * $building->clay_factor;
+                $building->iron       = $building->iron   * $building->iron_factor;
 
-                $building->pop        = $building->pop        * $building->pop_factor;
+                $building->pop        = $building->pop    * $building->pop_factor;
 
-                $auxPoints1           = $building->points     * $building->points_factor;
+                $auxPoints1           = $building->points * $building->points_factor;
                 $auxPoints2           = $auxPoints1 - $building->points;
                 $building->points     = ( $i == $building->level ) ? $auxPoints2 : $auxPoints1;
 
@@ -118,10 +122,12 @@ class Helper
                 if ( property_exists( $building, "range"      ) ) $building->range      = $building->range      * $building->range_factor;
                 if ( property_exists( $building, "defense"    ) ) $building->defense    = $building->defense    * $building->defense_factor;
             }
+
+            $building->build_time_final = $building->build_time / $this->getBuildSpeed();
         }
 
-        if ( $village->off )
-            foreach ( $village->off as &$building )
+        if ( $village->buildings->off )
+            foreach ( $village->buildings->off as &$building )
                 $building->level = 0;
 
         $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * $this->getResourceSpeed();
@@ -272,10 +278,12 @@ class Helper
             $value = $village->{"stored_{$key}"};
 
             if ( $value < $capacity )
+            {
                 $value += $time * ( $prods[ $key ] / 60 / 60 );
 
-            if ( $value > $capacity )
-                $value  = $capacity;
+                if ( $value > $capacity )
+                    $value  = $capacity;
+            }
         }
 
         return $resources;
