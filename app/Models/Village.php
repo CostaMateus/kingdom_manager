@@ -87,4 +87,24 @@ class Village extends Model
         return $this->hasMany( Report::class, "from_village_id" );
     }
 
+    public function armyEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 1 );
+    }
+
+    public function buildEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 2 );
+    }
+
+    public function researchEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 3 );
+    }
+
+    public function trainEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 4 );
+    }
+
 }
