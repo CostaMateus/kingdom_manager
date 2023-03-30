@@ -13,22 +13,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->helper = new Helper();
+        $this->helper  = new Helper();
 
-        $buildings    = config( "game_buildings" );
-        $units        = config( "game_units"     );
-
-        // foreach ( $buildings as $name => &$building )
-        // {
-        //     $base = $building[ "build_time" ];
-        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
-
-        // foreach ( $units as $name => &$unit )
-        // {
-        //     $base = $unit[ "build_time" ];
-        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
+        $buildings     = config( "game_buildings" );
+        $units         = config( "game_units"     );
 
         $this->compact = [
             "buildings" => $buildings,
