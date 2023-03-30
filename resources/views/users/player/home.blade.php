@@ -54,8 +54,9 @@
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_main == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
+                                                    @elseif ( ( $count = $village->buildEvents->count() ) > 0 )
+                                                        <i class="bi-05 bi-circle-fill text-success" title="{{ $count }} edifício(s) em construção" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
