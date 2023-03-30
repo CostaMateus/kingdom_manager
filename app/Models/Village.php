@@ -102,9 +102,19 @@ class Village extends Model
         return $this->hasMany( Event::class )->where( "type", 3 );
     }
 
-    public function trainEvents()
+    public function barracksTrainEvents()
     {
         return $this->hasMany( Event::class )->where( "type", 4 );
+    }
+
+    public function stableTrainEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 5 );
+    }
+
+    public function workshopTrainEvents()
+    {
+        return $this->hasMany( Event::class )->where( "type", 6 );
     }
 
 }

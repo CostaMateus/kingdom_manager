@@ -21,7 +21,9 @@ class Event extends Model
          * 1 - army
          * 2 - building
          * 3 - research
-         * 4 - train
+         * 4 - train barracks
+         * 5 - train stable
+         * 6 - train workshop
          */
         "type",
         "start",
