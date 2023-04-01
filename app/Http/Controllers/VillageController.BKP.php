@@ -43,8 +43,6 @@ class VillageController extends Controller
      */
     public function overview( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.overview", $this->compact );
@@ -58,8 +56,6 @@ class VillageController extends Controller
      */
     public function main( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.main", $this->compact );
@@ -73,8 +69,6 @@ class VillageController extends Controller
      */
     public function barracks( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village   );
         $this->getUnits( "barracks" );
 
@@ -89,8 +83,6 @@ class VillageController extends Controller
      */
     public function stable( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
         $this->getUnits( "stable" );
 
@@ -105,8 +97,6 @@ class VillageController extends Controller
      */
     public function workshop( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village   );
         $this->getUnits( "workshop" );
 
@@ -121,8 +111,6 @@ class VillageController extends Controller
      */
     public function smithy( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
         $this->getUnits( "smithy" );
 
@@ -137,8 +125,6 @@ class VillageController extends Controller
      */
     public function church( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.church", $this->compact );
@@ -152,8 +138,6 @@ class VillageController extends Controller
      */
     public function academy( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.academy", $this->compact );
@@ -167,8 +151,6 @@ class VillageController extends Controller
      */
     public function place( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.place", $this->compact );
@@ -182,8 +164,6 @@ class VillageController extends Controller
      */
     public function statue( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.statue", $this->compact );
@@ -197,8 +177,6 @@ class VillageController extends Controller
      */
     public function market( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.market", $this->compact );
@@ -212,8 +190,6 @@ class VillageController extends Controller
      */
     public function wood( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.wood", $this->compact );
@@ -227,8 +203,6 @@ class VillageController extends Controller
      */
     public function clay( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.clay", $this->compact );
@@ -242,8 +216,6 @@ class VillageController extends Controller
      */
     public function iron( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.iron", $this->compact );
@@ -257,8 +229,6 @@ class VillageController extends Controller
      */
     public function farm( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.farm", $this->compact );
@@ -272,8 +242,6 @@ class VillageController extends Controller
      */
     public function warehouse( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.warehouse", $this->compact );
@@ -287,8 +255,6 @@ class VillageController extends Controller
      */
     public function hide( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.hide", $this->compact );
@@ -302,8 +268,6 @@ class VillageController extends Controller
      */
     public function wall( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.wall", $this->compact );
@@ -317,8 +281,6 @@ class VillageController extends Controller
      */
     public function watchtower( Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         return view( "users.player.buildings.watchtower", $this->compact );
@@ -336,8 +298,6 @@ class VillageController extends Controller
      */
     public function researchUnit( Village $village, string $unit )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
         $this->getUnits( "smithy" );
 
@@ -368,8 +328,6 @@ class VillageController extends Controller
 
     public function trainUnit( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         dd( $request->all() );
     }
 
@@ -382,8 +340,6 @@ class VillageController extends Controller
      */
     public function upgradeBuilding( BuildingRequest $request, Village $village, string $building )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $events = Event::where( "village_id", $village->id )->where( "type", 2 )->get();
 
         // msg de erro
@@ -485,8 +441,6 @@ class VillageController extends Controller
 
     public function cancelUpgradeBuilding( Request $request, Village $village, Event $event )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         $this->getInfos( $village );
 
         $index  = 0;
@@ -615,8 +569,6 @@ class VillageController extends Controller
      */
     public function changeVillageName( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
         if ( $village->name != $name = $request->name )
         {
             $village->name = $name;
@@ -644,11 +596,6 @@ class VillageController extends Controller
 
 
 
-
-    private function checkVillageUser( Village $village )
-    {
-        return ( auth()->user()->id != $village->user_id ) ? true : false;
-    }
 
     private function getInfos( Village $village )
     {
