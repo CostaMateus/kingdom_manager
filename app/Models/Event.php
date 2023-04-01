@@ -9,6 +9,13 @@ class Event extends Model
 {
     use HasFactory;
 
+    const ARMY     = 1;
+    const BUILDING = 2;
+    const RESEARCH = 3;
+    const BARRACKS = 4;
+    const STABLE   = 5;
+    const WORKSHOP = 6;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +35,7 @@ class Event extends Model
         "type",
         "start",
         "finish",
+        "duration",
     ];
 
     public function village()
