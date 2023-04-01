@@ -1,5 +1,5 @@
 
-<div class="col-12 col-xl-9 mx-auto" >
+<div class="col-12 col-xl-9 mx-auto @if ( empty( $events->first() ) ) d-none @endif " >
     <div class="table-responsive" >
         <table id="building-queue" class="table table-hover table-sm align-middle mb-0" >
             <thead>
@@ -11,39 +11,41 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ( range(0,0) as $key => $valeu )
+                @foreach ( $events as $key => $event )
                     <tr>
-                        <td                                class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
                             <div class="row mx-auto" >
                                 <div class="col-12 col-lg-4 text-center ps-lg-0 m-auto" >
                                     @php
-                                        // $png  = Helper::getLevelImage( $key, $building->level );
-                                        // $img  = "{$key}{$png}.png";
+                                        $png  = Helper::getLevelImage( $event->key, $event->level );
+                                        $img  = "{$event->key}{$png}.png";
                                     @endphp
-                                    <img src="{{ asset( "assets/graphic/buildings/barracks1.png" ) }}" alt="" >
+                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="" >
                                 </div>
                                 <div class="col-12 col-lg-8 text-center text-lg-start ps-lg-0 m-auto" >
                                     <p class="mb-0" >
-                                        Quartel
+                                        {{ $event->name }}
                                         <br>
                                         <span class="text-muted" >
-                                            Nível 1
+                                            Nível {{ $event->level }}
                                         </span>
                                     </p>
                                 </div>
                             </div>
                         </td>
-                        <td id="{{ $key }}-queue-duration" class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
-                            00:00:00{{-- {{ Helper::formatBuildTime( ( int ) 981 ) }} --}}
+                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration" @endif >
+                            {{ $event->duration_f }}
                         </td>
-                        <td id="{{ $key }}-queue-finish"   class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" ></td>
-                        <td                                class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-finish"   @endif >
+                            {{ $event->conclusion }}
+                        </td>
+                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
                             <a class="btn btn-default fw-bold btn-outline-danger btn-sm w-100"
-                                onclick="event.preventDefault(); document.getElementById( 'form-{{ $key }}' ).submit();"
-                                href="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
+                                onclick="event.preventDefault(); document.getElementById( 'form-builded-{{ $key }}' ).submit();"
+                                href="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
                                 Cancelar
                             </a>
-                            <form id="form-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.upgrade.building", [ "village" => $village, "building" => $key ] ) }}" >
+                            <form id="form-builded-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
                                 @csrf
                             </form>
                         </td>
@@ -53,7 +55,7 @@
                         <tr>
                             <td colspan="4" class="@if ( $loop->last ) border-bottom-0 @endif" >
                                 <div class="progress" role="progressbar" style="height: 5px" aria-valuemin="0" aria-valuenow="00" aria-valuemax="100" >
-                                    <div id="{{ $key }}-queue-progression" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                                    <div id="queue-progression" class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
                                 </div>
                             </td>
                         </tr>
@@ -64,52 +66,34 @@
     </div>
 </div>
 
-@section( "js" )
-
+@section( "js_queue_build" )
     <script>
         window.onload = function() {
 
-            let ftime = 981;
-            let time  = 981;
+            let ftime      = parseInt( "{{ $events->first() ? $events->first()->total_time : 0 }}" );
+            let time       = parseInt( "{{ $events->first() ? $events->first()->duration   : 0 }}" );
+            let progress   = 0;
+            let idInterval = null;
 
-            let now   = Date.now();
-            let mili  = ftime * 1000;
-
-            let newTime = moment( mili + now )
-            let timeFormat = newTime.format( "HH:mm:ss" );
-            let dateFormat = newTime.format( "DD/MM" );
-
-            let compare    = newTime.isSame( moment(), "day" );
-            let conclusion = null;
-
-            if ( newTime.isSame( moment(), "day" ) )
-                conclusion = `Hoje às ${timeFormat}`;
-            else if ( newTime.isSame( moment().add( 1, "d" ), "day" ) )
-                conclusion = `Amanhã às ${timeFormat}`;
-            else
-                conclusion = `${dateFormat} às ${timeFormat}`;
-
-            $( "#0-queue-finish" ).text( conclusion );
-
-            let idInterval = setInterval( setTimeDuration, 1000 );
+            if ( ftime & time )
+                idInterval = setInterval( setTimeDuration, 1000 );
 
             function setTimeDuration()
             {
                 if ( time <= 0 )
                 {
-                    $( "#0-queue-duration" ).text( "quase concluído" );
+                    $( "#queue-duration" ).text( "quase concluído" );
                     clearInterval( idInterval );
+                    window.location.reload();
                 }
                 else
                 {
-                    time  = time - 100;
+                    time     = time - 1;
+                    time     = ( time < 0 ) ? 0 : time;
+                    progress = 100 - ( ( time * 100 ) / ftime );
 
-                    if ( time < 0 ) time = 0;
-
-                    let y = 100 - ( ( time * 100 ) / ftime );
-
-                    $( "#0-queue-duration"    ).text( moment.utc( time * 1000 ).format( "HH:mm:ss" ) );
-                    $( "#0-queue-progression" ).css( "width", `${y}%` );
+                    $( "#queue-duration"    ).text( moment.utc( time * 1000 ).format( "HH:mm:ss" ) );
+                    $( "#queue-progression" ).css( "width", `${progress}%` );
                 }
             }
         };
