@@ -75,7 +75,7 @@
 
                                     $free_pop = $village->buildings->on->farm->max_pop - $village->pop;
 
-                                    if ( $free_pop < 0 || $building->pop > $free_pop )
+                                    if ( ( $free_pop < 0 || $building->pop > $free_pop ) && $building->pop != 0 )
                                     {
                                         $class_pop  = "text-danger";
                                         $lack_pop   = true;
