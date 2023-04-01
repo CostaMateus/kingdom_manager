@@ -81,7 +81,7 @@ Route::middleware( [ "auth" ] )->group( function () {
         Route::get( "/alliance", [ HomeController::class, "index" ] )->name( "alliance" );
         Route::get( "/profile",  [ HomeController::class, "index" ] )->name( "profile"  );
 
-        Route::name( "village." )->prefix( "/village/{village}/" )->group( function () {
+        Route::middleware( [ "village.user" ] )->name( "village." )->prefix( "/village/{village}/" )->group( function () {
 
             Route::get( "/overview",   [ VillageController::class, "overview"   ] )->name( "overview"   );
 
@@ -115,7 +115,7 @@ Route::middleware( [ "auth" ] )->group( function () {
         } );
     } );
 
-    Route::name( "admin." )->middleware( [ "admin" ] )->group( function () {
+    Route::middleware( [ "admin" ] )->name( "admin." )->group( function () {
 
         Route::get( "/users",                [ UserController::class, "index"   ] )->name( "users.index"   );
         Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "users.approve" );
