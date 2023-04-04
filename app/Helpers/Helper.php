@@ -187,4 +187,54 @@ class Helper
         return $cal / self::getBuildSpeed();
     }
 
+    /**
+     * Get image of building according to the level
+     *
+     * @param   string  $building
+     * @param   int     $level
+     * @return  int
+     */
+    public static function getLevelImage( $building, $level )
+    {
+        switch ( $building )
+        {
+            case "academy":
+            case "hide":
+            case "place":
+            case "statue":
+                return 1;
+            break;
+
+            case "barracks":
+                return ( $level < 6 ) ? 1 : ( ( $level < 21 ) ? 2 : 3 );
+            break;
+
+            case "workshop":
+                return ( $level < 6 ) ? 1 : ( ( $level < 11 ) ? 2 : 3 );
+            break;
+
+            case "church":
+                return ( $level == 1 ) ? 1 : ( ( $level == 2 ) ? 2 : 3 );
+            break;
+
+            case "main":
+            case "wood":
+            case "clay":
+            case "iron":
+            case "farm":
+            case "warehouse":
+                return ( $level < 10 ) ? 1 : ( ( $level < 20 ) ? 2 : 3 );
+            break;
+
+            case "market":
+            case "stable":
+            case "smithy":
+            case "wall":
+            case "watchtower":
+                return ( $level < 6 ) ? 1 : ( ( $level < 16 ) ? 2 : 3 );
+            break;
+
+        }
+    }
+
 }
