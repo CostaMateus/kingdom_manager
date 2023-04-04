@@ -237,4 +237,61 @@ class Helper
         }
     }
 
+    /**
+     * Processes the gain of resources according to $time
+     *
+     * @param   Village $village
+     * @param   integer $capacity
+     * @param   array   $production
+     * @param   integer $time
+     * @return  array
+     */
+    public function processResources( Village $village, int $capacity, array $production, int $time )
+    {
+        $resources = [
+            "wood" => 0,
+            "clay" => 0,
+            "iron" => 0,
+        ];
+
+        foreach ( $resources as $key => &$value )
+        {
+            $value = $village->{"stored_{$key}"};
+
+            if ( $value < $capacity )
+            {
+                $value += $time * ( $production[ $key ] / 60 / 60 );
+
+                if ( $value > $capacity )
+                    $value  = $capacity;
+            }
+        }
+
+        return $resources;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @return  array
+     */
+    public function processStoredResource( Village $v_origin, Village $v_processed )
+    {
+        $current_time = Carbon::now();
+        $last_update  = new Carbon( $v_origin->updated_stored );
+        $time_elapsed = $current_time->diffInSeconds( $last_update );
+
+        $capacity     = $v_processed->buildings->on->warehouse->capacity;
+
+        $production   = [
+            "wood" => $v_processed->prod_wood,
+            "clay" => $v_processed->prod_clay,
+            "iron" => $v_processed->prod_iron,
+        ];
+
+        return self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
+    }
+
 }
