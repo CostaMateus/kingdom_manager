@@ -29,12 +29,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index( Request $request )
     {
         if ( auth()->user()->is_admin )
             return view( "users.admin.home" );
 
-        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.home", $this->compact );
     }
@@ -47,5 +47,20 @@ class HomeController extends Controller
     public function approval()
     {
         return view( "users.player.approval" );
+    }
+
+    /**
+     * Insert data in compact
+     *
+     * @param   Request $request
+     * @return  void
+     */
+    private function insertDataCompact( Request $request )
+    {
+        if ( isset( $request->villages ) )
+            $this->compact[ "villages" ] = $request->villages;
+
+        if ( isset( $request->village ) )
+            $this->compact[ "village"  ] = json_decode( json_encode( $request->village ), false );
     }
 }

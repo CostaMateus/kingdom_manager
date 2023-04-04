@@ -73,7 +73,7 @@ Route::middleware( [ "auth" ] )->group( function () {
 
     Route::middleware( [ "isApproved" ] )->group( function () {
 
-        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     );
+        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     )->middleware( [ "villages.data"  ] );
         Route::get( "/map",      [ HomeController::class, "index" ] )->name( "map"      );
         Route::get( "/reports",  [ HomeController::class, "index" ] )->name( "reports"  );
         Route::get( "/messages", [ HomeController::class, "index" ] )->name( "messages" );
