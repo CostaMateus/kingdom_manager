@@ -22,7 +22,7 @@
                                         $arrs = [ "main", "barracks", "stable", "workshop", "smithy", "farm", "market", ];
                                     @endphp
                                     <tr>
-                                        <th scope="col" >Total: {{ $villages->count() }}</th>
+                                        <th scope="col" >Total: {{ count( $villages ) }}</th>
                                         @foreach ( $buildings as $key => $building )
                                             @if ( in_array( $key, $arrs ) )
                                                 <th scope="col" class="text-center" title="{{ $building[ "name" ] }}" >
