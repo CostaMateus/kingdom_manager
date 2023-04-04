@@ -246,7 +246,7 @@ class Helper
      * @param   integer $time
      * @return  array
      */
-    public function processResources( Village $village, int $capacity, array $production, int $time )
+    public static function processResources( Village $village, int $capacity, array $production, int $time )
     {
         $resources = [
             "wood" => 0,
@@ -277,7 +277,7 @@ class Helper
      * @param   Village $v_processed
      * @return  array
      */
-    public function processStoredResource( Village $v_origin, Village $v_processed )
+    public static function processStoredResource( Village $v_origin, Village $v_processed )
     {
         $current_time = Carbon::now();
         $last_update  = new Carbon( $v_origin->updated_stored );
