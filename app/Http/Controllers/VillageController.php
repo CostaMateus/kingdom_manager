@@ -41,8 +41,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function overview( Village $village )
+    public function overview( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.overview", $this->compact );
     }
 
@@ -52,8 +54,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function main( Village $village )
+    public function main( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.main", $this->compact );
     }
 
@@ -63,8 +67,9 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function barracks( Village $village )
+    public function barracks( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -75,8 +80,9 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function stable( Village $village )
+    public function stable( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
@@ -87,8 +93,9 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function workshop( Village $village )
+    public function workshop( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
@@ -99,8 +106,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function smithy( Village $village )
+    public function smithy( Request $request, Village $village )
     {
+
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
@@ -111,8 +120,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function church( Village $village )
+    public function church( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.church", $this->compact );
     }
 
@@ -122,8 +133,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function academy( Village $village )
+    public function academy( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.academy", $this->compact );
     }
 
@@ -133,8 +146,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function place( Village $village )
+    public function place( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.place", $this->compact );
     }
 
@@ -144,8 +159,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function statue( Village $village )
+    public function statue( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.statue", $this->compact );
     }
 
@@ -155,8 +172,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function market( Village $village )
+    public function market( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.market", $this->compact );
     }
 
@@ -166,8 +185,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function wood( Village $village )
+    public function wood( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.wood", $this->compact );
     }
 
@@ -177,8 +198,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function clay( Village $village )
+    public function clay( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.clay", $this->compact );
     }
 
@@ -188,8 +211,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function iron( Village $village )
+    public function iron( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.iron", $this->compact );
     }
 
@@ -199,8 +224,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function farm( Village $village )
+    public function farm( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.farm", $this->compact );
     }
 
@@ -210,8 +237,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function warehouse( Village $village )
+    public function warehouse( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.warehouse", $this->compact );
     }
 
@@ -221,8 +250,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function hide( Village $village )
+    public function hide( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.hide", $this->compact );
     }
 
@@ -232,8 +263,10 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function wall( Village $village )
+    public function wall( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.wall", $this->compact );
     }
 
@@ -243,9 +276,25 @@ class VillageController extends Controller
      * @param Village $village
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function watchtower( Village $village )
+    public function watchtower( Request $request, Village $village )
     {
+        $this->insertDataCompact( $request );
+
         return view( "users.player.buildings.watchtower", $this->compact );
     }
 
+    /**
+     * Insert data in compact
+     *
+     * @param   Request $request
+     * @return  void
+     */
+    private function insertDataCompact( Request $request )
+    {
+        if ( isset( $request->villages ) )
+            $this->compact[ "villages" ] = $request->villages;
+
+        if ( isset( $request->village ) )
+            $this->compact[ "village"  ] = json_decode( json_encode( $request->village ), false );
+    }
 }
