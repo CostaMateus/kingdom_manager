@@ -3,6 +3,8 @@
 namespace App\Http\Middleware\TW;
 
 use Closure;
+use App\Helpers\Helper;
+use App\Models\Village;
 use Illuminate\Http\Request;
 
 class VillagesData
@@ -16,7 +18,10 @@ class VillagesData
      */
     public function handle( Request $request, Closure $next )
     {
-        $request->village;
+        $villages = Village::where( "user_id", auth()->user()->id )->get();
+        $villages = Helper::getVillagesData( $villages );
+
+        $request->merge( [ "villages" => $villages ] );
 
         return $next( $request );
     }
