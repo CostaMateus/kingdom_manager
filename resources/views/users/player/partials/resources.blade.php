@@ -5,7 +5,7 @@
                     </button>
                     <ul class="dropdown-menu" >
                         @foreach ( $villages as $v )
-                            <li><a class="dropdown-item bg-km" href="{{ route( "village.overview", [ "village" => $v ] ) }}" >{{ $v->name }}</a></li>
+                            <li><a class="dropdown-item bg-km" href="{{ route( "village.overview", [ "village" => $v->id ] ) }}" >{{ $v->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -29,11 +29,11 @@
                         $class_farm  = "{$text_farm} {$active_farm}";
                         $class_wh    = $active_wh;
 
-                        $route_wood  = route( "village.wood",      [ "village" => $village ] );
-                        $route_clay  = route( "village.clay",      [ "village" => $village ] );
-                        $route_iron  = route( "village.iron",      [ "village" => $village ] );
-                        $route_farm  = route( "village.farm",      [ "village" => $village ] );
-                        $route_wh    = route( "village.warehouse", [ "village" => $village ] );
+                        $route_wood  = route( "village.wood",      [ "village" => $village->id ] );
+                        $route_clay  = route( "village.clay",      [ "village" => $village->id ] );
+                        $route_iron  = route( "village.iron",      [ "village" => $village->id ] );
+                        $route_farm  = route( "village.farm",      [ "village" => $village->id ] );
+                        $route_wh    = route( "village.warehouse", [ "village" => $village->id ] );
 
                         $title_wood  = $buildings[ "wood"      ][ "name" ];
                         $title_clay  = $buildings[ "clay"      ][ "name" ];

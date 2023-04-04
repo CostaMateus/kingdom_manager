@@ -11,7 +11,7 @@
 
                             @if ( empty( $b->required ) )
                                 <div class="py-2 text-center" >
-                                    <a class="btn btn-link" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
+                                    <a class="btn btn-link" href="{{ route( "village.main", [ "village" => $village->id ] ) }}" >
                                         <img src="{{ asset( "assets/graphic/buildings/{$imgR}" ) }}" alt="{{ $b->name }}" >
                                         <br>
                                         Construir {{ $b->name }}
@@ -48,7 +48,7 @@
 
                                 @if ( !in_array( false, $ready ) )
                                     <div class="py-2 text-center" >
-                                        <a class="btn btn-link text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
+                                        <a class="btn btn-link text-decoration-none" href="{{ route( "village.main", [ "village" => $village->id ] ) }}" >
                                             <img src="{{ asset( "assets/graphic/buildings/{$imgR}" ) }}" alt="{{ $b->name }}" >
                                             <br>
                                             Construir {{ $b->name }}

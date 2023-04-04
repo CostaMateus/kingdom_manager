@@ -34,7 +34,7 @@
                                                     <td class="d-flex align-items-center h-100 py-1" title="{{ $building[ "name" ] }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/{$key}1.png" ) }}" alt="{{ $building[ "name" ] }}" >
                                                         <a class="btn btn-link text-black text-decoration-none"
-                                                            href="{{ route( "village.{$key}", [ "village" => $village ]) }}" >
+                                                            href="{{ route( "village.{$key}", [ "village" => $village->id ]) }}" >
                                                             {{ $building[ "name" ] }}
                                                             <span class="text-muted" >
                                                                 @if ( $village->{"building_{$key}"} == 0 )

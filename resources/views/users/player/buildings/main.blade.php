@@ -24,7 +24,7 @@
                         <div class="row mt-4" >
 
                             {{-- fila de construção --}}
-                            @include( "users/player/partials.building-queue", [ "events" => $events ] )
+                            {{-- @include( "users/player/partials.building-queue", [ "events" => $events ] ) --}}
 
                             {{-- edificios construidos --}}
                             @include( "users/player/partials.building-builded" )
@@ -35,7 +35,7 @@
                             {{-- nome da aldeia --}}
                             <div class="col-12 col-xl-9 mx-auto mt-5" >
                                 <p class="fw-bold mb-2" >Mudar nome da aldeia:</p>
-                                <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village ] ) }}" >
+                                <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village->id ] ) }}" >
                                     @csrf
                                     <div class="col pe-2" >
                                         <input type="text" class="form-control form-control-sm" name="name" value="{{ $village->name }}" >

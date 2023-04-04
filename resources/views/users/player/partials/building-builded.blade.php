@@ -21,7 +21,7 @@
                                         <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="" >
                                     </div>
                                     <div class="col-12 col-lg-8 text-center text-lg-start ps-lg-0 m-auto" >
-                                        <a class="text-decoration-none text-dark" href="{{ route( "village.{$key}", [ "village" => $village ] ) }}" >
+                                        <a class="text-decoration-none text-dark" href="{{ route( "village.{$key}", [ "village" => $village->id ] ) }}" >
                                             <p class="mb-0" >
                                                 {{ $building->name }}
                                                 <br>
