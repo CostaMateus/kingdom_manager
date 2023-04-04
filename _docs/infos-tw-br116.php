@@ -16,7 +16,7 @@
     dd( $json );
     dd ( $data );
 
-    function calculateBuildingsProps( Village $village, string $building_key = "", int $start = 0 )
+    function calculateBuildingsProps( $village, string $building_key = "", int $start = 0 )
     {
         $dd = "";
         $pt = 0;
@@ -34,7 +34,8 @@
 
             foreach ( range( $start, $building->level ) as $i )
             {
-                $building->build_time = self::getBuildTIme( $village->buildings->on->main, $building );
+                // $building->build_time = self::getBuildTIme( $village->buildings->on->main, $building );
+                $building->build_time = getBuildTIme( $village->buildings->on->main, $building );
                 $building->build_time_real *= $building->build_time_factor;
 
                 if ( $i == 0 )
@@ -206,10 +207,9 @@
         }
 
         dd( $pt, $pp, $dd );
+    }
 
-        $village->prod_wood = ( ( $village->building_wood > 0 ) ? $village->buildings->on->wood->production : 0 ) * self::getResourceSpeed();
-        $village->prod_clay = ( ( $village->building_clay > 0 ) ? $village->buildings->on->clay->production : 0 ) * self::getResourceSpeed();
-        $village->prod_iron = ( ( $village->building_iron > 0 ) ? $village->buildings->on->iron->production : 0 ) * self::getResourceSpeed();
-
-        return $village;
+    function getBuildTIme()
+    {
+        return 1;
     }
