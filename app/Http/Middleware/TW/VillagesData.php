@@ -21,23 +21,31 @@ class VillagesData
         $villages = Village::where( "user_id", auth()->user()->id )->get();
         $villages = Helper::getVillagesData( $villages );
 
-        $village  = $request->route( "village" );
+        $merge    = [ "villages" => $villages ];
 
-        foreach ( $villages as $v )
+        if ( $request->route( "village" ) )
         {
-            if ( $v->id == $village->id )
+            $village = $request->route( "village" );
+
+            foreach ( $villages as $v )
             {
-                $village = $v;
-                break;
+                if ( $v->id == $village->id )
+                {
+                    $resources = Helper::processStoredResource( $village, $v );
+
+                    foreach ( $resources as $key => $value )
+                        $v->{"stored_{$key}"} = $value;
+
+                    $village = $v;
+                    break;
+                }
             }
+
+            $village            = json_decode( json_encode( $village ), true );
+            $merge[ "village" ] = $village;
         }
 
-        $village = json_decode( json_encode( $village ), true );
-
-        $request->merge( [
-            "villages" => $villages,
-            "village"  => $village
-        ] );
+        $request->merge( $merge );
 
         return $next( $request );
     }
