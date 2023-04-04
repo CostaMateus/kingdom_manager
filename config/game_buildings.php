@@ -128,13 +128,14 @@ return [
         "pop"               => 5,
         "pop_factor"        => 1.17,
         "build_time"        => 563,
-        "build_time_factor" => 1.2,
+        "build_time_real"   => 563,
+        "build_time_factor" => 1.182,
 
         "points"            => 10,
         "points_factor"     => 1.2,
 
         "time"              => 95,
-        "time_factor"       => -0.049,
+        "time_factor"       => -0.06,
 
         "required"          => [],
     ],
@@ -164,6 +165,7 @@ return [
         "pop"               => 7,
         "pop_factor"        => 1.17,
         "build_time"        => 1125,
+        "build_time_real"   => 1125,
         "build_time_factor" => 1.2,
 
         "points"            => 16,
@@ -202,6 +204,7 @@ return [
         "pop"               => 8,
         "pop_factor"        => 1.17,
         "build_time"        => 3750,
+        "build_time_real"   => 3750,
         "build_time_factor" => 1.2,
 
         "points"            => 20,
@@ -240,6 +243,7 @@ return [
         "pop"               => 8,
         "pop_factor"        => 1.17,
         "build_time"        => 3750,
+        "build_time_real"   => 3750,
         "build_time_factor" => 1.2,
 
         "points"            => 24,
@@ -273,6 +277,7 @@ return [
         "pop"               => 5000,
         "pop_factor"        => 1.55,
         "build_time"        => 115613,
+        "build_time_real"   => 115613,
         "build_time_factor" => 1.2,
 
         "points"            => 10,
@@ -309,6 +314,7 @@ return [
         "pop"               => 80,
         "pop_factor"        => 1.17,
         "build_time"        => 366750,
+        "build_time_real"   => 366750,
         "build_time_factor" => 1.2,
 
         "points"            => 512,
@@ -354,6 +360,7 @@ return [
         "pop"               => 20,
         "pop_factor"        => 1.17,
         "build_time"        => 3750,
+        "build_time_real"   => 3750,
         "build_time_factor" => 1.2,
 
         "points"            => 19,
@@ -387,6 +394,7 @@ return [
         "pop"               => 0,
         "pop_factor"        => 1.17,
         "build_time"        => 6788,
+        "build_time_real"   => 6788,
         "build_time_factor" => 1.2,
 
         "points"            => 0,
@@ -417,6 +425,7 @@ return [
         "pop"               => 10,
         "pop_factor"        => 1.17,
         "build_time"        => 938,
+        "build_time_real"   => 938,
         "build_time_factor" => 1.2,
 
         "points"            => 24,
@@ -444,6 +453,7 @@ return [
         "pop"               => 20,
         "pop_factor"        => 1.17,
         "build_time"        => 1688,
+        "build_time_real"   => 1688,
         "build_time_factor" => 1.2,
 
         "points"            => 10,
@@ -477,6 +487,7 @@ return [
         "pop"               => 5,
         "pop_factor"        => 1.155,
         "build_time"        => 563,
+        "build_time_real"   => 563,
         "build_time_factor" => 1.2,
 
         "points"            => 6,
@@ -507,6 +518,7 @@ return [
         "pop"               => 10,
         "pop_factor"        => 1.14,
         "build_time"        => 563,
+        "build_time_real"   => 563,
         "build_time_factor" => 1.2,
 
         "points"            => 6,
@@ -537,6 +549,7 @@ return [
         "pop"               => 10,
         "pop_factor"        => 1.17,
         "build_time"        => 675,
+        "build_time_real"   => 675,
         "build_time_factor" => 1.2,
 
         "points"            => 6,
@@ -570,6 +583,7 @@ return [
         "pop"               => 0,
         "pop_factor"        => 1,
         "build_time"        => 750,
+        "build_time_real"   => 750,
         "build_time_factor" => 1.2,
 
         "points"            => 5,
@@ -600,6 +614,7 @@ return [
         "pop"               => 0,
         "pop_factor"        => 1.15,
         "build_time"        => 638,
+        "build_time_real"   => 638,
         "build_time_factor" => 1.2,
 
         "points"            => 6,
@@ -630,6 +645,7 @@ return [
         "pop"               => 2,
         "pop_factor"        => 1.17,
         "build_time"        => 1125,
+        "build_time_real"   => 1125,
         "build_time_factor" => 1.2,
 
         "points"            => 5,
@@ -660,6 +676,7 @@ return [
         "pop"               => 5,
         "pop_factor"        => 1.17,
         "build_time"        => 2250,
+        "build_time_real"   => 2250,
         "build_time_factor" => 1.2,
 
         "points"            => 8,
@@ -694,6 +711,7 @@ return [
         "pop"               => 500,
         "pop_factor"        => 1.05,
         "build_time"        => 8250,
+        "build_time_real"   => 8250,
         "build_time_factor" => 1.2,
 
         "points"            => 42,
