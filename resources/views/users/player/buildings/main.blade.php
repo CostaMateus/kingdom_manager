@@ -35,7 +35,7 @@
                             {{-- nome da aldeia --}}
                             <div class="col-12 col-xl-9 mx-auto mt-5" >
                                 <p class="fw-bold mb-2" >Mudar nome da aldeia:</p>
-                                <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village->id ] ) }}" >
+                                <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village ] ) }}" >
                                     @csrf
                                     <div class="col pe-2" >
                                         <input type="text" class="form-control form-control-sm" name="name" value="{{ $village->name }}" >

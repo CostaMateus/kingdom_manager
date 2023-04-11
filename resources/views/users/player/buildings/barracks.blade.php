@@ -42,7 +42,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <form id="form-units" method="POST" action="{{ route( "village.train.unit", [ "village" => $village->id ] ) }}" >
+                                                    <form id="form-units" method="POST" action="{{ route( "village.train.unit", [ "village" => $village ] ) }}" >
                                                         @csrf
                                                         @foreach ( $unitsOn as $key => $unit )
                                                             @php
@@ -237,7 +237,7 @@
                                                             @endforeach
                                                             @if ( empty( $allEnab ) )
                                                                 <div class="py-2 text-center float-sm-end" >
-                                                                    <a class="btn btn-primary btn-sm" href="{{ route( "village.smithy", [ "village" => $village->id ] ) }}" >
+                                                                    <a class="btn btn-primary btn-sm" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
                                                                         Pesquisar
                                                                     </a>
                                                                 </div>

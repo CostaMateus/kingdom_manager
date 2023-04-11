@@ -44,14 +44,14 @@
                                     @foreach ( $villages as $village )
                                         <tr class="align-middle" >
                                             <th scope="row" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.overview", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.overview", [ "village" => $village ] ) }}" >
                                                     {{ $village->name }}
                                                 </a>
                                             </th>
 
                                             {{-- edificio principal --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_main == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @elseif ( ( $count = $village->buildEvents->count() ) > 0 )
@@ -64,7 +64,7 @@
 
                                             {{-- quartel --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.barracks", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.barracks", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_barracks == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
@@ -76,7 +76,7 @@
 
                                             {{-- estabulo --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.stable", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.stable", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_stable == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
@@ -88,7 +88,7 @@
 
                                             {{-- oficina --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.workshop", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.workshop", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_workshop == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @else
@@ -100,7 +100,7 @@
 
                                             {{-- forja --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.smithy", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_smithy == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
                                                     @elseif ( $village->full_research )
@@ -113,7 +113,7 @@
 
                                             {{-- mercado --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.market", [ "village" => $village->id ] ) }}" >
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.market", [ "village" => $village ] ) }}" >
                                                     0/0
                                                     {{-- fazer o calculo de mercadores disponiveis --}}
                                                 </a>
@@ -126,7 +126,7 @@
                                                     $pop       = ( int ) $village->buildings->on->farm->max_pop - ( int ) $village->pop;
                                                     $level     = $village->buildings->on->farm->level;
                                                 @endphp
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village->id ] ) }}"
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}"
                                                     title="População disponível (Nível)" >
                                                     {{ $pop }} ({{ $level }})
                                                 </a>
