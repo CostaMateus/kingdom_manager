@@ -36,13 +36,38 @@ class VillagesData
                     foreach ( $resources as $key => $value )
                         $v->{"stored_{$key}"} = $value;
 
-                    $village = $v;
+                    switch ( $request->route()->getName() )
+                    {
+                        case "village.place":
+                            $data = Helper::getArmyEvents( $village, $v );
+                        break;
+
+                        case "village.main":
+                            $data = Helper::getBuildEvents( $village, $v );
+                        break;
+
+                        case "village.smithy":
+                            $data = Helper::getResearchEvents( $village, $v );
+                        break;
+
+                        case "village.barracks":
+                            $data = Helper::getTrainEvents( $village, $v, "barracks" );
+                        break;
+
+                        case "village.stable":
+                            $data = Helper::getTrainEvents( $village, $v, "stable"   );
+                        break;
+
+                        case "village.workshop":
+                            $data = Helper::getTrainEvents( $village, $v, "workshop" );
+                        break;
+                    }
+
+                    $merge = array_merge( $merge, $data );
+
                     break;
                 }
             }
-
-            $village            = json_decode( json_encode( $village ), true );
-            $merge[ "village" ] = $village;
         }
 
         $request->merge( $merge );
