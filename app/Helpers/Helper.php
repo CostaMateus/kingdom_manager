@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Village;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class Helper
 {
@@ -49,7 +50,7 @@ class Helper
             $village                = self::calculateBuildingsProps( $village );
         }
 
-        return json_decode( json_encode( $villages ), false );
+        return $villages;
     }
 
     /**
@@ -113,8 +114,6 @@ class Helper
             if ( !empty( $building_key ) )
                 if ( $key != $building_key )
                     continue;
-
-            if ( !in_array( $key, [ "main", "wood" ] ) ) continue;
 
             foreach ( range( $start, $building->level ) as $i )
             {
@@ -294,4 +293,121 @@ class Helper
         return self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @return  array
+     */
+    public static function getArmyEvents( Village $v_origin, Village $v_processed )
+    {
+        return [
+            "events"  => [],
+            "village" => $v_processed,
+        ];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @return  array
+     */
+    public static function getBuildEvents( Village $v_origin, Village $v_processed )
+    {
+        $queue  = [];
+        $events = $v_origin->buildEvents;
+
+        foreach ( $events as $key => &$event )
+        {
+            $event->key           = $event->technology;
+            $queue[ $event->key ] = ( !isset( $queue[ $event->key ] ) ) ? 1 : $queue[ $event->key ] + 1;
+
+            $building             = ( property_exists( $v_processed->buildings->on, $event->key ) )
+                                    ? $v_processed->buildings->on->{$event->key}
+                                    : $v_processed->buildings->off->{$event->key};
+
+            $event->name          = $building->name;
+            $event->level         = $building->level + $queue[ $event->key ];
+
+            $carbon               = Carbon::createFromFormat( "Y-m-d H:i:s", $event->finish )->toImmutable();
+            $tomorrow             = Carbon::tomorrow()->format( "Y-m-d" );
+            $isTomorrow           = $carbon->eq( $tomorrow );
+
+            if ( $carbon->isToday() )
+                $event->conclusion = "Hoje às " . $carbon->format( "H:i:s" );
+            else if ( $isTomorrow )
+                $event->conclusion = "Amanhã às " . $carbon->format( "H:i:s" );
+            else
+                $event->conclusion = $carbon->format( "d/m" ) . " às " . $carbon->format( "H:i:s" );
+
+            $event->duration_f = gmdate( "H:i:s", $event->duration );
+            $event->total_time = $event->duration;
+            $event->duration   = strtotime( $event->finish ) - strtotime( Carbon::now() );
+
+            if ( $event->duration <= 0 )
+            {
+                // remover da fila
+                unset( $events[ $key ] );
+                DB::table( "events_buildings" )->where( "event_id", $event->id )->delete();
+                DB::table( "events"           )->where( "id",       $event->id )->delete();
+
+                // atualizar edificio
+                $bk                  = "building_{$building->key}";
+
+                $v_origin->$bk      += 1;
+                $v_origin->points   += ( int ) $building->points;
+                $v_origin->save();
+
+                $v_processed->$bk    = $v_origin->$bk;
+                $v_processed->points = $v_origin->points;
+
+                if ( $queue[ $event->key ] == 1 )
+                    unset( $queue[ $event->key ] );
+                else
+                    $queue[ $event->key ] -= 1;
+            }
+        }
+
+        foreach ( $queue as $key => $qtty )
+            $v_processed = self::calculateBuildingsProps( $v_processed, $key );
+
+        return [
+            "events"  => $events,
+            "village" => $v_processed,
+        ];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @return  array
+     */
+    public static function getResearchEvents( Village $v_origin, Village $v_processed )
+    {
+        return [
+            "events"  => [],
+            "village" => $v_processed,
+        ];
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @param   string  $type
+     * @return  array
+     */
+    public static function getTrainEvents( Village $v_origin, Village $v_processed, string $type )
+    {
+        return [
+            "events"  => [],
+            "village" => $v_processed,
+        ];
+    }
 }
