@@ -2,7 +2,6 @@
 
 namespace App\Helpers;
 
-use App\Models\Event;
 use App\Models\Village;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -13,7 +12,7 @@ class Helper
     /**
      * Get resource speed multiplier
      *
-     * @return string|int|double
+     * @return  string|int|double
      */
     public static function getResourceSpeed()
     {
@@ -23,7 +22,7 @@ class Helper
     /**
      * Get build speed divider
      *
-     * @return string|int|double
+     * @return  string|int|double
      */
     public static function getBuildSpeed()
     {
