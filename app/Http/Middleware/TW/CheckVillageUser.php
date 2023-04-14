@@ -16,6 +16,9 @@ class CheckVillageUser
      */
     public function handle( Request $request, Closure $next )
     {
+        // // checks if the user's village collection has the Village->ID passed in the request
+        // if ( !auth()->user()->villages->contains( "id", $request->village ) )
+
         if ( auth()->user()->id != $request->village->user_id ) return redirect()->route( "home" );
 
         return $next( $request );
