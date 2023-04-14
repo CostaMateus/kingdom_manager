@@ -69,7 +69,7 @@ class Helper
     }
 
     /**
-     * Process buildings levels
+     * Get buildings levels
      *
      * @param   Village $village
      * @return  array
@@ -285,7 +285,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Processes resources
      *
      * @param   Village $v_origin
      * @param   Village $v_processed
@@ -309,7 +309,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Search building in the events
      *
      * @param   string $key
      * @param   array $events
@@ -327,7 +327,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Get all army events
      *
      * @param   Village $v_origin
      * @param   Village $v_processed
@@ -342,7 +342,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Get all buildings events
      *
      * @param   Village $v_origin
      * @param   Village $v_processed
@@ -414,7 +414,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Get all research events
      *
      * @param   Village $v_origin
      * @param   Village $v_processed
@@ -429,7 +429,7 @@ class Helper
     }
 
     /**
-     * Undocumented function
+     * Get all training events
      *
      * @param   Village $v_origin
      * @param   Village $v_processed
