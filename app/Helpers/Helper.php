@@ -31,6 +31,21 @@ class Helper
     }
 
     /**
+     * Format seconds to H:i:s
+     *
+     * @param   integer $seconds
+     * @return  string
+     */
+    public static function formatBuildTime( int $seconds )
+    {
+        $h = $seconds / 3600;
+        $m = $seconds / 60 % 60;
+        $s = $seconds % 60;
+
+        return sprintf( "%02d:%02d:%02d", $h, $m, $s );
+    }
+
+    /**
      * Get all villages data
      *
      * @param   Collection $villages
@@ -291,6 +306,24 @@ class Helper
         ];
 
         return self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param   string $key
+     * @param   array $events
+     * @return  int
+     */
+    public static function searchBuildingInEvents( string $key, array $events )
+    {
+        $count = 0;
+
+        foreach ( $events as $event )
+            if ( $event[ "key" ] == $key )
+                $count++;
+
+        return $count;
     }
 
     /**
