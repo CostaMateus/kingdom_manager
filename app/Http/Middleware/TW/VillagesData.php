@@ -18,6 +18,7 @@ class VillagesData
      */
     public function handle( Request $request, Closure $next )
     {
+        // $villages = $villages->keyBy( "id" );
         $villages = Village::where( "user_id", auth()->user()->id )->get();
         $villages = Helper::getVillagesData( $villages );
 
