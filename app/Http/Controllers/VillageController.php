@@ -284,6 +284,24 @@ class VillageController extends Controller
     }
 
     /**
+     * Change the name of the village
+     *
+     * @param Request $request
+     * @param Village $village
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function changeVillageName( Request $request, Village $village )
+    {
+        if ( $village->name != $name = $request->name )
+        {
+            $village->name = $name;
+            $village->save();
+        }
+
+        return redirect()->back();
+    }
+
+    /**
      * Insert data in compact
      *
      * @param   Request $request
@@ -295,6 +313,9 @@ class VillageController extends Controller
             $this->compact[ "villages" ] = $request->villages;
 
         if ( isset( $request->village ) )
-            $this->compact[ "village"  ] = json_decode( json_encode( $request->village ), false );
+            $this->compact[ "village"  ] = $request->village;
+
+        if ( isset( $request->events ) )
+            $this->compact[ "events"   ] = $request->events;
     }
 }
