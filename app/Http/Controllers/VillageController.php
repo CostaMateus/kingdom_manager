@@ -20,7 +20,7 @@ class VillageController extends Controller
     /**
      * Construct
      *
-     * @return void
+     * @return  void
      */
     public function __construct()
     {
@@ -36,10 +36,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela principal
+     * Main screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function overview( Request $request, Village $village )
     {
@@ -49,10 +49,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela edificio principal
+     * Main building screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function main( Request $request, Village $village )
     {
@@ -62,10 +62,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela quartel
+     * Barracks screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function barracks( Request $request, Village $village )
     {
@@ -75,10 +75,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela estabulo
+     * Stable screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function stable( Request $request, Village $village )
     {
@@ -88,10 +88,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela oficina
+     * Workshop screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function workshop( Request $request, Village $village )
     {
@@ -101,24 +101,23 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela forja
+     * Smithy screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function smithy( Request $request, Village $village )
     {
-
         $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
 
     /**
-     * Tela igreja
+     * Church screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function church( Request $request, Village $village )
     {
@@ -128,10 +127,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela academia
+     * Academy screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function academy( Request $request, Village $village )
     {
@@ -141,10 +140,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela praça de reuniao
+     * Place screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function place( Request $request, Village $village )
     {
@@ -154,10 +153,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela estatua
+     * Statue screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function statue( Request $request, Village $village )
     {
@@ -167,10 +166,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela mercado
+     * Market screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function market( Request $request, Village $village )
     {
@@ -180,10 +179,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela madeireira
+     * Wood screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function wood( Request $request, Village $village )
     {
@@ -193,10 +192,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela poço de argila
+     * Clay screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function clay( Request $request, Village $village )
     {
@@ -206,10 +205,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela mina de ferro
+     * Iron screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function iron( Request $request, Village $village )
     {
@@ -219,10 +218,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela fazenda
+     * Farm screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function farm( Request $request, Village $village )
     {
@@ -232,10 +231,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela armazem
+     * Warehouse screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function warehouse( Request $request, Village $village )
     {
@@ -245,10 +244,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela esconderijo
+     * Hide screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function hide( Request $request, Village $village )
     {
@@ -258,10 +257,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela muralha
+     * Wall screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function wall( Request $request, Village $village )
     {
@@ -271,10 +270,10 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela torre de vigia
+     * Watchtower screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function watchtower( Request $request, Village $village )
     {
@@ -287,8 +286,8 @@ class VillageController extends Controller
      * Change the name of the village
      *
      * @param Request $request
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function changeVillageName( Request $request, Village $village )
     {
