@@ -39,16 +39,9 @@ class VillagesData
 
                     switch ( $request->route()->getName() )
                     {
-                        case "village.place":
-                            $data = Helper::getArmyEvents( $village, $v );
-                        break;
-
+                        case "village.overview":
                         case "village.main":
                             $data = Helper::getBuildEvents( $village, $v );
-                        break;
-
-                        case "village.smithy":
-                            $data = Helper::getResearchEvents( $village, $v );
                         break;
 
                         case "village.barracks":
@@ -62,10 +55,32 @@ class VillagesData
                         case "village.workshop":
                             $data = Helper::getTrainEvents( $village, $v, "workshop" );
                         break;
+
+                        case "village.smithy":
+                            $data = Helper::getResearchEvents( $village, $v );
+                        break;
+
+                        case "village.place":
+                            $data = Helper::getArmyEvents( $village, $v );
+                        break;
+
+                        case "village.church":
+                        case "village.academy":
+                        case "village.statue":
+                        case "village.market":
+                        case "village.wood":
+                        case "village.clay":
+                        case "village.iron":
+                        case "village.farm":
+                        case "village.warehouse":
+                        case "village.hide":
+                        case "village.wall":
+                        case "village.watchtower":
+                            $data = [ "village" => $v ];
+                        break;
                     }
 
                     $merge = array_merge( $merge, $data );
-
                     break;
                 }
             }

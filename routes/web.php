@@ -81,11 +81,11 @@ Route::middleware( [ "auth" ] )->group( function () {
         Route::get( "/alliance", [ HomeController::class, "index" ] )->name( "alliance" );
         Route::get( "/profile",  [ HomeController::class, "index" ] )->name( "profile"  );
 
-        Route::middleware( [ "villages.user", "villages.data"  ] )->name( "village." )->prefix( "/village/{village}/" )->group( function () {
+        Route::middleware( [ "villages.user", "villages.data" ] )->name( "village." )->prefix( "/village/{village}/" )->group( function () {
 
             Route::get( "/overview",   [ VillageController::class, "overview"   ] )->name( "overview"   );
-
             Route::get( "/main",       [ VillageController::class, "main"       ] )->name( "main"       );
+
             Route::get( "/barracks",   [ VillageController::class, "barracks"   ] )->name( "barracks"   );
             Route::get( "/stable",     [ VillageController::class, "stable"     ] )->name( "stable"     );
             Route::get( "/workshop",   [ VillageController::class, "workshop"   ] )->name( "workshop"   );
@@ -118,6 +118,7 @@ Route::middleware( [ "auth" ] )->group( function () {
             Route::post( "/changeName",                [ VillageController::class, "changeVillageName"     ] )->name( "change.name"             );
 
         } );
+
     } );
 
     Route::middleware( [ "isAdmin" ] )->name( "admin." )->group( function () {
