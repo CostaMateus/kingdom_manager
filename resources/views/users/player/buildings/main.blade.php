@@ -24,7 +24,7 @@
                         <div class="row mt-4" >
 
                             {{-- fila de construção --}}
-                            {{-- @include( "users/player/partials.building-queue", [ "events" => $events ] ) --}}
+                            @include( "users/player/partials.building-queue", [ "events" => $events ] )
 
                             {{-- edificios construidos --}}
                             @include( "users/player/partials.building-builded" )
