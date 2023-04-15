@@ -119,9 +119,10 @@ class Helper
      * @param   Village $village
      * @param   string  $building_key
      * @param   integer $start
+     * @param   integer $end
      * @return  Village
      */
-    private static function calculateBuildingsProps( Village $village, string $building_key = "", int $start = 0 )
+    public static function calculateBuildingsProps( Village $village, string $building_key = "", int $start = 0, int $end = 0 )
     {
         foreach ( $village->buildings->on as $key => &$building )
         {
@@ -129,7 +130,9 @@ class Helper
                 if ( $key != $building_key )
                     continue;
 
-            foreach ( range( $start, $building->level ) as $i )
+            $end = ( $end != 0 ) ? $end : $building->level;
+
+            foreach ( range( $start, $end ) as $i )
             {
                 $building->build_time       = self::getBuildTIme( $village->buildings->on->main, $building );
                 $building->build_time_real *= $building->build_time_factor;
@@ -404,7 +407,14 @@ class Helper
         }
 
         foreach ( $queue as $key => $qtty )
-            $v_processed = self::calculateBuildingsProps( $v_processed, $key );
+        {
+            $e           = $events->where( "key", $key )->last();
+
+            $end         = $e->level + 1;
+            $start       = $v_processed->buildings->on->{$key}->level;
+
+            $v_processed = self::calculateBuildingsProps( $v_processed, $key, $start, $end );
+        }
 
         return [
             "events"  => $events,
