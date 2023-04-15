@@ -368,12 +368,10 @@ class Helper
             $event->level         = $building->level + $queue[ $event->key ];
 
             $carbon               = Carbon::createFromFormat( "Y-m-d H:i:s", $event->finish )->toImmutable();
-            $tomorrow             = Carbon::tomorrow()->format( "Y-m-d" );
-            $isTomorrow           = $carbon->eq( $tomorrow );
 
             if ( $carbon->isToday() )
                 $event->conclusion = "Hoje às " . $carbon->format( "H:i:s" );
-            else if ( $isTomorrow )
+            else if ( $carbon->isTomorrow() )
                 $event->conclusion = "Amanhã às " . $carbon->format( "H:i:s" );
             else
                 $event->conclusion = $carbon->format( "d/m" ) . " às " . $carbon->format( "H:i:s" );
