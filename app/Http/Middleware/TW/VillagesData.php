@@ -18,8 +18,8 @@ class VillagesData
      */
     public function handle( Request $request, Closure $next )
     {
-        // $villages = $villages->keyBy( "id" );
         $villages = Village::where( "user_id", auth()->user()->id )->get();
+        $villages = $villages->keyBy( "id" );
         $villages = Helper::getVillagesData( $villages );
 
         $merge    = [ "villages" => $villages ];
@@ -41,6 +41,7 @@ class VillagesData
                     {
                         case "village.overview":
                         case "village.main":
+                        case "village.upgrade.building":
                             $data = Helper::getBuildEvents( $village, $v );
                         break;
 
@@ -64,18 +65,7 @@ class VillagesData
                             $data = Helper::getArmyEvents( $village, $v );
                         break;
 
-                        case "village.church":
-                        case "village.academy":
-                        case "village.statue":
-                        case "village.market":
-                        case "village.wood":
-                        case "village.clay":
-                        case "village.iron":
-                        case "village.farm":
-                        case "village.warehouse":
-                        case "village.hide":
-                        case "village.wall":
-                        case "village.watchtower":
+                        default:
                             $data = [ "village" => $v ];
                         break;
                     }
