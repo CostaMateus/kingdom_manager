@@ -130,9 +130,9 @@ class Helper
                 if ( $key != $building_key )
                     continue;
 
-            $end = ( $end != 0 ) ? $end : $building->level;
+            $limit = ( $end != 0 ) ? $end : $building->level;
 
-            foreach ( range( $start, $end ) as $i )
+            foreach ( range( $start, $limit ) as $i )
             {
                 $building->build_time       = self::getBuildTIme( $village->buildings->on->main, $building );
                 $building->build_time_real *= $building->build_time_factor;
@@ -166,9 +166,15 @@ class Helper
                     $building->time = ( $i == $building->level ) ? $base2 : $base;
                 }
 
-                if ( property_exists( $building, "production" ) ) $building->production = $building->production * $building->production_factor;
-                if ( property_exists( $building, "max_pop"    ) ) $building->max_pop    = $building->max_pop    * $building->max_pop_factor;
-                if ( property_exists( $building, "capacity"   ) ) $building->capacity   = $building->capacity   * $building->capacity_factor;
+                if ( empty( $building_key ) && property_exists( $building, "production" ) )
+                    $building->production = $building->production * $building->production_factor;
+
+                if ( empty( $building_key ) && property_exists( $building, "max_pop"    ) )
+                    $building->max_pop    = $building->max_pop    * $building->max_pop_factor;
+
+                if ( empty( $building_key ) && property_exists( $building, "capacity"   ) )
+                    $building->capacity   = $building->capacity   * $building->capacity_factor;
+
                 if ( property_exists( $building, "influence"  ) ) $building->influence  = $building->influence  * $building->influence_factor;
                 if ( property_exists( $building, "merchants"  ) ) $building->merchants  = $building->merchants  * $building->merchants_factor;
                 if ( property_exists( $building, "range"      ) ) $building->range      = $building->range      * $building->range_factor;
@@ -354,6 +360,7 @@ class Helper
     {
         $queue  = [];
         $events = $v_origin->buildEvents;
+        // $events = $events->keyBy( "id" );
 
         foreach ( $events as $key => &$event )
         {
