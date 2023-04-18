@@ -1,5 +1,5 @@
 
-<div class="col-12 col-xl-9 mx-auto @if ( empty( $events->first() ) ) d-none @endif " >
+<div class="col-12 col-xl-10 mx-auto @if ( empty( $events->first() ) ) d-none @endif " >
     <div class="table-responsive" >
         <table id="building-queue" class="table table-hover table-sm align-middle mb-0" >
             <thead>

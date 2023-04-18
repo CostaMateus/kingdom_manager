@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -30,7 +30,7 @@
                                 @endphp
 
                                 {{-- defesa --}}
-                                <div class="col-12 col-xl-9 mx-auto" >
+                                <div class="col-12 col-xl-10 mx-auto" >
                                     <div class="table-responsive" >
                                         <table id="builded" class="table table-hover table-sm align-middle mb-0" >
                                             <thead>

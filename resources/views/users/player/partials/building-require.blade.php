@@ -1,6 +1,6 @@
 
                         {{-- requisitos do $name --}}
-                        <div class="col-12 col-xl-9 mx-auto mt-5" >
+                        <div class="col-12 col-xl-10 mx-auto mt-5" >
 
                             @php
                                 $b     = ( property_exists( $village->buildings->on, $name ) ) ? $village->buildings->on->$name : $village->buildings->off->$name;

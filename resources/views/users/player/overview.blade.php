@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
 
                     {{--
@@ -18,9 +18,9 @@
                     --}}
 
                     <div class="card-body" >
-                        <div class="row">
+                        <div class="row" >
                             {{-- edificios --}}
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 col-sm-6" >
                                 <div class="table-responsive" >
                                     <table id="overview-buildings" class="table table-hover table-sm align-middle mb-3 mb-sm-0" >
                                         <thead>
@@ -51,11 +51,11 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="row">
+                            <div class="col-12 col-sm-6" >
+                                <div class="row" >
 
                                     {{-- producao --}}
-                                    <div class="col-12">
+                                    <div class="col-12" >
                                         <div class="table-responsive" >
                                             <table id="overview-production" class="table table-hover table-sm align-middle" >
                                                 <thead>
@@ -94,8 +94,8 @@
                                     </div>
 
                                     {{-- exército --}}
-                                    <div class="col-12">
-                                        <div class="table-responsive">
+                                    <div class="col-12" >
+                                        <div class="table-responsive" >
                                             <table id="overview-army" class="table table-hover table-sm align-middle" >
                                                 <thead>
                                                     <tr>
@@ -126,7 +126,7 @@
                                     </div>
 
                                     {{-- lealdade --}}
-                                    <div class="col-12">
+                                    <div class="col-12" >
                                         <div class="table-responsive" >
                                             <table id="overview-loyalty" class="table table-hover table-sm align-middle mb-0" >
                                                 <thead>

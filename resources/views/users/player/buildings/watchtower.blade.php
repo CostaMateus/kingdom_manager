@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -30,7 +30,7 @@
                                 @endphp
 
                                 {{-- visao --}}
-                                <div class="col-12 col-xl-9 mx-auto" >
+                                <div class="col-12 col-xl-10 mx-auto" >
                                     <div class="table-responsive" >
                                         <table class="table table-hover table-sm align-middle mb-0" >
                                             <thead>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12 col-xl-9 mx-auto mt-5" >
+                                <div class="col-12 col-xl-10 mx-auto mt-5" >
                                     <p class="fs-3 fw-bold mb-0" >Torre ativa</p>
                                     <p>
                                         Sua Torre de vigia está ativa e verificando ataques em suas aldeias. Quando um ataque estiver no alcance da torre ficará disponível. Ataques a caminho que eventualmente serão detectados pela torre de vigia serão marcados com o símbolo de um olho.

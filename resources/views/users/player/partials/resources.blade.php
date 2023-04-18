@@ -1,4 +1,4 @@
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="btn-group btn-group-sm pb-2" role="group" aria-label="Button group with nested dropdown" >
                     <button type="button" class="btn btn-light btn-km dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
                         {{ $village->name }}

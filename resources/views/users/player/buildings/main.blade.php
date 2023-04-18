@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -33,7 +33,7 @@
                             @include( "users/player/partials.building-not-builded" )
 
                             {{-- nome da aldeia --}}
-                            <div class="col-12 col-xl-9 mx-auto mt-5" >
+                            <div class="col-12 col-xl-10 mx-auto mt-5" >
                                 <p class="fw-bold mb-2" >Mudar nome da aldeia:</p>
                                 <form class="row row-cols-auto" method="POST" action="{{ route( "village.change.name", [ "village" => $village ] ) }}" >
                                     @csrf
