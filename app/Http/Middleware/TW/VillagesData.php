@@ -42,6 +42,7 @@ class VillagesData
                         case "village.overview":
                         case "village.main":
                         case "village.upgrade.building":
+                        case "village.cancel.upgrade.building":
                             $data = Helper::getBuildEvents( $village, $v );
                         break;
 
