@@ -5,15 +5,10 @@
 @section( "content" )
     <div class="container" >
         <div class="row justify-content-center" >
+
             <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     <div class="card-body" >
-
-                        {{--
-                            /**
-                              * TODO ajeitar os dados de mercadores de cada aldeia
-                              */
-                        --}}
 
                         <div class="table-responsive table-fixed " >
                             <table id="villages" class="table table-hover table-sm align-middle mb-0" >
@@ -23,21 +18,18 @@
                                     @endphp
                                     <tr>
                                         <th scope="col" >Total: {{ count( $villages ) }}</th>
-                                        @foreach ( $buildings as $key => $building )
-                                            @if ( in_array( $key, $arrs ) )
-                                                <th scope="col" class="text-center" title="{{ $building[ "name" ] }}" >
-                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/buildings/icons/{$key}.png" ) }}" alt="{{ $building[ "name" ] }}"  >
-                                                </th>
-                                            @endif
-                                        @endforeach
-
-                                        @foreach ( $units as $key => $unit )
-                                            @if ( $key != "militia" )
-                                                <th scope="col" class="text-center" title="{{ $unit[ "name" ] }}" >
-                                                    <img width="15" height="15" src="{{ asset( "assets/graphic/units/icons/{$key}.png" ) }}" alt="{{ $unit[ "name" ] }}" >
-                                                </th>
-                                            @endif
-                                        @endforeach
+                                        <th scope="col" class="text-center" title="Pontos" >
+                                            Pontos
+                                        </th>
+                                        <th scope="col" class="text-center" title="Recursos" >
+                                            Recursos
+                                        </th>
+                                        <th scope="col" class="text-center" title="Armazém" >
+                                            Armazém
+                                        </th>
+                                        <th scope="col" class="text-center" title="Fazenda" >
+                                            Fazenda
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -49,94 +41,52 @@
                                                 </a>
                                             </th>
 
-                                            {{-- edificio principal --}}
+                                            {{-- pontos --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
-                                                    @if ( $village->building_main == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
-                                                    @elseif ( ( $count = $village->buildEvents->count() ) > 0 )
-                                                        <i class="bi-05 bi-circle-fill text-success" title="{{ $count }} edifício(s) em construção" ></i>
-                                                    @else
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
-                                                    @endif
-                                                </a>
+                                                {{ ( int ) $village->points }}
                                             </td>
 
-                                            {{-- quartel --}}
+                                            {{-- recursos --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.barracks", [ "village" => $village ] ) }}" >
-                                                    @if ( $village->building_barracks == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
-                                                    @else
-                                                        {{-- verificar se há construções/exército na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
-                                                    @endif
-                                                </a>
+                                                @php
+                                                    $wood = ( property_exists( $village->buildings->on, "wood" ) )
+                                                                ? $village->buildings->on->wood
+                                                                : $village->buildings->off->wood;
+
+                                                    $clay = ( property_exists( $village->buildings->on, "clay" ) )
+                                                                ? $village->buildings->on->clay
+                                                                : $village->buildings->off->clay;
+
+                                                    $iron = ( property_exists( $village->buildings->on, "iron" ) )
+                                                                ? $village->buildings->on->iron
+                                                                : $village->buildings->off->iron;
+                                                @endphp
+                                                <div class="row mx-auto" >
+                                                    <div class="px-1 col-12 col-md-4" title="{{ $wood->name }}" >
+                                                        <img src="{{ asset( "assets/graphic/buildings/icons/{$wood->key}.png" ) }}" alt="{{ $wood->name }}" >
+                                                        {{ ( int ) $village->stored_wood }}
+                                                    </div>
+                                                    <div class="px-1 col-12 col-md-4" title="{{ $clay->name }}" >
+                                                        <img src="{{ asset( "assets/graphic/buildings/icons/{$clay->key}.png" ) }}" alt="{{ $clay->name }}" >
+                                                        {{ ( int ) $village->stored_clay }}
+                                                    </div>
+                                                    <div class="px-1 col-12 col-md-4" title="{{ $iron->name }}" >
+                                                        <img src="{{ asset( "assets/graphic/buildings/icons/{$iron->key}.png" ) }}" alt="{{ $iron->name }}" >
+                                                        {{ ( int ) $village->stored_iron }}
+                                                    </div>
+                                                </div>
                                             </td>
 
-                                            {{-- estabulo --}}
+                                            {{-- armazem --}}
                                             <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.stable", [ "village" => $village ] ) }}" >
-                                                    @if ( $village->building_stable == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
-                                                    @else
-                                                        {{-- verificar se há construções/exército na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
-                                                    @endif
-                                                </a>
-                                            </td>
-
-                                            {{-- oficina --}}
-                                            <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.workshop", [ "village" => $village ] ) }}" >
-                                                    @if ( $village->building_workshop == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
-                                                    @else
-                                                        {{-- verificar se há construções/exército na fila --}}
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
-                                                    @endif
-                                                </a>
-                                            </td>
-
-                                            {{-- forja --}}
-                                            <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.smithy", [ "village" => $village ] ) }}" >
-                                                    @if ( $village->building_smithy == 0 )
-                                                        <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
-                                                    @elseif ( $village->full_research )
-                                                        <i class="bi-05 bi-circle-fill text-success" title="Pesquisa completada" ></i>
-                                                    @else
-                                                        <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
-                                                    @endif
-                                                </a>
-                                            </td>
-
-                                            {{-- mercado --}}
-                                            <td class="text-center" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.market", [ "village" => $village ] ) }}" >
-                                                    0/0
-                                                    {{-- fazer o calculo de mercadores disponiveis --}}
-                                                </a>
+                                                {{ ( int ) $village->buildings->on->warehouse->capacity }}
                                             </td>
 
                                             {{-- fazenda --}}
                                             <td class="text-center" >
-                                                @php
-                                                    $class_pop = ( $village->pop >= ( 0.9 * $village->buildings->on->farm->max_pop ) ) ? "text-danger" : "";
-                                                    $pop       = ( int ) $village->buildings->on->farm->max_pop - ( int ) $village->pop;
-                                                    $level     = $village->buildings->on->farm->level;
-                                                @endphp
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}"
-                                                    title="População disponível (Nível)" >
-                                                    {{ $pop }} ({{ $level }})
-                                                </a>
+                                                {{ ( int ) $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
                                             </td>
 
-                                            @foreach ( $units as $key => $unit )
-                                                @if ( $key != "militia" )
-                                                    <td class="text-center" >0</td>
-                                                @endif
-                                            @endforeach
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -146,6 +96,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
