@@ -391,6 +391,7 @@ class VillageController extends Controller
                         "wood"       => $building->wood,
                         "clay"       => $building->clay,
                         "iron"       => $building->iron,
+                        "pop"        => $building->pop,
                         "created_at" => now(),
                         "updated_at" => now(),
                     ] );
@@ -422,124 +423,49 @@ class VillageController extends Controller
         return $result;
     }
 
-    // public function cancelUpgradeBuilding( Request $request, Village $village, Event $event )
-    // {
-    //     $this->getInfos( $village );
+    public function cancelUpgradeBuilding( Request $request, Village $village, Event $event )
+    {
+        $this->insertDataCompact( $request );
 
-    //     $index  = 0;
-    //     $events = $village->buildEvents;
+        $auxVillage = $this->compact[ "village" ];
+        $events     = $this->compact[ "events"  ];
+        $index      = array_search( $event->id, array_column( $events->toArray(), "id" ) );
+        $event      = $events[ $index ];
 
-    //     foreach ( $events as $i => $ev )
-    //     {
-    //         if ( $ev->id == $event->id )
-    //         {
-    //             $index = $i;
-    //             $event = $ev;
-    //             break;
-    //         }
-    //     }
 
-    //     if ( $index == 0 )
-    //     {
-    //         // apenas remover da fila
-    //         DB::table( "events_buildings" )->where( "event_id", $event->id )->delete();
-    //         DB::table( "events"           )->where( "id",       $event->id )->delete();
+        if ( $events->count() == 1 )
+        {
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
+        }
+        elseif ( $event->id == $events->last()->id )
+        {
+            $event = $events->last();
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
+        }
+        else
+        {
+            foreach ( $events as $i => $e )
+            {
+                if ( $i <= $index ) continue;
 
-    //         // // restituir recursos
-    //         // $resources               = $this->helper->restoreResources( $village, $this->compact[ "village" ], $event );
-    //         // $village->stored_wood    = $resources[ "wood" ];
-    //         // $village->stored_clay    = $resources[ "clay" ];
-    //         // $village->stored_iron    = $resources[ "iron" ];
-    //         // $village->updated_stored = now();
-    //         // $village->save();
+                if ( $event->key == $e->key )
+                {
+                    if ( $events->last()->id != $e->id ) continue;
 
-    //         $i     = 1;
-    //         $count = $events->count();
+                    $event = $events[ $i ];
+                    break;
+                }
 
-    //         do
-    //         {
-    //             if ( isset( $events[ $i ] ) )
-    //             {
-    //                 $auxEv         = $events[ $i ];
+                $event = $events[ $i - 1 ];
+                break;
+            }
 
-    //                 $start         = ( $i == 1 ) ? Carbon::now()->toImmutable() : Carbon::parse( $events[ $i - 1 ]->finish )->toImmutable();
-    //                 $finish        = $start->addSeconds( $auxEv->total_time );
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
 
-    //                 $originals     = $auxEv->getOriginal();
-    //                 $attributes    = $auxEv->getAttributes();
+            if ( $events->last()->id != $event->id )
+                Helper::updateBuildingQueue( $village, $index );
+        }
 
-    //                 foreach ( $attributes as $key => $value )
-    //                     if ( !isset( $originals[ $key ] ) )
-    //                         unset( $auxEv->$key );
-
-    //                 $auxEv->start    = $start;
-    //                 $auxEv->finish   = $finish;
-    //                 $auxEv->duration = $auxEv->total_time;
-    //                 $auxEv->save();
-
-    //                 $i++;
-    //             }
-    //         }
-    //         while ( $i < $count );
-
-    //         return redirect()->route( "village.main", [ "village" => $village ] );
-    //     }
-    //     else
-    //     {
-
-    //     }
-
-    //     // $before = $index - 0;
-    //     // $after  = $index + 1;
-
-    //     // dd( $index, $events, isset( $events[ $before ] ), isset( $events[ $after ] ) );
-
-    //     // $building = "";
-
-    //     // $index  = 0;
-    //     // $event  = null;
-
-    //     // foreach ( $events as $i => $ev )
-    //     // {
-    //     //     if ( $ev->technology == $building )
-    //     //     {
-    //     //         $event = $ev;
-    //     //         $index = $i;
-    //     //     }
-    //     // }
-
-    //     // $resources               = $this->helper->processStoredResourceTwoVillages( $village, $this->compact[ "village" ] );
-    //     // $village->stored_wood    = $resources[ "wood" ] + $event->wood;
-    //     // $village->stored_clay    = $resources[ "clay" ] + $event->clay;
-    //     // $village->stored_iron    = $resources[ "iron" ] + $event->iron;
-    //     // $village->updated_stored = now();
-    //     // $village->save();
-
-    //     // if ( $events->count() != $index + 1 )
-    //     // {
-    //     //     $bFinish = now();
-
-    //     //     if ( $index != 0 )
-    //     //     {
-    //     //         $eventBefore = $events[ $index - 1 ];
-    //     //         $bFinish     = $eventBefore->finish;
-    //     //     }
-
-    //     //     $eventAfter         = $events[ $index + 1 ];
-
-    //     //     $aFinish            = Carbon::parse( $eventAfter->finish )->toImmutable();
-    //     //     $aStart             = Carbon::parse( $eventAfter->start )->toImmutable();
-
-    //     //     $diff               = $aFinish->diffInSeconds( $aStart );
-
-    //     //     $eventAfter->start  = Carbon::parse( $bFinish )->toImmutable();
-    //     //     $eventAfter->finish = $eventAfter->start->addSeconds( $diff );
-    //     //     $eventAfter->save();
-    //     // }
-
-    //     // DB::table( "events_buildings" )->where( "event_id", $event->id )->delete();
-    //     // DB::table( "events"           )->where( "id",       $event->id )->delete();
-
-    //     // return redirect()->route( "village.main", [ "village" => $village ] );
-    // }
+        return redirect()->route( "village.main", [ "village" => $village ] );
+    }
 }
