@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer( "wood" );
             $table->integer( "clay" );
             $table->integer( "iron" );
+            $table->integer( "pop"  );
             $table->timestamps();
 
         } );
