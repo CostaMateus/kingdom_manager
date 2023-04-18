@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\Event;
 use App\Models\Village;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -316,6 +317,31 @@ class Helper
         return self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
     }
 
+    public static function restoreResources( Village $v_origin, Village $v_processed, Event $event )
+    {
+        $capacity    = $v_processed->buildings->on->warehouse->capacity;
+        $resources   = self::processStoredResource( $v_origin, $v_processed );
+
+        $stored_wood = $resources[ "wood" ] + $event->wood;
+        $stored_clay = $resources[ "clay" ] + $event->clay;
+        $stored_iron = $resources[ "iron" ] + $event->iron;
+
+        if ( config( "app.env" ) == "local" )
+        {
+            return [
+                "wood" => $stored_wood,
+                "clay" => $stored_clay,
+                "iron" => $stored_iron,
+            ];
+        }
+
+        return [
+            "wood" => ( $stored_wood <= $capacity ) ? $stored_wood : $capacity,
+            "clay" => ( $stored_clay <= $capacity ) ? $stored_clay : $capacity,
+            "iron" => ( $stored_iron <= $capacity ) ? $stored_iron : $capacity,
+        ];
+    }
+
     /**
      * Search building in the events
      *
@@ -359,7 +385,7 @@ class Helper
     public static function getBuildEvents( Village $v_origin, Village $v_processed )
     {
         $queue  = [];
-        $events = $v_origin->buildEvents;
+        $events = $v_origin->buildEventsFull;
         // $events = $events->keyBy( "id" );
 
         foreach ( $events as $key => &$event )
@@ -456,5 +482,60 @@ class Helper
             "events"  => [],
             "village" => $v_processed,
         ];
+    }
+
+    /**
+     * Delete building event
+     *
+     * @param   Village $v_origin
+     * @param   Village $v_processed
+     * @param   Event   $event
+     * @return  void
+     */
+    public static function cancelBuildingEvent( Village $v_origin, Village $v_processed, Event $event )
+    {
+        $resources                 = Helper::restoreResources( $v_origin, $v_processed, $event );
+        $v_origin->stored_wood     = $resources[ "wood" ];
+        $v_origin->stored_clay     = $resources[ "clay" ];
+        $v_origin->stored_iron     = $resources[ "iron" ];
+        $v_origin->pop            -= $event->pop;
+        $v_origin->updated_stored  = now();
+        $v_origin->save();
+
+        DB::table( "events_buildings" )->where( "event_id", $event->id )->delete();
+        DB::table( "events"           )->where( "id",       $event->id )->delete();
+    }
+
+    /**
+     * Update building events queue
+     *
+     * @param   Village $village
+     * @param   integer $startUpd
+     * @return  void
+     */
+    public static function updateBuildingQueue( Village $village, int $startUpd )
+    {
+        $events = $village->buildEvents;
+
+        foreach ( $events as $i => &$e )
+        {
+            if ( $startUpd != 0 && $i < $startUpd ) continue;
+
+            if ( $startUpd == 0 )
+            {
+                $start = Carbon::now()->toImmutable();
+            }
+            else
+            {
+                $ev    = $events[ $i - 1 ];
+                $start = Carbon::parse( $ev->finish )->toImmutable();
+            }
+
+            $finish    = $start->addSeconds( $e->duration );
+
+            $e->start  = $start;
+            $e->finish = $finish;
+            $e->save();
+        }
     }
 }
