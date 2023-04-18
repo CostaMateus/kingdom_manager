@@ -72,6 +72,15 @@ class UserSeeder extends Seeder
                 "ip"                => "127.0.0.1",
                 "email_verified_at" => $time,
                 "approved_at"       => $time,
+            ],[
+                "nickname"          => "renan7",
+                "email"             => "renan7@example.com",
+                "password"          => bcrypt( "1234" ),
+                "sex"               => "M",
+                "is_admin"          => 0,
+                "ip"                => "127.0.0.1",
+                "email_verified_at" => $time,
+                "approved_at"       => $time,
             ]
         ];
 
