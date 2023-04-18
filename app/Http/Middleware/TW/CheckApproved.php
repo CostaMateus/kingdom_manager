@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\TW;
 
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckAdmin
+class CheckApproved
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class CheckAdmin
      */
     public function handle( Request $request, Closure $next )
     {
-        if ( !auth()->user()->is_admin ) return redirect()->route( "home" );
+        if ( auth()->user()->approved_at == null ) return redirect()->route( "approval" );
 
         return $next( $request );
     }

@@ -22,7 +22,7 @@
                                         $arrs = [ "main", "barracks", "stable", "workshop", "smithy", "farm", "market", ];
                                     @endphp
                                     <tr>
-                                        <th scope="col" >Total: {{ $villages->count() }}</th>
+                                        <th scope="col" >Total: {{ count( $villages ) }}</th>
                                         @foreach ( $buildings as $key => $building )
                                             @if ( in_array( $key, $arrs ) )
                                                 <th scope="col" class="text-center" title="{{ $building[ "name" ] }}" >
@@ -54,8 +54,9 @@
                                                 <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.main", [ "village" => $village ] ) }}" >
                                                     @if ( $village->building_main == 0 )
                                                         <i class="bi-05 bi-circle-fill text-danger" title="Não construído" ></i>
+                                                    @elseif ( ( $count = $village->buildEvents->count() ) > 0 )
+                                                        <i class="bi-05 bi-circle-fill text-success" title="{{ $count }} edifício(s) em construção" ></i>
                                                     @else
-                                                        {{-- verificar se há construções/exército na fila --}}
                                                         <i class="bi-05 bi-circle-fill text-black-50" title="Sem itens na fila" ></i>
                                                     @endif
                                                 </a>
@@ -122,9 +123,12 @@
                                             <td class="text-center" >
                                                 @php
                                                     $class_pop = ( $village->pop >= ( 0.9 * $village->buildings->on->farm->max_pop ) ) ? "text-danger" : "";
+                                                    $pop       = ( int ) $village->buildings->on->farm->max_pop - ( int ) $village->pop;
+                                                    $level     = $village->buildings->on->farm->level;
                                                 @endphp
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}" >
-                                                    {{ ( int ) $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none {{ $class_pop }}" href="{{ route( "village.farm", [ "village" => $village ] ) }}"
+                                                    title="População disponível (Nível)" >
+                                                    {{ $pop }} ({{ $level }})
                                                 </a>
                                             </td>
 

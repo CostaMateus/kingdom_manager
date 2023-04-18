@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Event;
 use App\Helpers\Helper;
 use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\BuildingRequest;
+use Illuminate\Support\Facades\Storage;
 
 class VillageController extends Controller
 {
@@ -17,26 +20,14 @@ class VillageController extends Controller
     /**
      * Construct
      *
-     * @return void
+     * @return  void
      */
     public function __construct()
     {
-        $this->helper = new Helper();
+        $this->helper  = new Helper();
 
-        $buildings    = config( "game_buildings" );
-        $units        = config( "game_units"     );
-
-        // foreach ( $buildings as $name => &$building )
-        // {
-        //     $base = $building[ "build_time" ];
-        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
-
-        // foreach ( $units as $name => &$unit )
-        // {
-        //     $base = $unit[ "build_time" ];
-        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
+        $buildings     = config( "game_buildings" );
+        $units         = config( "game_units"     );
 
         $this->compact = [
             "buildings" => $buildings,
@@ -45,355 +36,304 @@ class VillageController extends Controller
     }
 
     /**
-     * Tela principal
+     * Insert data in compact
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Request $request
+     * @return  void
      */
-    public function overview( Village $village )
+    private function insertDataCompact( Request $request )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
+        if ( isset( $request->villages ) )
+            $this->compact[ "villages" ] = $request->villages;
 
-        $this->getInfos( $village );
+        if ( isset( $request->village ) )
+            $this->compact[ "village"  ] = $request->village;
+
+        if ( isset( $request->events ) )
+            $this->compact[ "events"   ] = $request->events;
+    }
+
+    /**
+     * Main screen
+     *
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
+     */
+    public function overview( Request $request, Village $village )
+    {
+        $this->insertDataCompact( $request );
 
         return view( "users.player.overview", $this->compact );
     }
 
     /**
-     * Tela edificio principal
+     * Main building screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function main( Village $village )
+    public function main( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.main", $this->compact );
     }
 
     /**
-     * Tela quartel
+     * Barracks screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function barracks( Village $village )
+    public function barracks( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village   );
-        $this->getUnits( "barracks" );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
 
     /**
-     * Tela estabulo
+     * Stable screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function stable( Village $village )
+    public function stable( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
-        $this->getUnits( "stable" );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
 
     /**
-     * Tela oficina
+     * Workshop screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function workshop( Village $village )
+    public function workshop( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village   );
-        $this->getUnits( "workshop" );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
 
     /**
-     * Tela forja
+     * Smithy screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function smithy( Village $village )
+    public function smithy( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
-        $this->getUnits( "smithy" );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }
 
     /**
-     * Tela igreja
+     * Church screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function church( Village $village )
+    public function church( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.church", $this->compact );
     }
 
     /**
-     * Tela academia
+     * Academy screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function academy( Village $village )
+    public function academy( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.academy", $this->compact );
     }
 
     /**
-     * Tela praça de reuniao
+     * Place screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function place( Village $village )
+    public function place( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.place", $this->compact );
     }
 
     /**
-     * Tela estatua
+     * Statue screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function statue( Village $village )
+    public function statue( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.statue", $this->compact );
     }
 
     /**
-     * Tela mercado
+     * Market screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function market( Village $village )
+    public function market( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.market", $this->compact );
     }
 
     /**
-     * Tela madeireira
+     * Wood screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function wood( Village $village )
+    public function wood( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.wood", $this->compact );
     }
 
     /**
-     * Tela poço de argila
+     * Clay screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function clay( Village $village )
+    public function clay( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.clay", $this->compact );
     }
 
     /**
-     * Tela mina de ferro
+     * Iron screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function iron( Village $village )
+    public function iron( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.iron", $this->compact );
     }
 
     /**
-     * Tela fazendo
+     * Farm screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function farm( Village $village )
+    public function farm( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.farm", $this->compact );
     }
 
     /**
-     * Tela armazem
+     * Warehouse screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function warehouse( Village $village )
+    public function warehouse( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.warehouse", $this->compact );
     }
 
     /**
-     * Tela esconderijo
+     * Hide screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function hide( Village $village )
+    public function hide( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.hide", $this->compact );
     }
 
     /**
-     * Tela muralha
+     * Wall screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function wall( Village $village )
+    public function wall( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.wall", $this->compact );
     }
 
     /**
-     * Tela torre de vigia
+     * Watchtower screen
      *
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function watchtower( Village $village )
+    public function watchtower( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.buildings.watchtower", $this->compact );
     }
 
-
-
-
     /**
-     * Atualiza o nível do edifício
+     * Change the name of the village
      *
-     * @param Village $village
-     * @param string $unit
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Request $request
+     * @param   Village $village
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
-    public function researchUnit( Village $village, string $unit )
+    public function changeVillageName( Request $request, Village $village )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        $this->getInfos( $village );
-        $this->getUnits( "smithy" );
-
-        $currLvl = $village->{ "research_{$unit}" };
-
-        $unit    = ( isset( $this->compact[ "unitsOn" ][ $unit ] ) )
-                    ? $this->compact[ "unitsOn"  ][ $unit ]
-                    : $this->compact[ "unitsOff" ][ $unit ];
-
-        $maxLvl  = $unit[ "max_level" ];
-
-        if ( $currLvl < $maxLvl )
+        if ( $village->name != $name = $request->name )
         {
-            if ( $unit[ "research_wood" ] <= $village->stored_wood &&
-                 $unit[ "research_clay" ] <= $village->stored_clay &&
-                 $unit[ "research_iron" ] <= $village->stored_iron )
-            {
-                $village->stored_wood -= ( int ) $unit[ "research_wood" ];
-                $village->stored_clay -= ( int ) $unit[ "research_clay" ];
-                $village->stored_iron -= ( int ) $unit[ "research_iron" ];
-                $village->{ "research_{$unit[ "key" ] }" } += 1;
-                $village->save();
-            }
+            $village->name = $name;
+            $village->save();
         }
 
-        return redirect()->route( "village.smithy", [ "village" => $village ] );
-    }
-
-    public function trainUnit( Request $request, Village $village )
-    {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        dd( $request->all() );
+        return redirect()->back();
     }
 
     /**
-     * Atualiza o nível do edifício
+     * Add building in queue to construct
      *
-     * @param Village $village
-     * @param string $building
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param   Village $village
+     * @param   string $building
+     * @return  \Illuminate\Contracts\Support\Renderable
      */
     public function upgradeBuilding( BuildingRequest $request, Village $village, string $building )
     {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
+        $this->insertDataCompact( $request );
 
-        $this->getInfos( $village );
+        $events   = $this->compact[ "events" ];
+
+        // // msg de erro - fila cheia
+        // if ( $events->count() >= 5 )
+        //     return redirect()->route( "village.main", [ "village" => $village ] );
 
         $auxVlg   = $this->compact[ "village" ];
 
@@ -401,32 +341,25 @@ class VillageController extends Controller
                     ? $auxVlg->buildings->on->$building
                     : $auxVlg->buildings->off->$building;
 
-        $free_pop = $auxVlg->buildings->on->farm->max_pop - $auxVlg->pop;
-
-        $currLvl  = $building->level;
-        $maxLvl   = $building->max_level;
-
-        $w        = ( int ) $building->wood == ( int ) $request->wood;
-        $c        = ( int ) $building->clay == ( int ) $request->clay;
-        $i        = ( int ) $building->iron == ( int ) $request->iron;
-        $bw       = $building->wood <= $auxVlg->stored_wood;
-        $bc       = $building->clay <= $auxVlg->stored_clay;
-        $bi       = $building->iron <= $auxVlg->stored_iron;
-        $bp       = $building->pop  <= $free_pop;
-
-        if ( $currLvl < $maxLvl )
+        if ( $building->level < $building->max_level )
         {
-            if ( $w && $c && $i && $bw && $bc && $bi && $bp )
+            // free pop
+            $fp = $auxVlg->buildings->on->farm->max_pop - $auxVlg->pop;
+
+            $w  = ( int ) $building->wood == ( int ) $request->wood;
+            $c  = ( int ) $building->clay == ( int ) $request->clay;
+            $i  = ( int ) $building->iron == ( int ) $request->iron;
+            $p  = $building->pop <= $fp || $building->pop == 0;
+
+            if ( $w && $c && $i && $p )
             {
-                $current_time = Carbon::now();
-                $last_update  = new Carbon( $village->updated_stored );
-                $time_elapsed = $current_time->diffInSeconds( $last_update );
+                $new_wood  = 0;
+                $new_clay  = 0;
+                $new_iron  = 0;
 
-                $capacity     = $auxVlg->buildings->on->warehouse->capacity;
+                $resources = Helper::processStoredResource( $village, $auxVlg );
 
-                $new_wood     = $this->helper->upgradeBuildingProcessResource( $village, "wood", $capacity, $auxVlg->prod_wood, $time_elapsed );
-                $new_clay     = $this->helper->upgradeBuildingProcessResource( $village, "clay", $capacity, $auxVlg->prod_clay, $time_elapsed );
-                $new_iron     = $this->helper->upgradeBuildingProcessResource( $village, "iron", $capacity, $auxVlg->prod_iron, $time_elapsed );
+                foreach ( $resources as $key => $value ) ${"new_{$key}"} = $value;
 
                 if ( $new_wood >= $building->wood &&
                      $new_clay >= $building->clay &&
@@ -437,71 +370,102 @@ class VillageController extends Controller
                     $village->stored_clay     = $new_clay - $building->clay;
                     $village->stored_iron     = $new_iron - $building->iron;
                     $village->pop            += ( int ) $building->pop;
-                    $village->points         += ( int ) $building->points;
-                    $village->{ "building_{$building->key}" } += 1;
                     $village->save();
+
+                    // add event
+                    $duration = ( int ) $building->build_time;
+                    $start    = ( $events->count() > 0 ) ? Carbon::parse( $events->last()->finish )->toImmutable() : Carbon::now()->toImmutable();
+                    $finish   = $start->addSeconds( $duration );
+
+                    $event    = Event::create( [
+                        "village_id" => $village->id,
+                        "type"       => Event::BUILDING,
+                        "start"      => $start,
+                        "finish"     => $finish,
+                        "duration"   => $duration
+                    ] );
+
+                    DB::table( "events_buildings" )->insert( [
+                        "event_id"   => $event->id,
+                        "technology" => $building->key,
+                        "wood"       => $building->wood,
+                        "clay"       => $building->clay,
+                        "iron"       => $building->iron,
+                        "pop"        => $building->pop,
+                        "created_at" => now(),
+                        "updated_at" => now(),
+                    ] );
+
+                    // success
+                    $result = redirect()->route( "village.main", [ "village" => $village ] );
+                }
+                else
+                {
+                    // msg de erro
+                    // recursos indisponiveis
+                    $result = redirect()->route( "village.main", [ "village" => $village ] );
                 }
             }
+            else
+            {
+                // msg de erro
+                // recursos indisponiveis | diferenca entre requisito e informado
+                $result = redirect()->route( "village.main", [ "village" => $village ] );
+            }
+        }
+        else
+        {
+            // msg de erro
+            // edificio no nivel maximo
+            $result = redirect()->route( "village.main", [ "village" => $village ] );
+        }
+
+        return $result;
+    }
+
+    public function cancelUpgradeBuilding( Request $request, Village $village, Event $event )
+    {
+        $this->insertDataCompact( $request );
+
+        $auxVillage = $this->compact[ "village" ];
+        $events     = $this->compact[ "events"  ];
+        $index      = array_search( $event->id, array_column( $events->toArray(), "id" ) );
+        $event      = $events[ $index ];
+
+
+        if ( $events->count() == 1 )
+        {
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
+        }
+        elseif ( $event->id == $events->last()->id )
+        {
+            $event = $events->last();
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
+        }
+        else
+        {
+            foreach ( $events as $i => $e )
+            {
+                if ( $i <= $index ) continue;
+
+                if ( $event->key == $e->key )
+                {
+                    if ( $events->last()->id != $e->id ) continue;
+
+                    $event = $events[ $i ];
+                    break;
+                }
+
+                $event = $events[ $i - 1 ];
+                break;
+            }
+
+            Helper::cancelBuildingEvent( $village, $auxVillage, $event );
+
+            if ( $events->last()->id != $event->id )
+                Helper::updateBuildingQueue( $village, $index );
         }
 
         return redirect()->route( "village.main", [ "village" => $village ] );
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param Request $request
-     * @param Village $village
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function changeVillageName( Request $request, Village $village )
-    {
-        if ( $this->checkVillageUser( $village ) ) return redirect()->back();
-
-        if ( $village->name != $name = $request->name )
-        {
-            $village->name = $name;
-            $village->save();
-        }
-
-        return redirect()->route( "village.main", [ "village" => $village ] );
-    }
-
-    public function generateVillages( User $user, $num = null )
-    {
-        $num = ( !$num ) ? 1 : $num;
-
-        foreach ( range( 1, $num ) as $i )
-        {
-            Village::create( [
-                "user_id"        => $user->id,
-                "name"           => "{$i} Aldeia de {$user->nickname}",
-                "updated_stored" => now()
-            ] );
-        }
-
-        return redirect()->back();
-    }
-
-
-
-
-    private function checkVillageUser( Village $village )
-    {
-        return ( auth()->user()->id != $village->user_id ) ? true : false;
-    }
-
-    private function getInfos( Village $village )
-    {
-        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
-
-        foreach ( $this->compact[ "villages" ] as $v )
-            if ( $v->id == $village->id )
-                $this->compact[ "village"  ] = $v;
-    }
-
-    private function getUnits( string $building )
-    {
-        $this->helper->getUnits( $this->compact, $building );
     }
 }

@@ -19,61 +19,15 @@ use App\Http\Controllers\VillageController;
 
 Auth::routes();
 
-Route::get( "/", function () {
-    return view( "welcome" );
-
-    $buildings = config( "game_buildings" );
-
-    $total    = 0;
-
-    foreach ( $buildings as $building )
-    {
-        $subtotal = 0;
-
-        echo "<br><br><br>";
-        echo "{$building[ "name" ]}<br>";
-
-        $attr1 = "pop";
-        $attr2 = "pop_factor";
-
-        $base = $building[ $attr1 ];
-        $rate = $building[ $attr2 ];
-        $cal  = 0;
-
-        $subtotal += $base;
-
-        echo "lvl 0 => 1 __ {$base}/{$base}<br>";
-
-        foreach ( range( 1, $building[ "max_level" ] - 1 ) as $i )
-        {
-            $cal   = $base * $rate;
-            $base2 = round( $cal, 0, PHP_ROUND_HALF_DOWN );
-            $base3 = $base2 - ( round( $base, 0, PHP_ROUND_HALF_DOWN ) );
-            $base  = $cal;
-
-            $subtotal += $base3;
-
-            $y = $i + 1;
-
-            echo "lvl {$i} => {$y} __ {$base3}/{$base2}<br>";
-        }
-
-        echo "SUBTOTAL = {$subtotal}<br>";
-
-        $total += $subtotal;
-    }
-
-    echo "<br><br>";
-    echo "TOTAL = {$total}<br><br><br><br><br><br><br>.";
-} );
+Route::get( "/", function () { return redirect( "/login" ); } );
 
 Route::middleware( [ "auth" ] )->group( function () {
 
     Route::get( "/approval", [ HomeController::class, "approval" ] )->name( "approval" );
 
-    Route::middleware( [ "approved" ] )->group( function () {
+    Route::middleware( [ "isApproved" ] )->group( function () {
 
-        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     );
+        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     )->middleware( [ "villages.data"  ] );
         Route::get( "/map",      [ HomeController::class, "index" ] )->name( "map"      );
         Route::get( "/reports",  [ HomeController::class, "index" ] )->name( "reports"  );
         Route::get( "/messages", [ HomeController::class, "index" ] )->name( "messages" );
@@ -81,11 +35,11 @@ Route::middleware( [ "auth" ] )->group( function () {
         Route::get( "/alliance", [ HomeController::class, "index" ] )->name( "alliance" );
         Route::get( "/profile",  [ HomeController::class, "index" ] )->name( "profile"  );
 
-        Route::name( "village." )->prefix( "/village/{village}/" )->group( function () {
+        Route::middleware( [ "villages.user", "villages.data" ] )->name( "village." )->prefix( "/village/{village}/" )->group( function () {
 
             Route::get( "/overview",   [ VillageController::class, "overview"   ] )->name( "overview"   );
-
             Route::get( "/main",       [ VillageController::class, "main"       ] )->name( "main"       );
+
             Route::get( "/barracks",   [ VillageController::class, "barracks"   ] )->name( "barracks"   );
             Route::get( "/stable",     [ VillageController::class, "stable"     ] )->name( "stable"     );
             Route::get( "/workshop",   [ VillageController::class, "workshop"   ] )->name( "workshop"   );
@@ -107,14 +61,21 @@ Route::middleware( [ "auth" ] )->group( function () {
             Route::get( "/wall",       [ VillageController::class, "wall"       ] )->name( "wall"       );
             Route::get( "/watchtower", [ VillageController::class, "watchtower" ] )->name( "watchtower" );
 
-            Route::post( "/unit/train/",          [ VillageController::class, "trainUnit"         ] )->name( "train.unit"       );
-            Route::post( "/unit/research/{unit}", [ VillageController::class, "researchUnit"      ] )->name( "research.unit"    );
-            Route::post( "/upgrade/{building}",   [ VillageController::class, "upgradeBuilding"   ] )->name( "upgrade.building" );
-            Route::post( "/changeName",           [ VillageController::class, "changeVillageName" ] )->name( "change.name"      );
+            Route::post( "/upgrade/{building}",     [ VillageController::class, "upgradeBuilding"       ] )->name( "upgrade.building"        );
+            Route::post( "/upgrade/{event}/cancel", [ VillageController::class, "cancelUpgradeBuilding" ] )->name( "cancel.upgrade.building" );
         } );
+
+        Route::name( "village." )->prefix( "/village/{village}/" )->group( function () {
+
+            Route::post( "/unit/train/",            [ VillageController::class, "trainUnit"             ] )->name( "train.unit"              );
+            Route::post( "/unit/research/{unit}",   [ VillageController::class, "researchUnit"          ] )->name( "research.unit"           );
+            Route::post( "/changeName",             [ VillageController::class, "changeVillageName"     ] )->name( "change.name"             );
+
+        } );
+
     } );
 
-    Route::name( "admin." )->middleware( [ "admin" ] )->group( function () {
+    Route::middleware( [ "isAdmin" ] )->name( "admin." )->group( function () {
 
         Route::get( "/users",                [ UserController::class, "index"   ] )->name( "users.index"   );
         Route::get( "/users/{user}/approve", [ UserController::class, "approve" ] )->name( "users.approve" );
@@ -123,25 +84,28 @@ Route::middleware( [ "auth" ] )->group( function () {
 
     } );
 
-    // temporario
-    Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
+    // // temporario
+    // Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
 
 } );
 
-Route::get( "/clear-cache", function() {
+Route::name( "admin." )->prefix( "/admin" )->group( function () {
 
-    Artisan::call( "optimize:clear" );
-    return redirect( "/" );
+    Route::get( "/clear-cache", function() {
 
-} )->name( "clear.cache" );
+        Artisan::call( "optimize:clear" );
+        return redirect( "/" );
 
-Route::get( "/migrate-fresh", function() {
+    } )->name( "clear.cache" );
 
-    Artisan::call( "migrate:fresh --seed --force" );
-    return redirect( "/" );
+    Route::get( "/migrate-fresh", function() {
 
-} )->name( "migrate.fresh" );
+        Artisan::call( "migrate:fresh --seed --force" );
+        return redirect( "/" );
 
+    } )->name( "migrate.fresh" );
+
+} );
 
 
 /**

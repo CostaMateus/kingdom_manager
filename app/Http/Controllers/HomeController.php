@@ -13,22 +13,10 @@ class HomeController extends Controller
 
     public function __construct()
     {
-        $this->helper = new Helper();
+        $this->helper  = new Helper();
 
-        $buildings    = config( "game_buildings" );
-        $units        = config( "game_units"     );
-
-        // foreach ( $buildings as $name => &$building )
-        // {
-        //     $base = $building[ "build_time" ];
-        //     $building[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
-
-        // foreach ( $units as $name => &$unit )
-        // {
-        //     $base = $unit[ "build_time" ];
-        //     $unit[ "build_time" ] = sprintf('%02d:%02d:%02d', ( $base / 3600 ),( $base / 60 % 60 ), ( $base % 60 ) );
-        // }
+        $buildings     = config( "game_buildings" );
+        $units         = config( "game_units"     );
 
         $this->compact = [
             "buildings" => $buildings,
@@ -41,12 +29,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index( Request $request )
     {
         if ( auth()->user()->is_admin )
             return view( "users.admin.home" );
 
-        $this->compact[ "villages" ] = $this->helper->getVillages( $this->compact );
+        $this->insertDataCompact( $request );
 
         return view( "users.player.home", $this->compact );
     }
@@ -59,5 +47,20 @@ class HomeController extends Controller
     public function approval()
     {
         return view( "users.player.approval" );
+    }
+
+    /**
+     * Insert data in compact
+     *
+     * @param   Request $request
+     * @return  void
+     */
+    private function insertDataCompact( Request $request )
+    {
+        if ( isset( $request->villages ) )
+            $this->compact[ "villages" ] = $request->villages;
+
+        if ( isset( $request->village ) )
+            $this->compact[ "village"  ] = json_decode( json_encode( $request->village ), false );
     }
 }

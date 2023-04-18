@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\TW;
 
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckApproved
+class CheckVillageUser
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,10 @@ class CheckApproved
      */
     public function handle( Request $request, Closure $next )
     {
-        if ( auth()->user()->approved_at == null ) return redirect()->route( "approval" );
+        // // checks if the user's village collection has the Village->ID passed in the request
+        // if ( !auth()->user()->villages->contains( "id", $request->village ) )
+
+        if ( auth()->user()->id != $request->village->user_id ) return redirect()->route( "home" );
 
         return $next( $request );
     }

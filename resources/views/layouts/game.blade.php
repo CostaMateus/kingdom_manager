@@ -21,7 +21,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet" >
 
     {{-- CSS TW --}}
-    <link rel="stylesheet" href="{{ asset( "css/tw-20230130-232155.css" ) }}" >
+    <link rel="stylesheet" href="{{ asset( "css/style.css" ) }}" >
 </head>
 <body>
     <div id="app" >
@@ -137,6 +137,7 @@
         </footer>
     </div>
 
-    @yield( "js" )
+    @yield( "js_main"        )
+    @yield( "js_queue_build" )
 </body>
 </html>

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger( "village_id" )->unsigned()->index()->foreign()->references( "id" )->on( "villages" )->onDelete( "cascade" );
             $table->integer( "type" )->nullable()->default( null );
+            $table->integer( "duration" )->nullable()->default( null );
             $table->timestamp( "start"  )->nullable()->default( null );
             $table->timestamp( "finish" )->nullable()->default( null );
             $table->timestamps();

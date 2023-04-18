@@ -18,11 +18,7 @@
                                 <p class="h5 mb-0" >
                                     {{ $building->description }}
                                 </p>
-                                {{-- @if ( $key == "wood" || $key == "clay" || $key == "iron" )
-                                    <p class="h5 mt-3 mb-0" >
-                                        Os recursos são atualizados de <b>minuto em minuto</b>.
-                                    </p>
-                                @endif --}}
+
                                 @if ( $key != "place" )
                                     <button class="fs-6 btn btn-link text-decoration-none px-0" type="button" data-bs-toggle="modal" data-bs-target="#modal_{{ $key }}" >
                                         Mais informações

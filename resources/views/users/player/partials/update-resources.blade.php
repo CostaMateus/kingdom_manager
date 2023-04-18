@@ -1,14 +1,12 @@
 
-@section( "js" )
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+@section( "js_main" )
     <script>
         window.onload = function() {
             let max    = parseFloat( "{{ $village->buildings->on->warehouse->capacity }}" );
 
-            let p_wood = parseFloat( "{{ $village->prod_wood }}" );
-            let p_clay = parseFloat( "{{ $village->prod_clay }}" );
-            let p_iron = parseFloat( "{{ $village->prod_iron }}" );
+            let p_wood = parseFloat( "{{ $village->prod_wood   }}" );
+            let p_clay = parseFloat( "{{ $village->prod_clay   }}" );
+            let p_iron = parseFloat( "{{ $village->prod_iron   }}" );
 
             let s_wood = parseFloat( "{{ $village->stored_wood }}" );
             let s_clay = parseFloat( "{{ $village->stored_clay }}" );
