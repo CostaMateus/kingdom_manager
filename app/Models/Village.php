@@ -94,6 +94,11 @@ class Village extends Model
 
     public function buildEvents()
     {
+        return $this->hasMany( Event::class )->where( "type", 2 );
+    }
+
+    public function buildEventsFull()
+    {
         return $this->hasMany( Event::class )->where( "type", 2 )->join( "events_buildings", "events.id", "=", "events_buildings.event_id" );
     }
 
