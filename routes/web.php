@@ -84,25 +84,28 @@ Route::middleware( [ "auth" ] )->group( function () {
 
     } );
 
-    // temporario
-    Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
+    // // temporario
+    // Route::get( "/new/villages/{user}/{num?}", [ VillageController::class, "generateVillages" ] )->name( "generate.villages" );
 
 } );
 
-Route::get( "/clear-cache", function() {
+Route::name( "admin." )->prefix( "/admin" )->group( function () {
 
-    Artisan::call( "optimize:clear" );
-    return redirect( "/" );
+    Route::get( "/clear-cache", function() {
 
-} )->name( "clear.cache" );
+        Artisan::call( "optimize:clear" );
+        return redirect( "/" );
 
-Route::get( "/migrate-fresh", function() {
+    } )->name( "clear.cache" );
 
-    Artisan::call( "migrate:fresh --seed --force" );
-    return redirect( "/" );
+    Route::get( "/migrate-fresh", function() {
 
-} )->name( "migrate.fresh" );
+        Artisan::call( "migrate:fresh --seed --force" );
+        return redirect( "/" );
 
+    } )->name( "migrate.fresh" );
+
+} );
 
 
 /**
