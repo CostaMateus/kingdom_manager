@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -30,7 +30,7 @@
                             @if ( $village->building_stable > 0 )
                                 @if ( !empty( $unitsOn ) )
                                     {{-- unidades pesquisadas --}}
-                                    <div class="col-12 col-xl-9 mx-auto" >
+                                    <div class="col-12 col-xl-10 mx-auto" >
                                         <div class="table-responsive" >
                                             <table id="builded" class="table table-hover table-sm align-middle mb-0" >
                                                 <thead>
@@ -175,7 +175,7 @@
 
                             {{-- unidades ainda nao pesquisadas --}}
                             @if( !empty( $unitsOff ) )
-                                <div class="col-12 col-xl-9 mx-auto mt-5" >
+                                <div class="col-12 col-xl-10 mx-auto mt-5" >
                                     <div class="table-responsive" >
                                         <table id="not-build" class="table table-hover table-sm align-middle mb-0" >
                                             <thead>

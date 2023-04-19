@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-12" >
+            <div class="col-10 mx-auto" >
                 <div class="card border-0" >
                     <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
 
