@@ -53,6 +53,7 @@
                                                     </td>
                                                     @if ( $iron->level != $iron->max_level )
                                                         <td class="border-bottom-0 text-center" >
+                                                            {{-- TODO arrumar valor de produção do próximo nível --}}
                                                             {{ number_format( ( $village->prod_iron * $iron->iron_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif

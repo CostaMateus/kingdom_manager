@@ -45,6 +45,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {{-- TODO arrumar calculo de cada nível --}}
                                                     @php
                                                         $arr        = [ "capacity", "max_pop", "time", "influence", "merchants", "defense", "range" ];
                                                         $maxLevel   = $building->max_level;

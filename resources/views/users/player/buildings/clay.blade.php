@@ -53,6 +53,7 @@
                                                     </td>
                                                     @if ( $clay->level != $clay->max_level )
                                                         <td class="border-bottom-0 text-center" >
+                                                            {{-- TODO arrumar valor de produção do próximo nível --}}
                                                             {{ number_format( ( $village->prod_clay * $clay->clay_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif
