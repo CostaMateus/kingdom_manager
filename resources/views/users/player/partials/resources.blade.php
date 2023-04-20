@@ -35,11 +35,11 @@
                         $route_farm  = route( "village.farm",      [ "village" => $village ] );
                         $route_wh    = route( "village.warehouse", [ "village" => $village ] );
 
-                        $title_wood  = $buildings[ "wood"      ][ "name" ];
-                        $title_clay  = $buildings[ "clay"      ][ "name" ];
-                        $title_iron  = $buildings[ "iron"      ][ "name" ];
-                        $title_farm  = $buildings[ "farm"      ][ "name" ];
-                        $title_wh    = $buildings[ "warehouse" ][ "name" ];
+                        $title_wood  = $buildings->wood->name;
+                        $title_clay  = $buildings->clay->name;
+                        $title_iron  = $buildings->iron->name;
+                        $title_farm  = $buildings->farm->name;
+                        $title_wh    = $buildings->warehouse->name;
 
                         $compl_wood  = $title_wood . ": " . number_format( $village->prod_wood, 0, ",", "." ) . "/h";
                         $compl_clay  = $title_clay . ": " . number_format( $village->prod_clay, 0, ",", "." ) . "/h";
@@ -48,25 +48,25 @@
 
                     {{-- wood --}}
                     <a id="stored_wood" class="btn btn-light btn-km {{ $class_wood }}" href="{{ $route_wood }}" title="{{ $compl_wood }}" >
-                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood"      ][ "key" ]}.png" ) }}" alt="{{ $title_wood }}" >
+                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings->wood->key}.png" ) }}" alt="{{ $title_wood }}" >
                         <span>{{ ( int ) $village->stored_wood }}</span>
                     </a>
 
                     {{-- clay --}}
                     <a id="stored_clay" class="btn btn-light btn-km {{ $class_clay }}" href="{{ $route_clay }}" title="{{ $compl_clay }}" >
-                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay"      ][ "key" ]}.png" ) }}" alt="{{ $title_clay }}" >
+                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings->clay->key}.png" ) }}" alt="{{ $title_clay }}" >
                         <span>{{ ( int ) $village->stored_clay }}</span>
                     </a>
 
                     {{-- iron --}}
                     <a id="stored_iron" class="btn btn-light btn-km {{ $class_iron }}" href="{{ $route_iron }}" title="{{ $compl_iron }}" >
-                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron"      ][ "key" ]}.png" ) }}" alt="{{ $title_iron }}" >
+                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings->iron->key}.png" ) }}" alt="{{ $title_iron }}" >
                         <span>{{ ( int ) $village->stored_iron }}</span>
                     </a>
 
                     {{-- warehouse --}}
                     <a                  class="btn btn-light btn-km {{ $class_wh   }}" href="{{ $route_wh   }}" title="{{ $title_wh }}" >
-                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "warehouse" ][ "key" ]}.png" ) }}" alt="{{ $title_wh }}" >
+                        <img width="15" src="{{ asset( "assets/graphic/buildings/icons/{$buildings->warehouse->key}.png" ) }}" alt="{{ $title_wh }}" >
                         {{ ( int ) $village->buildings->on->warehouse->capacity }}
                     </a>
 

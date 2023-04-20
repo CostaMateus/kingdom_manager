@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "farm" ][ "name" ] )
+@section( "title", $buildings->farm->name )
 
 @section( "content" )
     <div class="container" >
@@ -19,7 +19,7 @@
                             "title"    => "Capacidade por nível",
                             "field"    => "max_pop",
                             "uni"      => "",
-                            "building" => $buildings[ "farm" ]
+                            "building" => $buildings->farm
                         ] )
 
                         {{-- TODO --}}

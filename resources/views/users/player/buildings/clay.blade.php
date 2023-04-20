@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "clay" ][ "name" ] )
+@section( "title", $buildings->clay->name )
 
 @section( "content" )
     <div class="container" >
@@ -19,7 +19,7 @@
                             "title"    => "Produção por nível",
                             "field"    => "production",
                             "uni"      => "/min",
-                            "building" => $buildings[ "clay" ]
+                            "building" => $buildings->clay
                         ] )
 
                         <div class="row mt-4" >

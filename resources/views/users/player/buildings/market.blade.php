@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "market" ][ "name" ] )
+@section( "title", $buildings->market->name )
 
 @section( "content" )
     <div class="container" >
@@ -19,7 +19,7 @@
                             "title"    => "Capacidade por nível",
                             "field"    => "merchants",
                             "uni"      => "",
-                            "building" => $buildings[ "market" ]
+                            "building" => $buildings->market
                         ] )
 
                         {{-- TODO --}}
@@ -31,7 +31,7 @@
                             @if ( $village->building_market > 0 )
                                 {{--  --}}
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "market" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->market->key ] )
                             @endif
 
                         </div>

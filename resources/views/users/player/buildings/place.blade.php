@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "place" ][ "name" ] )
+@section( "title", $buildings->place->name )
 
 @section( "content" )
     <div class="container" >
@@ -19,7 +19,7 @@
                             "title"    => null,
                             "field"    => null,
                             "uni"      => null,
-                            "building" => $buildings[ "place" ]
+                            "building" => $buildings->place
                         ] )
 
                         {{-- TODO --}}
@@ -31,7 +31,7 @@
                             @if ( $village->building_place > 0 )
                                 {{--  --}}
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "place" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->place->key ] )
                             @endif
 
                         </div>

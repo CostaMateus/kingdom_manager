@@ -1,7 +1,7 @@
 
                         <div class="row" >
                             @php
-                                $building = json_decode( json_encode( $building ), false );
+                                // $building = json_decode( json_encode( $building ), false );
                                 $key      = $building->key;
                                 $auxLevel = ( property_exists( $village->buildings->on, $key ) ) ? $village->buildings->on->$key->level : $village->buildings->off->$key->level;
                                 $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
@@ -59,41 +59,49 @@
                                                         $pointsBase = $building->points;
                                                         $pointsRate = $building->points_factor;
 
+                                                        $print = 0;
+                                                        $base2 = $base;
                                                     @endphp
 
                                                     @foreach ( range( 1, $maxLevel ) as $i )
                                                         @php
-                                                            $print = "";
-
-                                                            if ( $field )
+                                                            if ( $field == "production" )
                                                             {
-                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
-                                                                $base2 = $base;
+                                                                $base2 = $base2 * $rate;
+                                                                $print = $base2 * Helper::getResourceSpeed();
                                                             }
+
+                                                            // if ( $field )
+                                                            // {
+                                                            //     // $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
+                                                            //     $print = $base;
+                                                            //     $base2 = $base;
+                                                            // }
 
                                                             $pointsBase2 = $pointsBase;
 
                                                             if ( $i > 1 )
                                                             {
-                                                                if ( $field )
-                                                                {
-                                                                    if ( $field == "time" )
-                                                                    {
-                                                                        $cal   = $base * $rate;
-                                                                        $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
-                                                                        $base2 = ( $cal - $base ) * -1;
 
-                                                                        $print = $base2;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        $cal   = $base * $rate;
-                                                                        $base  = $cal;
-                                                                        $base2 = $cal;
+                                                                // if ( $field )
+                                                                // {
+                                                                //     if ( $field == "time" )
+                                                                //     {
+                                                                //         $cal   = $base * $rate;
+                                                                //         $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
+                                                                //         $base2 = ( $cal - $base ) * -1;
 
-                                                                        $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
-                                                                    }
-                                                                }
+                                                                //         $print = $base2;
+                                                                //     }
+                                                                //     else
+                                                                //     {
+                                                                //         $cal   = $base * $rate;
+                                                                //         $base  = $cal;
+                                                                //         $base2 = $cal;
+
+                                                                //         $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
+                                                                //     }
+                                                                // }
 
                                                                 $cal         = $pointsBase * $pointsRate;
                                                                 $pointsBase2 = $cal - $pointsBase;

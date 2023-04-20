@@ -36,8 +36,8 @@
                                                             $ready[]  = empty( $disabled ) ? true : false;
                                                         @endphp
                                                         <button class="btn btn-link btn-sm m-auto text-decoration-none text-dark cursor-none {{ $disabled }}" >
-                                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $key ][ "name" ] }}" >
-                                                            {{ $buildings[ $key ][ "name" ] }} - Nível {{ $level }}
+                                                            <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings->$key->name }}" >
+                                                            {{ $buildings->$key->name }} - Nível {{ $level }}
                                                         </button>
                                                     </td>
                                                 </tr>
