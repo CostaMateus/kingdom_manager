@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "watchtower" ][ "name" ] )
+@section( "title", $buildings->watchtower->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Alcance por nível",
                             "field"    => "range",
                             "uni"      => " campos",
-                            "building" => $buildings[ "watchtower" ]
+                            "building" => $buildings->watchtower
                         ] )
 
                         <div class="row mt-4" >
@@ -90,7 +90,7 @@
                                     </p>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "watchtower" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->watchtower->key ] )
                             @endif
 
                         </div>

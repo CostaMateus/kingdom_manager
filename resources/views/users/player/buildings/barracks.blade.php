@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "barracks" ][ "name" ] )
+@section( "title", $buildings->barracks->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Tempo reduzido por nível",
                             "field"    => "time",
                             "uni"      => "%",
-                            "building" => $buildings[ "barracks" ]
+                            "building" => $buildings->barracks
                         ] )
 
                         {{-- não implementado --}}
@@ -123,16 +123,16 @@
                                                                 </td>
                                                                 <td>
                                                                     <div class="row mx-auto" >
-                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_wood }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_wood }}" title="{{ $buildings->wood->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->wood->key}.png" ) }}" alt="{{ $buildings->wood->name }}" >
                                                                             {{ $unit[ "wood" ] }}
                                                                         </div>
-                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_clay }}" title="{{ $buildings[ "clay" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_clay }}" title="{{ $buildings->clay->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->clay->key}.png" ) }}" alt="{{ $buildings->clay->name }}" >
                                                                             {{ $unit[ "clay" ] }}
                                                                         </div>
-                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_iron }}" title="{{ $buildings[ "iron" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_iron }}" title="{{ $buildings->iron->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->iron->key}.png" ) }}" alt="{{ $buildings->iron->name }}" >
                                                                             {{ $unit[ "iron" ] }}
                                                                         </div>
                                                                         <div class="px-1 col-12 col-sm-4 col-lg-2 {{ $class_pop }}" title="População" >
@@ -184,7 +184,7 @@
                                     </div>
                                 @endif
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "barracks" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->barracks->key ] )
                             @endif
 
                             {{-- unidades ainda nao pesquisadas --}}

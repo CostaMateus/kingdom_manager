@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "academy" ][ "name" ] )
+@section( "title", $buildings->academy->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     <div class="card-header" >{{ $village->name }} | {{ $village->points }} pontos</div>
 
@@ -18,7 +18,7 @@
                             "title"    => "Tempo reduzido por nível",
                             "field"    => "time",
                             "uni"      => "%",
-                            "building" => $buildings[ "academy" ]
+                            "building" => $buildings->academy
                         ] )
 
                         {{-- TODO --}}
@@ -30,7 +30,7 @@
                             @if ( $village->building_academy > 0 )
                                 {{--  --}}
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "academy" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->academy->key ] )
                             @endif
 
                         </div>

@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "iron" ][ "name" ] )
+@section( "title", $buildings->iron->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Produção por nível",
                             "field"    => "production",
                             "uni"      => "/min",
-                            "building" => $buildings[ "iron" ]
+                            "building" => $buildings->iron
                         ] )
 
                         <div class="row mt-4" >
@@ -53,6 +53,7 @@
                                                     </td>
                                                     @if ( $iron->level != $iron->max_level )
                                                         <td class="border-bottom-0 text-center" >
+                                                            {{-- TODO arrumar valor de produção do próximo nível --}}
                                                             {{ number_format( ( $village->prod_iron * $iron->iron_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif

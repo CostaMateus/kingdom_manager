@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "hide" ][ "name" ] )
+@section( "title", $buildings->hide->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Capacidade por nível",
                             "field"    => "capacity",
                             "uni"      => "",
-                            "building" => $buildings[ "hide" ]
+                            "building" => $buildings->hide
                         ] )
 
                         {{-- TODO --}}
@@ -31,7 +31,7 @@
                             @if ( $village->building_hide > 0 )
                                 {{--  --}}
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "hide" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->hide->key ] )
                             @endif
 
                         </div>

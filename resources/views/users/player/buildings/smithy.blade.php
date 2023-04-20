@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "smithy" ][ "name" ] )
+@section( "title", $buildings->smithy->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Tempo reduzido por nível",
                             "field"    => "time",
                             "uni"      => "%",
-                            "building" => $buildings[ "smithy" ]
+                            "building" => $buildings->smithy
                         ] )
 
                         <div class="row mt-4" >
@@ -111,16 +111,16 @@
                                                                     @endif
 
                                                                     <div class="" >
-                                                                        <div class="px-1 col-12 {{ $class_wood }}" title="{{ $buildings[ "wood" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "wood" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "wood" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 {{ $class_wood }}" title="{{ $buildings->wood->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->wood->key}.png" ) }}" alt="{{ $buildings->wood->name }}" >
                                                                             {{ ( int ) $auxUnit[ "research_wood" ] }}
                                                                         </div>
-                                                                        <div class="px-1 col-12 {{ $class_clay }}" title="{{ $buildings[ "clay" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "clay" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "clay" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 {{ $class_clay }}" title="{{ $buildings->clay->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->clay->key}.png" ) }}" alt="{{ $buildings->clay->name }}" >
                                                                             {{ ( int ) $auxUnit[ "research_clay" ] }}
                                                                         </div>
-                                                                        <div class="px-1 col-12 {{ $class_iron }}" title="{{ $buildings[ "iron" ][ "name" ] }}" >
-                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings[ "iron" ][ "key" ]}.png" ) }}" alt="{{ $buildings[ "iron" ][ "name" ] }}" >
+                                                                        <div class="px-1 col-12 {{ $class_iron }}" title="{{ $buildings->iron->name }}" >
+                                                                            <img src="{{ asset( "assets/graphic/buildings/icons/{$buildings->iron->key}.png" ) }}" alt="{{ $buildings->iron->name }}" >
                                                                             {{ ( int ) $auxUnit[ "research_iron" ] }}
                                                                         </div>
                                                                     </div>
@@ -172,7 +172,7 @@
                                     @endforeach
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "smithy" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->smithy->key ] )
                             @endif
 
                         </div>

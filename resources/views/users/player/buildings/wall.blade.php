@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "wall" ][ "name" ] )
+@section( "title", $buildings->wall->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Percentual de defesa bônus por nível",
                             "field"    => "defense",
                             "uni"      => "%",
-                            "building" => $buildings[ "wall" ]
+                            "building" => $buildings->wall
                         ] )
 
                         <div class="row mt-4" >
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "wall" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->wall->key ] )
                             @endif
 
                         </div>

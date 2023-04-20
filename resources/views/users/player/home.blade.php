@@ -6,7 +6,7 @@
     <div class="container" >
         <div class="row justify-content-center" >
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto"  >
                 <div class="card border-0" >
                     <div class="card-body" >
 
@@ -17,17 +17,19 @@
                                         $arrs = [ "main", "barracks", "stable", "workshop", "smithy", "farm", "market", ];
                                     @endphp
                                     <tr>
-                                        <th scope="col" >Total: {{ count( $villages ) }}</th>
-                                        <th scope="col" class="text-center" title="Pontos" >
+                                        <th scope="col"                                      style="min-width:150px" >
+                                            Total: {{ count( $villages ) }}
+                                        </th>
+                                        <th scope="col" class="text-center" title="Pontos"   style="min-width:60px" >
                                             Pontos
                                         </th>
-                                        <th scope="col" class="text-center" title="Recursos" >
+                                        <th scope="col" class="text-center" title="Recursos" style="min-width:100px" >
                                             Recursos
                                         </th>
-                                        <th scope="col" class="text-center" title="Armazém" >
+                                        <th scope="col" class="text-center" title="Armazém"  style="min-width:100px" >
                                             Armazém
                                         </th>
-                                        <th scope="col" class="text-center" title="Fazenda" >
+                                        <th scope="col" class="text-center" title="Fazenda"  style="min-width:100px" >
                                             Fazenda
                                         </th>
                                     </tr>
@@ -62,15 +64,15 @@
                                                                 : $village->buildings->off->iron;
                                                 @endphp
                                                 <div class="row mx-auto" >
-                                                    <div class="px-1 col-12 col-md-4" title="{{ $wood->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4" title="{{ $wood->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$wood->key}.png" ) }}" alt="{{ $wood->name }}" >
                                                         {{ ( int ) $village->stored_wood }}
                                                     </div>
-                                                    <div class="px-1 col-12 col-md-4" title="{{ $clay->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4" title="{{ $clay->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$clay->key}.png" ) }}" alt="{{ $clay->name }}" >
                                                         {{ ( int ) $village->stored_clay }}
                                                     </div>
-                                                    <div class="px-1 col-12 col-md-4" title="{{ $iron->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4" title="{{ $iron->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$iron->key}.png" ) }}" alt="{{ $iron->name }}" >
                                                         {{ ( int ) $village->stored_iron }}
                                                     </div>

@@ -30,7 +30,7 @@ class VillageController extends Controller
         $units         = config( "game_units"     );
 
         $this->compact = [
-            "buildings" => $buildings,
+            "buildings" => json_decode( json_encode( $buildings ), false ),
             "units"     => $units,
         ];
     }

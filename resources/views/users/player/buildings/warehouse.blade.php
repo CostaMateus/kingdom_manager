@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "warehouse" ][ "name" ] )
+@section( "title", $buildings->warehouse->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,12 +19,12 @@
                             "title"    => "Capacidade por nível",
                             "field"    => "capacity",
                             "uni"      => "",
-                            "building" => $buildings[ "warehouse" ]
+                            "building" => $buildings->warehouse
                         ] )
 
                         {{-- TODO --}}
                         {{-- não implementado --}}
-                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 70%" ] )
+                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 70% )
 
                         <div class="row mt-4" >
 

@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "church" ][ "name" ] )
+@section( "title", $buildings->church->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -19,7 +19,7 @@
                             "title"    => "Área de influência por nível",
                             "field"    => "influence",
                             "uni"      => " campos",
-                            "building" => $buildings[ "church" ]
+                            "building" => $buildings->church
                         ] )
 
                         {{-- TODO --}}
@@ -31,7 +31,7 @@
                             @if ( $village->building_church > 0 )
                                 {{--  --}}
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings[ "church" ][ "key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->church->key ] )
                             @endif
 
                         </div>

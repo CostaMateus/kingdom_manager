@@ -1,7 +1,6 @@
 
                         <div class="row" >
                             @php
-                                $building = json_decode( json_encode( $building ), false );
                                 $key      = $building->key;
                                 $auxLevel = ( property_exists( $village->buildings->on, $key ) ) ? $village->buildings->on->$key->level : $village->buildings->off->$key->level;
                                 $level    = ( $auxLevel != 0 ) ? "Nível {$auxLevel}" : "não construído";
@@ -46,6 +45,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    {{-- TODO arrumar calculo de cada nível --}}
                                                     @php
                                                         $arr        = [ "capacity", "max_pop", "time", "influence", "merchants", "defense", "range" ];
                                                         $maxLevel   = $building->max_level;

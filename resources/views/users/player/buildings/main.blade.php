@@ -1,6 +1,6 @@
 @extends( "layouts.game" )
 
-@section( "title", $buildings[ "main" ][ "name" ] )
+@section( "title", $buildings->main->name )
 
 @section( "content" )
     <div class="container" >
@@ -8,7 +8,7 @@
 
             @include( "users/player/partials.resources" )
 
-            <div class="col-10 mx-auto" >
+            <div class="col-12 col-md-10 mx-auto" >
                 <div class="card border-0" >
                     {{-- nome e pontuação da aldeia --}}
                     @include( "users/player/partials.building-name" )
@@ -18,7 +18,7 @@
                             "title"    => "Tempo reduzido por nível",
                             "field"    => "time",
                             "uni"      => "%",
-                            "building" => $buildings[ "main" ]
+                            "building" => $buildings->main
                         ] )
 
                         <div class="row mt-4" >
