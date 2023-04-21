@@ -40,6 +40,78 @@ class HomeController extends Controller
     }
 
     /**
+     * Map screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function map( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.map", $this->compact );
+    }
+
+    /**
+     * Reports screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function reports( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.reports", $this->compact );
+    }
+
+    /**
+     * Messages screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function messages( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.messages", $this->compact );
+    }
+
+    /**
+     * Ranking screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function ranking( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.ranking", $this->compact );
+    }
+
+    /**
+     * Alliance screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function alliance( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.alliance", $this->compact );
+    }
+
+    /**
+     * Profile screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function profile( Request $request )
+    {
+        $this->insertDataCompact( $request );
+
+        return view( "users.player.profile", $this->compact );
+    }
+
+    /**
      * Show the pending approval page.
      *
      * @return \Illuminate\Contracts\Support\Renderable
