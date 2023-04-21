@@ -24,7 +24,7 @@
 
                         {{-- TODO --}}
                         {{-- não implementado --}}
-                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 70% )
+                        @include( "users/player/partials.warning", [ "warning_text" => "Recurso incompleto! Status 70%" ] )
 
                         <div class="row mt-4" >
 
