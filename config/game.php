@@ -3,6 +3,6 @@
 return [
 
     "speed_resource" => 10,
-    "speed_build"    => 1.2,
+    "speed_build"    => 100,
 
 ];
