@@ -35,8 +35,11 @@
 
             <div class="col-12 col-md-10 mx-auto" >
                 <div class="btn-group btn-group-sm pb-2" role="group" aria-label="Button group with nested dropdown" >
-                    <button type="button" class="btn btn-light btn-km dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                    <a class="btn btn-light btn-km" href="{{ route( "village.overview", [ "village" => $village ] ) }}" >
                         {{ $village->name }}
+                    </a>
+                    <button type="button" class="btn btn-light btn-km dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                        <i class="bi bi-chevron-down"></i>
                     </button>
                     <ul class="dropdown-menu" >
                         @foreach ( $villages as $v )
