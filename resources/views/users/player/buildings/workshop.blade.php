@@ -183,13 +183,13 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                    $woodMax    = $buildings->wood->max_level"         ];
+                                                    $woodMax    = $buildings->wood->max_level;
 
-                                                    $prodBase   = $buildings->wood->production"        ];
-                                                    $prodRate   = $buildings->wood->production_factor" ];
+                                                    $prodBase   = $buildings->wood->production;
+                                                    $prodRate   = $buildings->wood->production_factor;
 
-                                                    $pointsBase = $buildings->wood->points"            ];
-                                                    $pointsRate = $buildings->wood->points_factor"     ];
+                                                    $pointsBase = $buildings->wood->points;
+                                                    $pointsRate = $buildings->wood->points_factor;
                                                 @endphp
                                                 @foreach ( range( 1, $woodMax ) as $i )
                                                     @php
@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                             @else
-                                @include( "users/player/partials.building-require", [ "name" => $buildings->workshop->key" ] ] )
+                                @include( "users/player/partials.building-require", [ "name" => $buildings->workshop->key ] )
                             @endif
 
                             {{-- unidades ainda nao pesquisadas --}}

@@ -41,7 +41,7 @@ class VillageController extends Controller
      * @param   Request $request
      * @return  void
      */
-    private function insertDataCompact( Request $request )
+    private function insertDataCompact( Request $request, string $building = "" )
     {
         if ( isset( $request->villages ) )
             $this->compact[ "villages" ] = $request->villages;
@@ -51,6 +51,10 @@ class VillageController extends Controller
 
         if ( isset( $request->events ) )
             $this->compact[ "events"   ] = $request->events;
+
+        // TODO revisar
+        if ( $building )
+            $this->helper->getUnits( $this->compact, $building );
     }
 
     /**
@@ -87,7 +91,7 @@ class VillageController extends Controller
      */
     public function barracks( Request $request, Village $village )
     {
-        $this->insertDataCompact( $request );
+        $this->insertDataCompact( $request, "barracks" );
 
         return view( "users.player.buildings.barracks", $this->compact );
     }
@@ -100,7 +104,7 @@ class VillageController extends Controller
      */
     public function stable( Request $request, Village $village )
     {
-        $this->insertDataCompact( $request );
+        $this->insertDataCompact( $request, "stable" );
 
         return view( "users.player.buildings.stable", $this->compact );
     }
@@ -113,7 +117,7 @@ class VillageController extends Controller
      */
     public function workshop( Request $request, Village $village )
     {
-        $this->insertDataCompact( $request );
+        $this->insertDataCompact( $request, "workshop" );
 
         return view( "users.player.buildings.workshop", $this->compact );
     }
@@ -126,7 +130,7 @@ class VillageController extends Controller
      */
     public function smithy( Request $request, Village $village )
     {
-        $this->insertDataCompact( $request );
+        $this->insertDataCompact( $request, "smithy" );
 
         return view( "users.player.buildings.smithy", $this->compact );
     }

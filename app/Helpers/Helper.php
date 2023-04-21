@@ -201,7 +201,7 @@ class Helper
     {
         $base  = $building->build_time_real * $building->build_time_factor;
 
-        if ( $building->key == "main" ) return $base;
+        if ( $building->key == "main" ) return $base / self::getBuildSpeed();
 
         $perc  = 100 - ( int ) $main->time;
         $cal   = $base - ( $base * ( $perc / 100 ) );
@@ -536,6 +536,69 @@ class Helper
             $e->start  = $start;
             $e->finish = $finish;
             $e->save();
+        }
+    }
+
+    public function getUnits( &$compact, $building )
+    {
+        // unidades por aldeia
+        // tratar como objeto/json
+
+        $buildings = [
+            "barracks" => [ "spear", "sword", "axe", "archer"  ],
+            "stable"   => [ "spy", "light", "marcher", "heavy" ],
+            "workshop" => [ "ram", "catapult"                  ],
+            "smithy"   => [ "spear", "sword", "axe", "archer", "spy", "light", "marcher", "heavy", "ram", "catapult" ],
+        ];
+
+        $units     = $buildings[ $building ];
+        $unitsOn   = [];
+        $unitsOff  = [];
+
+        foreach ( $compact[ "units" ] as $key => $unit )
+        {
+            if ( in_array( $key, $units ) )
+            {
+                if ( $compact[ "village" ]->{ "research_{$key}"} != 0 )
+                {
+                    $unitsOn[ $key ] = $unit;
+                }
+                else
+                {
+                    $unitsOff[ $key ] = $unit;
+                }
+            }
+        }
+
+        $compact[ "unitsOn"  ] = $unitsOn;
+        $compact[ "unitsOff" ] = $unitsOff;
+
+        $this->calcUnitsProps( $compact );
+    }
+
+    private function calcUnitsProps( &$compact )
+    {
+        $units   = &$compact[ "unitsOn" ];
+        $village = &$compact[ "village" ];
+
+        foreach ( $units as $key => &$unit )
+        {
+            $level = $village->{"research_{$key}"};
+
+            if ( $level > 1 )
+            {
+                foreach ( range( 2, $level ) as $i )
+                {
+                    $unit[ "research_wood"   ] = $unit[ "research_wood"   ] * $unit[ "research_factor" ];
+                    $unit[ "research_clay"   ] = $unit[ "research_clay"   ] * $unit[ "research_factor" ];
+                    $unit[ "research_iron"   ] = $unit[ "research_iron"   ] * $unit[ "research_factor" ];
+
+                    $unit[ "attack"          ] = $unit[ "attack"          ] * $unit[ "attack_factor"   ];
+                    $unit[ "defense"         ] = $unit[ "defense"         ] * $unit[ "defense_factor"  ];
+                    $unit[ "defense_cavalry" ] = $unit[ "defense_cavalry" ] * $unit[ "defense_factor"  ];
+                    $unit[ "defense_archer"  ] = $unit[ "defense_archer"  ] * $unit[ "defense_factor"  ];
+                }
+            }
         }
     }
 }
