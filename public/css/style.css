@@ -61,23 +61,23 @@ body {
 }
 
 .progress-bar {
-    background-color: #9E7A56;
+    background-color: #9E7A56 !important;
 }
 
 .dropdown-toggle::after {
-    display: none;
+    display: none !important;
 }
 
 .btn-group-km .btn-km:hover, .btn-km.active {
-    border-color: #E1D7BC;
+    border-color: #E1D7BC !important;
 }
 
 .bg-km, .btn-km {
-    border-color: #F0EADE;
+    border-color: #F0EADE !important;
 }
 
 table td, table th {
-    border-color: #B5BABE;
+    border-color: #B5BABE !important;
 }
 
 .table-fixed {

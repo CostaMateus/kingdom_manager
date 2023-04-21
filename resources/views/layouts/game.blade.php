@@ -47,35 +47,40 @@
                             <div class="col-12">
                                 <!-- Center Navbar -->
                                 <ul class="navbar-nav justify-content-center" >
-                                    <li class="nav-item dropdown" >
+                                    {{--
+                                        Combinado
+                                            - lista as construções e o que está em andamento nelas
+                                            - lista o exército e as qntdds
+                                            - lista mercadores, livre/total
+                                        Produção
+                                            - lista pontos, recursos por hora, armazem, comerciantes, fazenda, fila de construção/pesquisa/recrutamento
+                                        Transporte
+                                            - lista movimentação dos comerciantes (partida/chegada/retorno)
+                                        Tropas
+                                            - lista localização do exército
+                                        Comandos
+                                            - lista movimentação do exército
+                                        Chegando
+                                            - lista ataques e apoios
+                                        Edifícios
+                                            - lista pontos, nível dos edifícios e fila de construção
+                                        Pesquisa
+                                            - lista pontos, status de pesquisa de cada unidade do exército, fila de pesquisa e bandeira ativa
+                                        Gerente de conta
+                                            - automatização
+                                    --}}
+                                    {{-- <li class="nav-item dropdown" >
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle {{ Route::currentRouteNamed( "home" ) ? "active" : "" }}" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre >
                                             Visualizações
+                                            <i class="bi bi-chevron-down"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown" >
                                             <a class="dropdown-item bg-km {{ Route::currentRouteNamed( "home" ) ? "active" : "" }}" href="{{ route( "home" ) }}" >Início</a>
-                                            {{--
-                                                Combinado
-                                                    - lista as construções e o que está em andamento nelas
-                                                    - lista o exército e as qntdds
-                                                    - lista mercadores, livre/total
-                                                Produção
-                                                    - lista pontos, recursos por hora, armazem, comerciantes, fazenda, fila de construção/pesquisa/recrutamento
-                                                Transporte
-                                                    - lista movimentação dos comerciantes (partida/chegada/retorno)
-                                                Tropas
-                                                    - lista localização do exército
-                                                Comandos
-                                                    - lista movimentação do exército
-                                                Chegando
-                                                    - lista ataques e apoios
-                                                Edifícios
-                                                    - lista pontos, nível dos edifícios e fila de construção
-                                                Pesquisa
-                                                    - lista pontos, status de pesquisa de cada unidade do exército, fila de pesquisa e bandeira ativa
-                                                Gerente de conta
-                                                    - automatização
-                                            --}}
                                         </div>
+                                    </li> --}}
+
+                                    <li class="nav-item" >
+                                        <a class="nav-link {{ Route::currentRouteNamed( "home"     ) ? "active" : "" }}" href="{{ route( "home"     ) }}" >Início</a>
                                     </li>
 
                                     <li class="nav-item" >

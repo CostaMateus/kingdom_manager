@@ -8,10 +8,9 @@
                 [{{ config( "app.name", "Laravel" ) }}]
             </div>
 
-            <div class="card col-12 col-sm-10 col-md-5 col-lg-3 mx-auto p-0" >
-                {{-- <div class="card-header text-center" >{{ __( "Login" ) }}</div> --}}
-
+            <div class="card col-11 col-sm-10 col-md-5 col-lg-3 mx-auto p-0" >
                 <div class="card-body p-3" >
+
                     <form method="POST" action="{{ route( "login" ) }}" >
                         @csrf
 
@@ -64,6 +63,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
 
