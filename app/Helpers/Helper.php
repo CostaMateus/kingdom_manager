@@ -201,7 +201,7 @@ class Helper
     {
         $base  = $building->build_time_real * $building->build_time_factor;
 
-        if ( $building->key == "main" ) return $base;
+        if ( $building->key == "main" ) return $base / self::getBuildSpeed();
 
         $perc  = 100 - ( int ) $main->time;
         $cal   = $base - ( $base * ( $perc / 100 ) );
