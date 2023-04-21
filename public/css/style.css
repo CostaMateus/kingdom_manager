@@ -60,6 +60,14 @@ body {
     background-repeat: repeat;
 }
 
+.progress-bar {
+    background-color: #9E7A56;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
 .btn-group-km .btn-km:hover, .btn-km.active {
     border-color: #E1D7BC;
 }
