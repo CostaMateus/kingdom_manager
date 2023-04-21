@@ -38,14 +38,16 @@
                     <a class="btn btn-light btn-km" href="{{ route( "village.overview", [ "village" => $village ] ) }}" >
                         {{ $village->name }}
                     </a>
-                    <button type="button" class="btn btn-light btn-km dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
-                        <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" >
-                        @foreach ( $villages as $v )
-                            <li><a class="dropdown-item bg-km" href="{{ route( "village.overview", [ "village" => $v ] ) }}" >{{ $v->name }}</a></li>
-                        @endforeach
-                    </ul>
+                    @if ( $villages->count() > 1 )
+                        <button type="button" class="btn btn-light btn-km dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" >
+                            @foreach ( $villages as $v )
+                                <li><a class="dropdown-item bg-km" href="{{ route( "village.overview", [ "village" => $v ] ) }}" >{{ $v->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
                 <div class="float-end mx-auto text-center" >
                     <div class="btn-group btn-group-sm btn-group-km pb-2 order-1" role="group" >
