@@ -27,13 +27,13 @@ Route::middleware( [ "auth" ] )->group( function () {
 
     Route::middleware( [ "isApproved" ] )->group( function () {
 
-        Route::get( "/home",     [ HomeController::class, "index" ] )->name( "home"     )->middleware( [ "villages.data"  ] );
-        Route::get( "/map",      [ HomeController::class, "index" ] )->name( "map"      );
-        Route::get( "/reports",  [ HomeController::class, "index" ] )->name( "reports"  );
-        Route::get( "/messages", [ HomeController::class, "index" ] )->name( "messages" );
-        Route::get( "/ranking",  [ HomeController::class, "index" ] )->name( "ranking"  );
-        Route::get( "/alliance", [ HomeController::class, "index" ] )->name( "alliance" );
-        Route::get( "/profile",  [ HomeController::class, "index" ] )->name( "profile"  );
+        Route::get( "/home",     [ HomeController::class, "index"    ] )->name( "home"     )->middleware( [ "villages.data" ] );
+        Route::get( "/map",      [ HomeController::class, "map"      ] )->name( "map"      );
+        Route::get( "/reports",  [ HomeController::class, "reports"  ] )->name( "reports"  );
+        Route::get( "/messages", [ HomeController::class, "messages" ] )->name( "messages" );
+        Route::get( "/ranking",  [ HomeController::class, "ranking"  ] )->name( "ranking"  );
+        Route::get( "/alliance", [ HomeController::class, "alliance" ] )->name( "alliance" );
+        Route::get( "/profile",  [ HomeController::class, "profile"  ] )->name( "profile"  );
 
         Route::middleware( [ "villages.user", "villages.data" ] )->name( "village." )->prefix( "/village/{village}/" )->group( function () {
 
