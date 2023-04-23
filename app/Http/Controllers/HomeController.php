@@ -88,6 +88,7 @@ class HomeController extends Controller
                      ->where( "users.is_admin", 0 )
                      ->leftJoin( "villages", "villages.user_id", "users.id" )
                      ->select( "users.id", "users.nickname", DB::raw( "SUM(villages.points) as points" ), DB::raw(  "COUNT(villages.id) as villages" ) )
+                     ->orderBy( "points", "DESC" )
                      ->groupBy( "users.id" )
                      ->get();
 
