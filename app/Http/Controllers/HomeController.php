@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Helpers\Helper;
-use App\Models\Village;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -83,6 +83,15 @@ class HomeController extends Controller
     public function ranking( Request $request )
     {
         $this->insertDataCompact( $request );
+
+        $players = DB::table( "users" )
+                     ->where( "users.is_admin", 0 )
+                     ->leftJoin( "villages", "villages.user_id", "users.id" )
+                     ->select( "users.id", "users.nickname", DB::raw( "SUM(villages.points) as points" ), DB::raw(  "COUNT(villages.id) as villages" ) )
+                     ->groupBy( "users.id" )
+                     ->get();
+
+        $this->compact[ "players" ] = $players;
 
         return view( "users.player.ranking", $this->compact );
     }
