@@ -143,7 +143,7 @@
             </footer>
         </div>
 
-        @yield( "js_main"        )
         @yield( "js_queue_build" )
+        @yield( "js_main"        )
     </body>
 </html>
