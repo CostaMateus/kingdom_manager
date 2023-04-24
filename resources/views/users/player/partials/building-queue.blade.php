@@ -5,10 +5,11 @@
             <thead>
                 <tr>
                     <th class="text-center"                        >Edifício</th>
-                    <th class="text-center d-sm-none"              >Duração<br>Conclusão</th>
-                    <th class="text-center d-none d-sm-table-cell" >Duração</th>
+                    <th class="d-none d-sm-table-cell text-center" >Duração</th>
                     <th class="d-none d-sm-table-cell"             >Conclusão</th>
-                    <th class="text-center"                        >Cancelamento</th>
+                    <th class="d-none d-sm-table-cell text-center" >Cancelamento</th>
+
+                    <th class="d-sm-none text-center"              >Detalhes</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,17 +31,27 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-center d-sm-none @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration-finish" @endif >
-                            <p id="queue-duration-2" class="mb-3" >{{ $event->duration_f }}</p>
-                            <p                       class="mb-0" >{{ $event->conclusion }}</p>
-                        </td>
-                        <td class="text-center d-none d-sm-table-cell @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration" @endif >
+                        <td class="d-none d-sm-table-cell text-center @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration" @endif >
                             {{ $event->duration_f }}
                         </td>
-                        <td class="d-none d-sm-table-cell @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-finish"   @endif >
+                        <td class="d-none d-sm-table-cell             @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-finish"   @endif >
                             {{ $event->conclusion }}
                         </td>
-                        <td class="text-center @if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                        <td class="d-none d-sm-table-cell text-center @if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                            <a class="btn btn-default fw-bold btn-outline-danger btn-sm w-100" onclick="event.preventDefault(); document.getElementById( 'form-builded-{{ $key }}' ).submit();"
+                                href="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
+                                Cancelar
+                            </a>
+                            <form id="form-builded-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >@csrf</form>
+                        </td>
+
+                        <td class="d-sm-none @if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                            <p class="mb-0" >
+                                <strong>Duração</strong>: <span id="queue-duration-2" >{{ $event->duration_f }}</span>
+                            </p>
+                            <p class="mb-3" >
+                                <strong>Conclusão</strong>: {{ $event->conclusion }}
+                            </p>
                             <a class="btn btn-default fw-bold btn-outline-danger btn-sm w-100" onclick="event.preventDefault(); document.getElementById( 'form-builded-{{ $key }}' ).submit();"
                                 href="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
                                 Cancelar
@@ -81,7 +92,7 @@
                     $( "#queue-duration"   ).text( "quase concluído" );
                     $( "#queue-duration-2" ).text( "quase concluído" );
                     clearInterval( idInterval );
-                    window.location.reload();
+                    window.location.href = '{{ Request::url() }}';
                 }
                 else
                 {
