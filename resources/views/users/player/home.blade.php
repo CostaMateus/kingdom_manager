@@ -51,30 +51,35 @@
                                             {{-- recursos --}}
                                             <td class="text-center" >
                                                 @php
-                                                    $wood = ( property_exists( $v->buildings->on, "wood" ) )
+                                                    $wood    = ( property_exists( $v->buildings->on, "wood" ) )
                                                                 ? $v->buildings->on->wood
                                                                 : $v->buildings->off->wood;
 
-                                                    $clay = ( property_exists( $v->buildings->on, "clay" ) )
+                                                    $clay    = ( property_exists( $v->buildings->on, "clay" ) )
                                                                 ? $v->buildings->on->clay
                                                                 : $v->buildings->off->clay;
 
-                                                    $iron = ( property_exists( $v->buildings->on, "iron" ) )
+                                                    $iron    = ( property_exists( $v->buildings->on, "iron" ) )
                                                                 ? $v->buildings->on->iron
                                                                 : $v->buildings->off->iron;
+
+                                                    $class_w = $v->stored_wood >= ( 0.9 * $v->buildings->on->warehouse->capacity ) ? "text-danger" : "";
+                                                    $class_c = $v->stored_clay >= ( 0.9 * $v->buildings->on->warehouse->capacity ) ? "text-danger" : "";
+                                                    $class_i = $v->stored_iron >= ( 0.9 * $v->buildings->on->warehouse->capacity ) ? "text-danger" : "";
+
                                                 @endphp
                                                 <div class="row mx-auto" >
-                                                    <div class="px-1 col-12 col-lg-4" title="{{ $wood->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4 {{ $class_w }}" title="{{ $wood->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$wood->key}.png" ) }}" alt="{{ $wood->name }}" >
-                                                        {{ ( int ) $v->stored_wood }}
+                                                        <span>{{ ( int ) $v->stored_wood }}</span>
                                                     </div>
-                                                    <div class="px-1 col-12 col-lg-4" title="{{ $clay->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4 {{ $class_c }}" title="{{ $clay->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$clay->key}.png" ) }}" alt="{{ $clay->name }}" >
-                                                        {{ ( int ) $v->stored_clay }}
+                                                        <span>{{ ( int ) $v->stored_clay }}</span>
                                                     </div>
-                                                    <div class="px-1 col-12 col-lg-4" title="{{ $iron->name }}" >
+                                                    <div class="px-1 col-12 col-lg-4 {{ $class_i }}" title="{{ $iron->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$iron->key}.png" ) }}" alt="{{ $iron->name }}" >
-                                                        {{ ( int ) $v->stored_iron }}
+                                                        <span>{{ ( int ) $v->stored_iron }}</span>
                                                     </div>
                                                 </div>
                                             </td>
