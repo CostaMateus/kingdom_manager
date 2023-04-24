@@ -27,8 +27,6 @@
                 $( "#stored_wood span" ).text( parseInt( s_wood ) );
                 $( "#stored_clay span" ).text( parseInt( s_clay ) );
                 $( "#stored_iron span" ).text( parseInt( s_iron ) );
-
-                console.log( s_wood, s_clay, s_iron );
             }
         } );
     </script>

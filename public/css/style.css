@@ -115,6 +115,7 @@ table td, table th {
     min-width: 100px;
 }
 
+#building-queue td:first-child img,
 #builded td:first-child img,
 #not-build td img {
     max-width: 45px;
