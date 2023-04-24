@@ -3,9 +3,9 @@
             <table id="builded" class="table table-hover table-sm align-middle mb-0" >
                 <thead>
                     <tr>
-                        <th>Edifícios</th>
-                        <th>Requerimentos</th>
-                        <th>Construir</th>
+                        <th class="text-center"                        >Edifícios</th>
+                        <th class="text-center"                        >Requerimentos</th>
+                        <th class="text-center" style="min-width:90px" >Construir</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -4,10 +4,11 @@
         <table id="building-queue" class="table table-hover table-sm align-middle mb-0" >
             <thead>
                 <tr>
-                    <th>Edifício</th>
-                    <th>Duração</th>
-                    <th>Conclusão</th>
-                    <th>Cancelamento</th>
+                    <th class="text-center"                        >Edifício</th>
+                    <th class="text-center d-sm-none"              >Duração<br>Conclusão</th>
+                    <th class="text-center d-none d-sm-table-cell" >Duração</th>
+                    <th class="d-none d-sm-table-cell"             >Conclusão</th>
+                    <th class="text-center"                        >Cancelamento</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,37 +18,34 @@
                             <div class="row mx-auto" >
                                 <div class="col-12 col-lg-4 text-center ps-lg-0 m-auto" >
                                     @php
-                                        $png  = Helper::getLevelImage( $event->key, $event->level );
-                                        $img  = "{$event->key}{$png}.png";
+                                        $png = Helper::getLevelImage( $event->key, $event->level );
+                                        $img = "{$event->key}{$png}.png";
                                     @endphp
-                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="" >
+                                    <img class="w-100" src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="" >
                                 </div>
                                 <div class="col-12 col-lg-8 text-center text-lg-start ps-lg-0 m-auto" >
                                     <p class="mb-0" >
-                                        {{ $event->name }}
-                                        <br>
-                                        <span class="text-muted" >
-                                            Nível {{ $event->level }}
-                                        </span>
+                                        {{ $event->name }}<br><span class="text-muted" >Nível {{ $event->level }}</span>
                                     </p>
                                 </div>
                             </div>
                         </td>
-                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration" @endif >
+                        <td class="text-center d-sm-none @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration-finish" @endif >
+                            <p id="queue-duration-2" class="mb-3" >{{ $event->duration_f }}</p>
+                            <p                       class="mb-0" >{{ $event->conclusion }}</p>
+                        </td>
+                        <td class="text-center d-none d-sm-table-cell @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-duration" @endif >
                             {{ $event->duration_f }}
                         </td>
-                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-finish"   @endif >
+                        <td class="d-none d-sm-table-cell @if ( $loop->first || $loop->last ) border-bottom-0 @endif" @if ( $loop->first ) id="queue-finish"   @endif >
                             {{ $event->conclusion }}
                         </td>
-                        <td class="@if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
-                            <a class="btn btn-default fw-bold btn-outline-danger btn-sm w-100"
-                                onclick="event.preventDefault(); document.getElementById( 'form-builded-{{ $key }}' ).submit();"
+                        <td class="text-center @if ( $loop->first || $loop->last ) border-bottom-0 @endif" >
+                            <a class="btn btn-default fw-bold btn-outline-danger btn-sm w-100" onclick="event.preventDefault(); document.getElementById( 'form-builded-{{ $key }}' ).submit();"
                                 href="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
                                 Cancelar
                             </a>
-                            <form id="form-builded-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >
-                                @csrf
-                            </form>
+                            <form id="form-builded-{{ $key }}" method="POST" class="d-none" action="{{ route( "village.cancel.upgrade.building", [ "village" => $village, "event" => $event->id ] ) }}" >@csrf</form>
                         </td>
                     </tr>
 
@@ -68,21 +66,20 @@
 
 @section( "js_queue_build" )
     <script>
-        window.onload = function() {
-
+        document.addEventListener( "DOMContentLoaded", function() {
             let ftime      = parseInt( "{{ $events->first() ? $events->first()->total_time : 0 }}" );
             let time       = parseInt( "{{ $events->first() ? $events->first()->duration   : 0 }}" );
             let progress   = 0;
             let idInterval = null;
 
-            if ( ftime & time )
-                idInterval = setInterval( setTimeDuration, 1000 );
+            if ( ftime & time ) idInterval = setInterval( setTimeDuration, 1000 );
 
             function setTimeDuration()
             {
                 if ( time <= 0 )
                 {
-                    $( "#queue-duration" ).text( "quase concluído" );
+                    $( "#queue-duration"   ).text( "quase concluído" );
+                    $( "#queue-duration-2" ).text( "quase concluído" );
                     clearInterval( idInterval );
                     window.location.reload();
                 }
@@ -93,9 +90,10 @@
                     progress = 100 - ( ( time * 100 ) / ftime );
 
                     $( "#queue-duration"    ).text( moment.utc( time * 1000 ).format( "HH:mm:ss" ) );
+                    $( "#queue-duration-2"  ).text( moment.utc( time * 1000 ).format( "HH:mm:ss" ) );
                     $( "#queue-progression" ).css( "width", `${progress}%` );
                 }
             }
-        };
+        } );
     </script>
 @endsection

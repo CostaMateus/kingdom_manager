@@ -1,7 +1,7 @@
 
 @section( "js_main" )
     <script>
-        window.onload = function() {
+        document.addEventListener( "DOMContentLoaded", function() {
             let max    = parseFloat( "{{ $village->buildings->on->warehouse->capacity }}" );
 
             let p_wood = parseFloat( "{{ $village->prod_wood   }}" );
@@ -30,6 +30,6 @@
 
                 console.log( s_wood, s_clay, s_iron );
             }
-        };
+        } );
     </script>
 @endsection
