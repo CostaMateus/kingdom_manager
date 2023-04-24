@@ -24,6 +24,14 @@ class VillagesData
 
         $merge    = [ "villages" => $villages ];
 
+        foreach ( $villages as $v )
+        {
+            $resources = Helper::processStoredResource( $v, $v );
+
+            foreach ( $resources as $key => $value )
+                $v->{"stored_{$key}"} = $value;
+        }
+
         if ( $request->route( "village" ) )
         {
             $village = $request->route( "village" );
@@ -32,11 +40,6 @@ class VillagesData
             {
                 if ( $v->id == $village->id )
                 {
-                    $resources = Helper::processStoredResource( $village, $v );
-
-                    foreach ( $resources as $key => $value )
-                        $v->{"stored_{$key}"} = $value;
-
                     switch ( $request->route()->getName() )
                     {
                         case "village.overview":

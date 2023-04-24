@@ -231,8 +231,8 @@
                                                                     $img      = "{$building}{$png}.png";
                                                                 @endphp
                                                                 <button class="btn btn-link btn-sm text-decoration-none text-dark float-sm-start cursor-none {{ $disabled }}" >
-                                                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings[ $building ][ "name" ] }}" >
-                                                                    {{ $buildings[ $building ][ "name" ] }} - Nível {{ $level }}
+                                                                    <img src="{{ asset( "assets/graphic/buildings/{$img}" ) }}" alt="{{ $buildings->$building->name }}" >
+                                                                    {{ $buildings->$building->name }} - Nível {{ $level }}
                                                                 </button>
                                                             @endforeach
                                                             @if ( empty( $allEnab ) )
@@ -260,4 +260,4 @@
     </div>
 @endsection
 
-@include( "users/player/partials.update-resources" )
+@include( "users/player/partials.update-village-resources" )

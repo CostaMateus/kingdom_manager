@@ -184,4 +184,4 @@
     </div>
 @endsection
 
-@include( "users/player/partials.update-resources" )
+@include( "users/player/partials.update-village-resources" )
