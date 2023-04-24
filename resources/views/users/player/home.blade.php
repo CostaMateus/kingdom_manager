@@ -18,7 +18,7 @@
                                     @endphp
                                     <tr>
                                         <th scope="col"                                      style="min-width:150px" >
-                                            Total: {{ count( $villages ) }}
+                                            Total: {{ $villages->count() }}
                                         </th>
                                         <th scope="col" class="text-center" title="Pontos"   style="min-width:60px" >
                                             Pontos
@@ -35,58 +35,58 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ( $villages as $village )
+                                    @foreach ( $villages as $v )
                                         <tr class="align-middle" >
                                             <th scope="row" >
-                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.overview", [ "village" => $village ] ) }}" >
-                                                    {{ $village->name }}
+                                                <a class="btn btn-sm btn-link text-black text-decoration-none" href="{{ route( "village.overview", [ "village" => $v ] ) }}" >
+                                                    {{ $v->name }}
                                                 </a>
                                             </th>
 
                                             {{-- pontos --}}
                                             <td class="text-center" >
-                                                {{ ( int ) $village->points }}
+                                                {{ ( int ) $v->points }}
                                             </td>
 
                                             {{-- recursos --}}
                                             <td class="text-center" >
                                                 @php
-                                                    $wood = ( property_exists( $village->buildings->on, "wood" ) )
-                                                                ? $village->buildings->on->wood
-                                                                : $village->buildings->off->wood;
+                                                    $wood = ( property_exists( $v->buildings->on, "wood" ) )
+                                                                ? $v->buildings->on->wood
+                                                                : $v->buildings->off->wood;
 
-                                                    $clay = ( property_exists( $village->buildings->on, "clay" ) )
-                                                                ? $village->buildings->on->clay
-                                                                : $village->buildings->off->clay;
+                                                    $clay = ( property_exists( $v->buildings->on, "clay" ) )
+                                                                ? $v->buildings->on->clay
+                                                                : $v->buildings->off->clay;
 
-                                                    $iron = ( property_exists( $village->buildings->on, "iron" ) )
-                                                                ? $village->buildings->on->iron
-                                                                : $village->buildings->off->iron;
+                                                    $iron = ( property_exists( $v->buildings->on, "iron" ) )
+                                                                ? $v->buildings->on->iron
+                                                                : $v->buildings->off->iron;
                                                 @endphp
                                                 <div class="row mx-auto" >
                                                     <div class="px-1 col-12 col-lg-4" title="{{ $wood->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$wood->key}.png" ) }}" alt="{{ $wood->name }}" >
-                                                        {{ ( int ) $village->stored_wood }}
+                                                        {{ ( int ) $v->stored_wood }}
                                                     </div>
                                                     <div class="px-1 col-12 col-lg-4" title="{{ $clay->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$clay->key}.png" ) }}" alt="{{ $clay->name }}" >
-                                                        {{ ( int ) $village->stored_clay }}
+                                                        {{ ( int ) $v->stored_clay }}
                                                     </div>
                                                     <div class="px-1 col-12 col-lg-4" title="{{ $iron->name }}" >
                                                         <img src="{{ asset( "assets/graphic/buildings/icons/{$iron->key}.png" ) }}" alt="{{ $iron->name }}" >
-                                                        {{ ( int ) $village->stored_iron }}
+                                                        {{ ( int ) $v->stored_iron }}
                                                     </div>
                                                 </div>
                                             </td>
 
                                             {{-- armazem --}}
                                             <td class="text-center" >
-                                                {{ ( int ) $village->buildings->on->warehouse->capacity }}
+                                                {{ ( int ) $v->buildings->on->warehouse->capacity }}
                                             </td>
 
                                             {{-- fazenda --}}
                                             <td class="text-center" >
-                                                {{ ( int ) $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
+                                                {{ ( int ) $v->pop }}/{{ ( int ) $v->buildings->on->farm->max_pop }}
                                             </td>
 
                                         </tr>
