@@ -82,7 +82,7 @@
                             {{ $village->pop }}/{{ ( int ) $village->buildings->on->farm->max_pop }}
                         </a>
                     </div>
-                    <div class="btn-group btn-group-sm btn-group-km pb-2 order-3" role="group" >
+                    <div class="btn-group btn-group-sm btn-group-km pb-2 order-3 d-none" role="group" >
                         {{-- ataque chegando --}}
                         {{-- esconder qnd não tiver ataques chegando --}}
                         <a class="btn btn-light btn-km btn-sm" href="#" title="Ataque chegando" >
