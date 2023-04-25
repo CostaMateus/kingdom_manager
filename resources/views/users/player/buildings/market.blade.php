@@ -18,7 +18,7 @@
                         @include( "users/player/partials.building-description", [
                             "title"    => "Capacidade por nível",
                             "field"    => "merchants",
-                            "uni"      => "",
+                            "uni"      => " mil",
                             "building" => $buildings->market
                         ] )
 
