@@ -9,6 +9,7 @@ use App\Models\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\BuildingRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -361,7 +362,7 @@ class VillageController extends Controller
                 $new_clay  = 0;
                 $new_iron  = 0;
 
-                $resources = Helper::processStoredResource( $village, $auxVlg );
+                $resources = Helper::processStoredResource( $village, $auxVlg, "upgradeBuilding" );
 
                 foreach ( $resources as $key => $value ) ${"new_{$key}"} = $value;
 
@@ -405,6 +406,10 @@ class VillageController extends Controller
                 }
                 else
                 {
+                    Log::info( auth()->user()->nickname );
+                    Log::info( "recursos indisponiveis" );
+                    Log::info( "===========" );
+
                     // msg de erro
                     // recursos indisponiveis
                     $result = redirect()->route( "village.main", [ "village" => $village ] );
@@ -412,6 +417,10 @@ class VillageController extends Controller
             }
             else
             {
+                Log::info( auth()->user()->nickname );
+                Log::info( "recursos indisponiveis | diferenca entre requisito e informado" );
+                Log::info( "===========" );
+
                 // msg de erro
                 // recursos indisponiveis | diferenca entre requisito e informado
                 $result = redirect()->route( "village.main", [ "village" => $village ] );
@@ -419,6 +428,10 @@ class VillageController extends Controller
         }
         else
         {
+            Log::info( auth()->user()->nickname );
+            Log::info( "edf no nivel maximo" );
+            Log::info( "===========" );
+
             // msg de erro
             // edificio no nivel maximo
             $result = redirect()->route( "village.main", [ "village" => $village ] );

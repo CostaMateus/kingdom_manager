@@ -315,7 +315,7 @@ class Helper
             "iron" => $v_processed->prod_iron,
         ];
 
-        Log::info( auth()->user()->nickname);
+        Log::info( auth()->user()->nickname );
         Log::info( $origin );
         Log::info( json_encode( [
             "wood" => $v_origin->stored_wood,
