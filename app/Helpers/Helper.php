@@ -7,6 +7,7 @@ use App\Models\Village;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Helper
 {
@@ -300,7 +301,7 @@ class Helper
      * @param   Village $v_processed
      * @return  array
      */
-    public static function processStoredResource( Village $v_origin, Village $v_processed )
+    public static function processStoredResource( Village $v_origin, Village $v_processed, string $origin = "" )
     {
         $current_time = Carbon::now();
         $last_update  = new Carbon( $v_origin->updated_stored );
@@ -314,13 +315,26 @@ class Helper
             "iron" => $v_processed->prod_iron,
         ];
 
-        return self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
+        Log::info( auth()->user()->nickname);
+        Log::info( $origin );
+        Log::info( json_encode( [
+            "wood" => $v_origin->stored_wood,
+            "clay" => $v_origin->stored_clay,
+            "iron" => $v_origin->stored_iron,
+        ] ) );
+
+        $return = self::processResources( $v_origin, $capacity, $production, ( int ) $time_elapsed );
+
+        Log::info( json_encode( $return ) );
+        Log::info( "===========" );
+
+        return $return;
     }
 
     public static function restoreResources( Village $v_origin, Village $v_processed, Event $event )
     {
         $capacity    = $v_processed->buildings->on->warehouse->capacity;
-        $resources   = self::processStoredResource( $v_origin, $v_processed );
+        $resources   = self::processStoredResource( $v_origin, $v_processed, "restoreResources" );
 
         $stored_wood = $resources[ "wood" ] + $event->wood;
         $stored_clay = $resources[ "clay" ] + $event->clay;
