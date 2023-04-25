@@ -67,38 +67,28 @@
 
                                                             if ( $field )
                                                             {
-                                                                $print = ( in_array( $field, $arr ) ) ? $base : $base * config( "game.speed" );
-                                                                $base2 = $base;
-                                                            }
 
-                                                            $pointsBase2 = $pointsBase;
-
-                                                            if ( $i > 1 )
-                                                            {
-                                                                if ( $field )
+                                                                if ( $field == "time" )
                                                                 {
-                                                                    if ( $field == "time" )
-                                                                    {
-                                                                        $cal   = $base * $rate;
-                                                                        $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
-                                                                        $base2 = ( $cal - $base ) * -1;
+                                                                    $cal   = $base * $rate;
+                                                                    $base  = $base + round( $cal, 0, PHP_ROUND_HALF_DOWN );
+                                                                    $base2 = ( $cal - $base ) * -1;
 
-                                                                        $print = $base2;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        $cal   = $base * $rate;
-                                                                        $base  = $cal;
-                                                                        $base2 = $cal;
-
-                                                                        $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * config( "game.speed" );
-                                                                    }
+                                                                    $print = $base2;
                                                                 }
+                                                                else
+                                                                {
+                                                                    $cal   = $base * $rate;
+                                                                    $base  = $cal;
+                                                                    $base2 = $cal;
 
-                                                                $cal         = $pointsBase * $pointsRate;
-                                                                $pointsBase2 = $cal - $pointsBase;
-                                                                $pointsBase  = $cal;
+                                                                    $print = ( in_array( $field, $arr ) ) ? $base2 : $base2 * Helper::getResourceSpeed();
+                                                                }
                                                             }
+
+                                                            $cal         = $pointsBase * $pointsRate;
+                                                            $pointsBase2 = $cal - $pointsBase;
+                                                            $pointsBase  = $cal;
 
                                                             if ( $field && $field == "production" )
                                                                 $print = number_format( $print, 0, ",", "." );
