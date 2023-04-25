@@ -18,7 +18,7 @@
                         @include( "users/player/partials.building-description", [
                             "title"    => "Produção por nível",
                             "field"    => "production",
-                            "uni"      => "/min",
+                            "uni"      => "/h",
                             "building" => $buildings->clay
                         ] )
 
@@ -53,8 +53,7 @@
                                                     </td>
                                                     @if ( $clay->level != $clay->max_level )
                                                         <td class="border-bottom-0 text-center" >
-                                                            {{-- TODO arrumar valor de produção do próximo nível --}}
-                                                            {{ number_format( ( $village->prod_clay * $clay->clay_factor ), 0, ",", "."  ) }}
+                                                            {{ number_format( ( $village->prod_clay * $clay->production_factor ), 0, ",", "."  ) }}
                                                         </td>
                                                     @endif
                                                 </tr>
