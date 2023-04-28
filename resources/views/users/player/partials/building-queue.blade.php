@@ -70,6 +70,23 @@
                         </tr>
                     @endif
                 @endforeach
+
+                @if ( $events->count() >= 5 )
+                    @php
+                        $over  = $events->count() - 4;
+                        $over *= 25;
+                    @endphp
+                    <tr>
+                        <td colspan="5" class="text-center border-bottom-0 border-top border-dark" >
+                            <p class="mb-0 h5" >
+                                Custo adicional para próxima ordem a ser colocada na fila de construção: <strong>{{ $over }}%</strong>
+                            </p>
+                            <p class="mb-0" >
+                                Custos adicionais gerados por novas ordens de construção não serão restituídos em caso de cancelamento.
+                            </p>
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>

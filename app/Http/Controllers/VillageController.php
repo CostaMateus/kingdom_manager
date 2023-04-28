@@ -336,9 +336,14 @@ class VillageController extends Controller
 
         $events   = $this->compact[ "events" ];
 
-        // // msg de erro - fila cheia
-        // if ( $events->count() >= 5 )
-        //     return redirect()->route( "village.main", [ "village" => $village ] );
+        $over     = 0;
+
+        // custo adicional
+        if ( $events->count() >= 5 )
+        {
+            $over  = $events->count() - 4;
+            $over *= 25;
+        }
 
         $auxVlg   = $this->compact[ "village" ];
 
@@ -366,14 +371,26 @@ class VillageController extends Controller
 
                 foreach ( $resources as $key => $value ) ${"new_{$key}"} = $value;
 
-                if ( $new_wood >= $building->wood &&
-                     $new_clay >= $building->clay &&
-                     $new_iron >= $building->iron )
+                Log::info( auth()->user()->nickname );
+                Log::info( "total de eventos: " . $events->count() );
+                Log::info( "calculo de over: "  . $over );
+                Log::info( "custo original W:{$building->wood} C:{$building->clay} I:{$building->iron}" );
+
+                $calc_wood = $building->wood + ( $building->wood * ( $over / 100 ) );
+                $calc_clay = $building->clay + ( $building->clay * ( $over / 100 ) );
+                $calc_iron = $building->iron + ( $building->iron * ( $over / 100 ) );
+
+                Log::info( "novo custo W:{$calc_wood} C:{$calc_clay} I:{$calc_iron}" );
+                Log::info( "===========" );
+
+                if ( $new_wood >= $calc_wood &&
+                     $new_clay >= $calc_clay &&
+                     $new_iron >= $calc_iron )
                 {
                     $village->updated_stored  = now();
-                    $village->stored_wood     = $new_wood - $building->wood;
-                    $village->stored_clay     = $new_clay - $building->clay;
-                    $village->stored_iron     = $new_iron - $building->iron;
+                    $village->stored_wood     = $new_wood - $calc_wood;
+                    $village->stored_clay     = $new_clay - $calc_clay;
+                    $village->stored_iron     = $new_iron - $calc_iron;
                     $village->pop            += ( int ) $building->pop;
                     $village->save();
 
