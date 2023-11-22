@@ -436,6 +436,8 @@ class VillageController extends Controller
             {
                 Log::info( auth()->user()->nickname );
                 Log::info( "recursos indisponiveis | diferenca entre requisito e informado" );
+                Log::info( "requisito W:{$building->wood} C:{$building->clay} I:{$building->iron}" );
+                Log::info( "informado W:{$request->wood} C:{$request->clay} I:{$request->iron}" );
                 Log::info( "===========" );
 
                 // msg de erro

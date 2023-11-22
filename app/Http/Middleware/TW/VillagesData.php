@@ -32,7 +32,7 @@ class VillagesData
             {
                 if ( $v->id == $village->id )
                 {
-                    $this->resourceProcessing( $villages );
+                    $this->resourceProcessing( $villages, $request->route()->getName() );
 
                     switch ( $request->route()->getName() )
                     {
@@ -75,8 +75,8 @@ class VillagesData
         }
         else
         {
-            if ( $request->route()->getName() )
-                $this->resourceProcessing( $villages );
+            if ( $request->route()->getName() == "home" )
+                $this->resourceProcessing( $villages, "home" );
         }
 
         $request->merge( $merge );
@@ -84,11 +84,11 @@ class VillagesData
         return $next( $request );
     }
 
-    private function resourceProcessing( &$villages )
+    private function resourceProcessing( &$villages, $route = ""  )
     {
         foreach ( $villages as &$v )
         {
-            $resources = Helper::processStoredResource( $v, $v, "middleware" );
+            $resources = Helper::processStoredResource( $v, $v, "middleware - " . $route  );
 
             foreach ( $resources as $key => $value )
                 $v->{"stored_{$key}"} = $value;
