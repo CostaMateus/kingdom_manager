@@ -123,6 +123,7 @@
                                         <input type="hidden" name="clay" value="{{ $building->clay }}" >
                                         <input type="hidden" name="iron" value="{{ $building->iron }}" >
                                         <input type="hidden" name="pop"  value="{{ $building->pop  }}" >
+                                        <input type="hidden" name="level" value="{{ $building->level + 1 + Helper::searchBuildingInEvents( $key, $events->toArray() ) }}" >
                                     </form>
                                 </td>
                             @else
